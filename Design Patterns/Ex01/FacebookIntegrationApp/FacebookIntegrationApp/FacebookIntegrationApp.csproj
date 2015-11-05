@@ -97,7 +97,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <None Include="img\facebook-icon.png" />
+    <Resource Include="img\facebook-icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

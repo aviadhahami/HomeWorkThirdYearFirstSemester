@@ -11,7 +11,7 @@
                 FontSize="20">
             <Button.Content>
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="img/facebook-icon.png" Width="50px" Height="50px"></Image>
+                    <Image Source="img/facebook-icon.png" Width="50px" Height="50px" Stretch="Fill"></Image>
                     <TextBlock Foreground="#FAFAFA"
                                Margin="15">
                    Login using Facebook
