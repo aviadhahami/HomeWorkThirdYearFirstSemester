@@ -22,10 +22,9 @@ namespace FacebookIntegrationApp
         {
             InitializeComponent();
         }
-
         private void Login(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Login");
+         
         }
     }
 }

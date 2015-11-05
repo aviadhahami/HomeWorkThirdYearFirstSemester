@@ -23,7 +23,9 @@ namespace FacebookIntegrationApp
             InitializeComponent();
 
             // Init with login screen
-            this.ContentController.Content = new LoginScreen();
+            var loginScreen = new LoginScreen();
+            this.ContentController.Content = loginScreen;
+
         }
 
     }
