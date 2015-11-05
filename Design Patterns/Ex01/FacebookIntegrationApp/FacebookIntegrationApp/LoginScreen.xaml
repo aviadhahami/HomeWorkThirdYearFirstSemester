@@ -1,4 +1,4 @@
-﻿<Window x:Class="FacebookIntegrationApp.MainWindow"
+﻿<Window x:Class="FacebookIntegrationApp.LoginScreen"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Facebook Integration" Height="350" Width="525">
@@ -11,9 +11,13 @@
                 FontSize="20">
             <Button.Content>
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="img/facebook-icon.png" Width="50px" Height="50px" Stretch="Fill"></Image>
-                    <TextBlock Foreground="#FAFAFA"
-                               Margin="15">
+                    <Image Source="img/facebook-icon.png" 
+                           Width="50px" 
+                           Height="50px" 
+                           Stretch="Fill" />
+                    <TextBlock 
+                        Foreground="#FAFAFA" 
+                        Margin="15">
                    Login using Facebook
                     </TextBlock>
                 </StackPanel>
