@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+            >
     <Grid>
         <TextBlock Text="Welcome To Aviad and Omer's Facebook App!" Margin="28,36,27,249" RenderTransformOrigin="0.58,0.481" FontFamily="Roboto" FontSize="22"/>
         <Button Background="#3b5998" 
