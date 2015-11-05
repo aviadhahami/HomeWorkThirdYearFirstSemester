@@ -14,15 +14,18 @@ using System.Windows.Shapes;
 namespace FacebookIntegrationApp
 {
     /// <summary>
-    /// Interaction logic for MainView.xaml
+    /// Interaction logic for LoginScreen.xaml
     /// </summary>
-    public partial class MainView : Window
+    public partial class LoginScreen : UserControl
     {
-        public MainView()
+        public LoginScreen()
         {
             InitializeComponent();
-            this.ContentController.Content = new LoginScreen();
         }
 
+        private void Login(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Login");
+        }
     }
 }
