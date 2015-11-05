@@ -5,10 +5,18 @@
     <Grid>
         <TextBlock Text="Welcome To Aviad and Omer's Facebook App!" Margin="28,36,27,249" RenderTransformOrigin="0.58,0.481" FontFamily="Roboto" FontSize="22"/>
         <Button Background="#3b5998" 
-                Content="Login using Facebook"
                 Margin="98,118,93,106" 
                 FontFamily="Roboto" 
                 FontWeight="Bold" 
-                FontSize="20" />
+                FontSize="20">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal">
+
+                    <TextBlock Foreground="#FAFAFA">
+                   Login using Facebook
+                    </TextBlock>
+                </StackPanel>
+            </Button.Content>
+        </Button>
     </Grid>
 </Window>
