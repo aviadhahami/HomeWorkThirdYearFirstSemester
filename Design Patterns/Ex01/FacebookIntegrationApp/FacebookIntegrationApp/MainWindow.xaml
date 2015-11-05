@@ -11,8 +11,9 @@
                 FontSize="20">
             <Button.Content>
                 <StackPanel Orientation="Horizontal">
-
-                    <TextBlock Foreground="#FAFAFA">
+                    <Image Source="Img/" Width="50px" Height="50px"></Image>
+                    <TextBlock Foreground="#FAFAFA"
+                               Margin="15">
                    Login using Facebook
                     </TextBlock>
                 </StackPanel>
