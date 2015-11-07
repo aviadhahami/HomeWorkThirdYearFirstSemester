@@ -8,25 +8,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace FacebookIntegrationApp
 {
     /// <summary>
-    /// Interaction logic for MainView.xaml
+    /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class LoginView : Window
+    public partial class MainView : Window
     {
-        public LoginView()
+        public MainView()
         {
             InitializeComponent();
-        }
-        private void Login(object sender, RoutedEventArgs e)
-        {
-            MainView mainView = new MainView();
-            mainView.Show();
-            this.Close();
         }
     }
 }
