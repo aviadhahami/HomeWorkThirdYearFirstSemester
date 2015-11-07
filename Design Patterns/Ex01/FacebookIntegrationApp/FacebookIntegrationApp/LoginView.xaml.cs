@@ -16,9 +16,9 @@ namespace FacebookIntegrationApp
     /// <summary>
     /// Interaction logic for MainView.xaml
     /// </summary>
-    public partial class MainView : Window
+    public partial class LoginView : Window
     {
-        public MainView()
+        public LoginView()
         {
             InitializeComponent();
 
