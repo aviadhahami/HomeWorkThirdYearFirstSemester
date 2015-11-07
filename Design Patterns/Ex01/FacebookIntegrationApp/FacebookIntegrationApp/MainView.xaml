@@ -2,5 +2,20 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Design Patterns App" Height="262" Width="547" Background="#E3F2FD">
-   
+    <Grid>
+        <Border
+            BorderThickness="2"
+            BorderBrush="Black"
+            HorizontalAlignment="Left"
+            Height="80"
+            Margin="7,8,0,0"
+            VerticalAlignment="Top"
+            Width="80" >
+            <Image Stretch="Fill" ToolTip="Your photo"/>
+        </Border>
+        <TextBox Margin="107,64,112,135" x:Name="StatusText" FontFamily="Roboto" Text="Post status here"/>
+        <Button Click="PostStatus" Content="Post" HorizontalAlignment="Left" Margin="432,64,0,0" VerticalAlignment="Top" Width="97" Height="24"/>
+        <TextBlock HorizontalAlignment="Left" Margin="107,29.96,0,0" TextWrapping="Wrap" Text="Welcome" VerticalAlignment="Top" Height="25.96" Width="400" FontFamily="Roboto" FontSize="24"/>
+
+    </Grid>
 </Window>
