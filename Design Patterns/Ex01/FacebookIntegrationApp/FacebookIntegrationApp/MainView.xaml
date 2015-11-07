@@ -1,8 +1,6 @@
 ﻿<Window x:Class="FacebookIntegrationApp.MainView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Window1" Height="300" Width="300">
-    <Grid>
-        <TextBlock>TEST</TextBlock>
-    </Grid>
+        Title="Design Patterns App" Height="262" Width="547" Background="#E3F2FD">
+   
 </Window>
