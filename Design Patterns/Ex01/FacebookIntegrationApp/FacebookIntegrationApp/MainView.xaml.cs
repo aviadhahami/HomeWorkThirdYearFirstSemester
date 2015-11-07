@@ -21,7 +21,6 @@ namespace FacebookIntegrationApp
         {
             InitializeComponent();
             // Need to call FB here
-
         }
 
         private void PostStatus(object sender, RoutedEventArgs e)
