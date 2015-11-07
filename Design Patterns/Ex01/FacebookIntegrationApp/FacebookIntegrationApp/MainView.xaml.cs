@@ -22,11 +22,10 @@ namespace FacebookIntegrationApp
         {
             InitializeComponent();
 
-            // Init with login screen
-            var loginScreen = new LoginScreen();
-            this.ContentController.Content = loginScreen;
+        }
+        private void Login(object sender, RoutedEventArgs e)
+        {
 
         }
-
     }
 }
