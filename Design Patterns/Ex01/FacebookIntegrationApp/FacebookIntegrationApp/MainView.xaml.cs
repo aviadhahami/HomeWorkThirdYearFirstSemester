@@ -29,5 +29,15 @@ namespace FacebookIntegrationApp
             String statusText = StatusText.Text;
             MessageBox.Show(statusText);
         }
+
+        private void PickASongFunction(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("pick a song clicked");
+        }
+
+        private void WinterFunction(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Winter's button clicked");
+        }
     }
 }
