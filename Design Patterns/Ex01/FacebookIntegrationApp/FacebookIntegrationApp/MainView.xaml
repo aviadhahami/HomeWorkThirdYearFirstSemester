@@ -3,25 +3,25 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Design Patterns App" Height="262" Width="547" Background="#E3F2FD">
     <Grid>
+        <GroupBox Header="Special functions!" HorizontalAlignment="Left" Margin="10,115.52,0,0" VerticalAlignment="Top" Width="519" Height="96.48"/>
+
         <Border
-            BorderThickness="2"
-            BorderBrush="Black"
-            HorizontalAlignment="Left"
-            Height="80"
-            Margin="7,8,0,0"
-            VerticalAlignment="Top"
-            Width="80" >
+    		BorderThickness="2"
+    		BorderBrush="Black"
+    		HorizontalAlignment="Left"
+    		Height="80"
+    		Margin="7,8,0,0"
+    		VerticalAlignment="Top"
+    		Width="80" >
             <Image Stretch="Fill" ToolTip="Your photo"/>
         </Border>
         <TextBox Margin="107,55,112,144" x:Name="StatusText" FontFamily="Roboto" Text="Post status here"/>
         <Button Click="PostStatus" Content="Post" HorizontalAlignment="Left" Margin="432,55,0,0" VerticalAlignment="Top" Width="97" Height="33" FontFamily="Roboto" FontSize="20"/>
         <TextBlock HorizontalAlignment="Left" Margin="107,18.96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="25.96" Width="400" FontFamily="Roboto" FontSize="24"><Run Text="W"/><Run Text="elcome"/></TextBlock>
 
-        <Button Click="PickASongFunction" Content="Pick me a song !" HorizontalAlignment="Left" Margin="27,148,0,0" VerticalAlignment="Center" Width="166" Height="54.96" FontFamily="Roboto" FontSize="18" HorizontalContentAlignment="Center"/>
-        <Button Click="WinterFunction" HorizontalAlignment="Center" Margin="341,148,0,0" VerticalAlignment="Center" Width="166" Height="54.96" FontFamily="Roboto" FontSize="18">
-            <Button.Content>
-                <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center">When should I<LineBreak/>post new status?</TextBlock>
-            </Button.Content>
+        <Button Click="PickASongFunction" Content="Pick me a song !" HorizontalAlignment="Left" Margin="21,146.52,0,30.52" VerticalAlignment="Center" Width="166" Height="54.96" FontFamily="Roboto" FontSize="18" HorizontalContentAlignment="Center"/>
+        <Button Click="WinterFunction" HorizontalAlignment="Center" Margin="353,149.52,20,27.52" VerticalAlignment="Center" Width="166" Height="54.96" FontFamily="Roboto" FontSize="18">
+            <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center"><Run Text="When should I"/><LineBreak/><Run Text="post new status?"/></TextBlock>
         </Button>
 
     </Grid>
