@@ -54,8 +54,16 @@ namespace FacebookIntegrationApp
         private void PostStatus(object sender, RoutedEventArgs e)
         {
             String statusText = StatusText.Text;
-            Status postedStatus = m_loggedInUser.PostStatus(statusText);
-            MessageBox.Show("Posted! id: " + postedStatus.Id);
+            try
+            {
+                Status postedStatus = m_loggedInUser.PostStatus(statusText);
+                MessageBox.Show("Posted! id: " + postedStatus.Id);
+            }
+            catch (Exception exeption)
+            {
+                MessageBox.Show("something went wrong!" + Environment.NewLine + exeption.Message);
+            }
+
         }
 
         private void PickASongFunction(object sender, RoutedEventArgs e)
