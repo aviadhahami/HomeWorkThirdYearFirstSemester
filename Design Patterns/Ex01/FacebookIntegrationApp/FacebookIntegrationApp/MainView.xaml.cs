@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Facebook;
 using FacebookWrapper;
+using FacebookWrapper.ObjectModel;
 
 namespace FacebookIntegrationApp
 {
@@ -19,27 +20,19 @@ namespace FacebookIntegrationApp
     /// </summary>
     public partial class MainView : Window
     {
-        public MainView()
+        private User m_loggedInUser;
+
+        public MainView(User LoggedInUser)
         {
             InitializeComponent();
-            // Need to call FB here
-
-            string appId = "1056989264331616";
-            LoginResult res = FacebookWrapper.FacebookService.Login(appId,
-                "user_about_me",
-                "user_friends",
-                "publish_actions",
-                "user_events",
-                "user_posts",
-                "user_photos",
-                "user_status");
-
+            this.m_loggedInUser = LoggedInUser;
         }
 
         private void PostStatus(object sender, RoutedEventArgs e)
         {
             String statusText = StatusText.Text;
-            MessageBox.Show(statusText);
+            Status postedStatus = m_loggedInUser.PostStatus(statusText);
+            MessageBox.Show("Posted! id: " + postedStatus.Id);
         }
 
         private void PickASongFunction(object sender, RoutedEventArgs e)

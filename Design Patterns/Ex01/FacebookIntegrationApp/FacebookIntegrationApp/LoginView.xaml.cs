@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FacebookWrapper;
+using FacebookWrapper.ObjectModel;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -24,9 +26,29 @@ namespace FacebookIntegrationApp
         }
         private void Login(object sender, RoutedEventArgs e)
         {
-            MainView mainView = new MainView();
-            mainView.Show();
-            this.Close();
+            string appId = "1056989264331616";
+            LoginResult result = FacebookWrapper.FacebookService.Login(appId,
+                "user_about_me",
+                "user_friends",
+                "publish_actions",
+                "user_events",
+                "user_posts",
+                "user_photos",
+                "user_status");
+            if (!string.IsNullOrEmpty(result.AccessToken))
+            {
+
+                // If we're good with the data, we pass it to the next view
+                User LoggedInUser = result.LoggedInUser;
+                MainView mainView = new MainView(LoggedInUser);
+                mainView.Show();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show(result.ErrorMessage);
+            }
+          
         }
     }
 }
