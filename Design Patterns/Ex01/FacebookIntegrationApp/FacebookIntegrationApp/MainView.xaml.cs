@@ -24,7 +24,12 @@ namespace FacebookIntegrationApp
 
         private string m_preferredMonth;
         private string m_preferredDay;
-        private DateTime m_preferredTime;
+        private string m_preferredTime;
+        private static string[] s_WeekDayStringArray = { "Sunday", "Monday", "Tuesday", "Wenesday", "Thursday", "Friday", "Saturday" };
+        private static string[] s_MonthNameStringArray = { "January", "February", "March", "April", "May", "June", 
+                                                            "July","August","September","October","November","December"};
+
+
 
         public MainView(User LoggedInUser)
         {
@@ -77,11 +82,13 @@ namespace FacebookIntegrationApp
                 hours[time.Hour] += status.LikedBy.Count;
                 months[time.Month] += status.LikedBy.Count;
             }
-            m_preferredDay = findIndexOfMax(days);
-            MessageBox.Show("day is " + m_preferredDay);
+            m_preferredDay = s_WeekDayStringArray[findIndexOfMax(days)];
+            m_preferredMonth = s_MonthNameStringArray[findIndexOfMax(months)];
+            m_preferredTime = findIndexOfMax(hours).ToString();
+            MessageBox.Show("day is " + m_preferredDay + " Hour is " + m_preferredTime + " month is " + m_preferredMonth);
         }
 
-        private string findIndexOfMax(int[] days)
+        private int findIndexOfMax(int[] days)
         {
             int maxIndex = 0;
             int maxValue = 0;
@@ -93,7 +100,7 @@ namespace FacebookIntegrationApp
                     maxIndex = i;
                 }
             }
-            return maxIndex.ToString();
+            return maxIndex;
         }
     }
 }
