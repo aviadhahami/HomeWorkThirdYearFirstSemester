@@ -73,10 +73,11 @@ namespace FacebookIntegrationApp
 
         private void PostStatistics(object sender, RoutedEventArgs e)
         {
+            // Make sure we initiate this procedure only once
             if (m_preferredMonth == null || m_preferredHour == null || m_preferredDay == null)
             {
 
-
+                // Init arrays as hash tables
                 int[] hours = new int[24];
                 int[] days = new int[7];
                 int[] months = new int[12];
@@ -101,6 +102,7 @@ namespace FacebookIntegrationApp
                 );
         }
 
+        // Convert hour string in 24 hrs format to 12 hrs format
         private string hoursToAmPm(int hour)
         {
             return DateTime.ParseExact(hour.ToString(), "HH", CultureInfo.CurrentCulture).ToString("hh:mm tt");
