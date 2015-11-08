@@ -90,13 +90,13 @@ namespace FacebookIntegrationApp
                 "According to your statuses statistics we found that:" + Environment.NewLine +
                 m_preferredDay + "'s are the best day for you to post status" + Environment.NewLine +
                 m_preferredHour + " is the best time" + Environment.NewLine +
-                "and " + m_preferredMonth + "is the best month."
+                "and " + m_preferredMonth + " is the best month."
                 );
         }
 
         private string hoursToAmPm(int hour)
         {
-            return DateTime.ParseExact(hour.ToString(), "HHmm", CultureInfo.CurrentCulture).ToString("hh:mm tt");
+            return DateTime.ParseExact(hour.ToString(), "HH", CultureInfo.CurrentCulture).ToString("hh:mm tt");
         }
 
         private int findIndexOfMax(int[] days)
