@@ -22,11 +22,16 @@ namespace FacebookIntegrationApp
     {
         private User m_loggedInUser;
 
+        private string m_preferredMonth;
+        private string m_preferredDay;
+        private DateTime m_preferredTime;
+
         public MainView(User LoggedInUser)
         {
             InitializeComponent();
             this.m_loggedInUser = LoggedInUser;
             init();
+
         }
 
 
@@ -62,8 +67,33 @@ namespace FacebookIntegrationApp
             // B.3  map by month
             // C. save to local
             // D. output
-            MessageBox.Show(m_loggedInUser.Statuses.Count.ToString());
+            int[] hours = new int[24];
+            int[] days = new int[7];
+            int[] months = new int[12];
+            foreach (var status in m_loggedInUser.Statuses)
+            {
+                DateTime time = Convert.ToDateTime(status.CreatedTime);
+                days[(int)time.DayOfWeek] += status.LikedBy.Count;
+                hours[time.Hour] += status.LikedBy.Count;
+                months[time.Month] += status.LikedBy.Count;
+            }
+            m_preferredDay = findIndexOfMax(days);
+            MessageBox.Show("day is " + m_preferredDay);
+        }
 
+        private string findIndexOfMax(int[] days)
+        {
+            int maxIndex = 0;
+            int maxValue = 0;
+            for (int i = 0; i < days.Length; i++)
+            {
+                if (maxValue < days[i])
+                {
+                    maxValue = days[i];
+                    maxIndex = i;
+                }
+            }
+            return maxIndex.ToString();
         }
     }
 }
