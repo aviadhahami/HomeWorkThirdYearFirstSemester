@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using Facebook;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
+using System.Globalization;
 
 namespace FacebookIntegrationApp
 {
@@ -24,7 +25,7 @@ namespace FacebookIntegrationApp
 
         private string m_preferredMonth;
         private string m_preferredDay;
-        private string m_preferredTime;
+        private string m_preferredHour;
         private static string[] s_WeekDayStringArray = { "Sunday", "Monday", "Tuesday", "Wenesday", "Thursday", "Friday", "Saturday" };
         private static string[] s_MonthNameStringArray = { "January", "February", "March", "April", "May", "June", 
                                                             "July","August","September","October","November","December"};
@@ -84,8 +85,18 @@ namespace FacebookIntegrationApp
             }
             m_preferredDay = s_WeekDayStringArray[findIndexOfMax(days)];
             m_preferredMonth = s_MonthNameStringArray[findIndexOfMax(months)];
-            m_preferredTime = findIndexOfMax(hours).ToString();
-            MessageBox.Show("day is " + m_preferredDay + " Hour is " + m_preferredTime + " month is " + m_preferredMonth);
+            m_preferredHour = hoursToAmPm(findIndexOfMax(hours));
+            MessageBox.Show(
+                "According to your statuses statistics we found that:" + Environment.NewLine +
+                m_preferredDay + "'s are the best day for you to post status" + Environment.NewLine +
+                m_preferredHour + " is the best time" + Environment.NewLine +
+                "and " + m_preferredMonth + "is the best month."
+                );
+        }
+
+        private string hoursToAmPm(int hour)
+        {
+            return DateTime.ParseExact(hour.ToString(), "HHmm", CultureInfo.CurrentCulture).ToString("hh:mm tt");
         }
 
         private int findIndexOfMax(int[] days)
