@@ -3,11 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Design Patterns App" Height="262" Width="547" Background="#03A9F4">
     <Grid>
-        <GroupBox Header="Special functions!" HorizontalAlignment="Left" Margin="10,115.52,0,0" VerticalAlignment="Top" Width="519" Height="96.48"/>
+        <GroupBox Header="Special functions!" HorizontalAlignment="Left" Margin="10,115.52,0,0" VerticalAlignment="Top" Width="519" Height="96.48" Foreground="White"/>
 
         <Border
     		BorderThickness="2"
-    		BorderBrush="Black"
+    		BorderBrush="White"
     		HorizontalAlignment="Left"
     		Height="80"
     		Margin="7,8,0,0"
