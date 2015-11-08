@@ -9,6 +9,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Facebook;
+using FacebookWrapper;
 
 namespace FacebookIntegrationApp
 {
@@ -21,6 +23,17 @@ namespace FacebookIntegrationApp
         {
             InitializeComponent();
             // Need to call FB here
+
+            string appId = "1056989264331616";
+            LoginResult res = FacebookWrapper.FacebookService.Login(appId,
+                "user_about_me",
+                "user_friends",
+                "publish_actions",
+                "user_events",
+                "user_posts",
+                "user_photos",
+                "user_status");
+
         }
 
         private void PostStatus(object sender, RoutedEventArgs e)
