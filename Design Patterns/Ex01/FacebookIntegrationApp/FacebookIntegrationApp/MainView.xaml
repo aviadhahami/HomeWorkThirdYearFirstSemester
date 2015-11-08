@@ -13,11 +13,11 @@
     		Margin="7,8,0,0"
     		VerticalAlignment="Top"
     		Width="80" >
-            <Image Stretch="Fill" ToolTip="Your photo"/>
+            <Image x:Name="ProfilePic" Stretch="Fill" ToolTip="Your photo"/>
         </Border>
         <TextBox Margin="107,55,112,144" x:Name="StatusText" FontFamily="Roboto" Text="Post status here"/>
         <Button BorderBrush="Transparent" BorderThickness="0" Click="PostStatus" Content="Post" HorizontalAlignment="Left" Margin="432,55,0,0" VerticalAlignment="Top" Width="97" Height="33" FontFamily="Roboto" FontSize="20" Foreground="White" Background="#FF0277BD"/>
-        <TextBlock HorizontalAlignment="Left" Margin="107,18.96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="25.96" Width="400" FontFamily="Roboto" FontSize="24" Foreground="White"><Run Text="W"/><Run Text="elcome"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="107,19,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="26" Width="105" FontFamily="Roboto" FontSize="24" Foreground="White"><Run Text="W"/><Run Text="elcome,"/></TextBlock>
 
         <Button 
         BorderBrush="Transparent"
@@ -31,6 +31,7 @@
             Click="WinterFunction" HorizontalAlignment="Center" Margin="353,149.52,20,27.52" VerticalAlignment="Center" Width="166" Height="54.96" FontFamily="Roboto" FontSize="18" Background="#FF0277BD">
             <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="White"><Run Text="When should I"/><LineBreak/><Run Text="post new status?"/></TextBlock>
         </Button>
+        <TextBlock x:Name="UserName" HorizontalAlignment="Left" Margin="214,19,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="26" Width="105" FontFamily="Roboto" FontSize="24" Foreground="White"></TextBlock>
 
     </Grid>
 </Window>

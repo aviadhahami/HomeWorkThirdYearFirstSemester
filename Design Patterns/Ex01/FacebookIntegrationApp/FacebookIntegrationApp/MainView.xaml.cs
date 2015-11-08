@@ -26,6 +26,16 @@ namespace FacebookIntegrationApp
         {
             InitializeComponent();
             this.m_loggedInUser = LoggedInUser;
+            init();
+        }
+
+        private void init()
+        {
+            // Fetch photo
+            ProfilePic.Source = new BitmapImage(new Uri(m_loggedInUser.PictureNormalURL));
+            
+            // Fetch name for title
+            UserName.Text = m_loggedInUser.FirstName;
         }
 
         private void PostStatus(object sender, RoutedEventArgs e)
