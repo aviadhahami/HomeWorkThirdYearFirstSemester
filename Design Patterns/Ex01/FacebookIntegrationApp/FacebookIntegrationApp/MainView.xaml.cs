@@ -29,11 +29,13 @@ namespace FacebookIntegrationApp
             init();
         }
 
+
+        // Populate fields around the app
         private void init()
         {
             // Fetch photo
             ProfilePic.Source = new BitmapImage(new Uri(m_loggedInUser.PictureNormalURL));
-            
+
             // Fetch name for title
             UserName.Text = m_loggedInUser.FirstName;
         }
@@ -50,9 +52,18 @@ namespace FacebookIntegrationApp
             MessageBox.Show("pick a song clicked");
         }
 
-        private void WinterFunction(object sender, RoutedEventArgs e)
+        private void PostStatistics(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Winter's button clicked");
+            // Sequence :
+            // A. pull up to 1k statuses
+            // B. for each -
+            // B.1. map by hours
+            // B.2  map by days
+            // B.3  map by month
+            // C. save to local
+            // D. output
+            MessageBox.Show(m_loggedInUser.Statuses.Count.ToString());
+
         }
     }
 }
