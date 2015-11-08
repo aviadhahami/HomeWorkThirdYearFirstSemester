@@ -23,9 +23,9 @@ namespace FacebookIntegrationApp
     {
         private User m_loggedInUser;
 
-        private string m_preferredMonth;
-        private string m_preferredDay;
-        private string m_preferredHour;
+        private string m_preferredMonth = null;
+        private string m_preferredDay = null;
+        private string m_preferredHour = null;
         private static string[] s_WeekDayStringArray = { "Sunday", "Monday", "Tuesday", "Wenesday", "Thursday", "Friday", "Saturday" };
         private static string[] s_MonthNameStringArray = { "January", "February", "March", "April", "May", "June", 
                                                             "July","August","September","October","November","December"};
@@ -73,23 +73,30 @@ namespace FacebookIntegrationApp
 
         private void PostStatistics(object sender, RoutedEventArgs e)
         {
-            int[] hours = new int[24];
-            int[] days = new int[7];
-            int[] months = new int[12];
-            foreach (var status in m_loggedInUser.Statuses)
+            if (m_preferredMonth == null || m_preferredHour == null || m_preferredDay == null)
             {
-                DateTime time = Convert.ToDateTime(status.CreatedTime);
-                days[(int)time.DayOfWeek] += status.LikedBy.Count;
-                hours[time.Hour] += status.LikedBy.Count;
-                months[time.Month] += status.LikedBy.Count;
+
+
+                int[] hours = new int[24];
+                int[] days = new int[7];
+                int[] months = new int[12];
+                foreach (var status in m_loggedInUser.Statuses)
+                {
+                    DateTime time = Convert.ToDateTime(status.CreatedTime);
+                    days[(int)time.DayOfWeek] += status.LikedBy.Count;
+                    hours[time.Hour] += status.LikedBy.Count;
+                    months[time.Month] += status.LikedBy.Count;
+                }
+
+                m_preferredDay = s_WeekDayStringArray[findIndexOfMaxValueInArray(days)];
+                m_preferredMonth = s_MonthNameStringArray[findIndexOfMaxValueInArray(months)];
+                m_preferredHour = hoursToAmPm(findIndexOfMaxValueInArray(hours));
             }
-            m_preferredDay = s_WeekDayStringArray[findIndexOfMaxValueInArray(days)];
-            m_preferredMonth = s_MonthNameStringArray[findIndexOfMaxValueInArray(months)];
-            m_preferredHour = hoursToAmPm(findIndexOfMaxValueInArray(hours));
+
             MessageBox.Show(
                 "According to your statuses statistics we found that:" + Environment.NewLine +
-                m_preferredDay + "'s are the best day for you to post status" + Environment.NewLine +
-                m_preferredHour + " is the best time" + Environment.NewLine +
+                "Usualy on " + m_preferredDay + "s you get the most likes." + Environment.NewLine +
+                "Time-wise, " + m_preferredHour + " is the best time" + Environment.NewLine +
                 "and " + m_preferredMonth + " is the best month."
                 );
         }
