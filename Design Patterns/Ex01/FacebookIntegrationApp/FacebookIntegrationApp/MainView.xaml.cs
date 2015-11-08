@@ -65,14 +65,6 @@ namespace FacebookIntegrationApp
 
         private void PostStatistics(object sender, RoutedEventArgs e)
         {
-            // Sequence :
-            // A. pull up to 1k statuses
-            // B. for each -
-            // B.1. map by hours
-            // B.2  map by days
-            // B.3  map by month
-            // C. save to local
-            // D. output
             int[] hours = new int[24];
             int[] days = new int[7];
             int[] months = new int[12];
@@ -83,9 +75,9 @@ namespace FacebookIntegrationApp
                 hours[time.Hour] += status.LikedBy.Count;
                 months[time.Month] += status.LikedBy.Count;
             }
-            m_preferredDay = s_WeekDayStringArray[findIndexOfMax(days)];
-            m_preferredMonth = s_MonthNameStringArray[findIndexOfMax(months)];
-            m_preferredHour = hoursToAmPm(findIndexOfMax(hours));
+            m_preferredDay = s_WeekDayStringArray[findIndexOfMaxValueInArray(days)];
+            m_preferredMonth = s_MonthNameStringArray[findIndexOfMaxValueInArray(months)];
+            m_preferredHour = hoursToAmPm(findIndexOfMaxValueInArray(hours));
             MessageBox.Show(
                 "According to your statuses statistics we found that:" + Environment.NewLine +
                 m_preferredDay + "'s are the best day for you to post status" + Environment.NewLine +
@@ -99,7 +91,7 @@ namespace FacebookIntegrationApp
             return DateTime.ParseExact(hour.ToString(), "HH", CultureInfo.CurrentCulture).ToString("hh:mm tt");
         }
 
-        private int findIndexOfMax(int[] days)
+        private int findIndexOfMaxValueInArray(int[] days)
         {
             int maxIndex = 0;
             int maxValue = 0;
