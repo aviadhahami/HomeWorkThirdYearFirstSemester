@@ -23,15 +23,6 @@ namespace FacebookIntegrationApp
     {
         private User m_loggedInUser;
 
-        private string m_preferredMonth = null;
-        private string m_preferredDay = null;
-        private string m_preferredHour = null;
-        private static string[] s_WeekDayStringArray = { "Sunday", "Monday", "Tuesday", "Wenesday", "Thursday", "Friday", "Saturday" };
-        private static string[] s_MonthNameStringArray = { "January", "February", "March", "April", "May", "June", 
-                                                            "July","August","September","October","November","December"};
-
-
-
         public MainView(User LoggedInUser)
         {
             InitializeComponent();
@@ -39,7 +30,6 @@ namespace FacebookIntegrationApp
             init();
 
         }
-
 
         // Populate fields around the app
         private void init()
@@ -69,59 +59,13 @@ namespace FacebookIntegrationApp
         private void PickASongFunction(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("pick a song clicked");
-            MessageBox.Show(FBHandler.test());
         }
 
         private void PostStatistics(object sender, RoutedEventArgs e)
         {
-            // Make sure we initiate this procedure only once
-            if (m_preferredMonth == null || m_preferredHour == null || m_preferredDay == null)
-            {
 
-                // Init arrays as hash tables
-                int[] hours = new int[24];
-                int[] days = new int[7];
-                int[] months = new int[12];
-                foreach (var status in m_loggedInUser.Statuses)
-                {
-                    DateTime time = Convert.ToDateTime(status.CreatedTime);
-                    days[(int)time.DayOfWeek] += status.LikedBy.Count;
-                    hours[time.Hour] += status.LikedBy.Count;
-                    months[time.Month] += status.LikedBy.Count;
-                }
-
-                m_preferredDay = s_WeekDayStringArray[findIndexOfMaxValueInArray(days)];
-                m_preferredMonth = s_MonthNameStringArray[findIndexOfMaxValueInArray(months)];
-                m_preferredHour = hoursToAmPm(findIndexOfMaxValueInArray(hours));
-            }
-
-            MessageBox.Show(
-                "According to your statuses statistics we found that:" + Environment.NewLine +
-                "Usualy on " + m_preferredDay + "s you get the most likes." + Environment.NewLine +
-                "Time-wise, " + m_preferredHour + " is the best time" + Environment.NewLine +
-                "and " + m_preferredMonth + " is the best month."
-                );
+            MessageBox.Show(FBHandler.PostStatistics(m_loggedInUser.Statuses));
         }
 
-        // Convert hour string in 24 hrs format to 12 hrs format
-        private string hoursToAmPm(int hour)
-        {
-            return DateTime.ParseExact(hour.ToString(), "HH", CultureInfo.CurrentCulture).ToString("hh:mm tt");
-        }
-
-        private int findIndexOfMaxValueInArray(int[] days)
-        {
-            int maxIndex = 0;
-            int maxValue = 0;
-            for (int i = 0; i < days.Length; i++)
-            {
-                if (maxValue < days[i])
-                {
-                    maxValue = days[i];
-                    maxIndex = i;
-                }
-            }
-            return maxIndex;
-        }
     }
 }
