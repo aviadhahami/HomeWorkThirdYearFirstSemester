@@ -69,6 +69,7 @@ namespace FacebookIntegrationApp
         private void PickASongFunction(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("pick a song clicked");
+            MessageBox.Show(FBHandler.test());
         }
 
         private void PostStatistics(object sender, RoutedEventArgs e)
