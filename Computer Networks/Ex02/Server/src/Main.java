@@ -16,14 +16,7 @@ public class Main {
     public static void main(String[] args) {
         int port = 9000;
 
-        Server s = new Server(1);
-        //serverSocket.setSoTimeout(10000);
-
-//        try {
-//            Thread t = new GreetingServer(port);
-//            t.start();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        Server s = new Server(port);
+        s.listen();
     }
 }
