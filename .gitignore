@@ -228,3 +228,5 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+/Computer Networks/Ex02/Server/nbproject/private/
+/Computer Networks/Ex02/Server/dist/
