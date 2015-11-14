@@ -9,7 +9,10 @@
  * @author aviadh
  */
 public class Main {
-    public static void main(String[] args){
-        System.out.println("Test");
+
+    public static void main(String[] args) {
+        int port = 9000;
+        Server s = new Server();
+        s.run(port);
     }
 }
