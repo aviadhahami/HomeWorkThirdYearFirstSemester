@@ -26,4 +26,5 @@ public class Server {
     private void initServer(int port) {
        System.out.println("Running");
     }
+    
 }
