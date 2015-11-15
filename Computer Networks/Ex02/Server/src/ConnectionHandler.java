@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 
@@ -37,14 +38,13 @@ public class ConnectionHandler extends Thread {
             // Init readers and writers
             OutputStream out = socket.getOutputStream();
             PrintWriter pw = new PrintWriter(out, true);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream(),StandardCharsets.UTF_8));
             StringBuilder sb = new StringBuilder();
             String line;
 
             // Print welcome message
             pw.print(WELCOME_MESSAGE);
             pw.println(TOKENS_MESSAGE);
-
             while ((line = reader.readLine()) != null) {
 
                 NotifyConsole(line);
