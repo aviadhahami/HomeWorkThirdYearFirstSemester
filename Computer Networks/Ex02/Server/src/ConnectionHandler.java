@@ -1,7 +1,5 @@
 
 import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -25,6 +23,14 @@ public class ConnectionHandler extends Thread {
     private final String WELCOME_MESSAGE = "Computer Networks: November 2015:"
             + "Aviya Sela & Aviad Hahami\n";
     private final List<String> inputToken = Arrays.asList("q", "quit", "exit");
+    private final String TOKENS_MESSAGE
+            = "=================================================\n" 
+            + "| You can type exit,q or quit in order to leave |\n"
+            + "=================================================\n";
+    private String EXIT_MESSAGE
+             = "=================================================\n" 
+            + "|             Thank you and goodbye!              |\n"
+            + "=================================================\n";
 
     public ConnectionHandler(Socket connection) {
         this.socket = connection;
@@ -37,9 +43,7 @@ public class ConnectionHandler extends Thread {
             OutputStream out = socket.getOutputStream();
             PrintWriter pw = new PrintWriter(out, true);
             pw.print(WELCOME_MESSAGE);
-            pw.println("=================================================");
-            pw.println("| You can type exit,q or quit in order to leave |");
-            pw.println("=================================================");
+            pw.println(TOKENS_MESSAGE);
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String line;
@@ -49,7 +53,7 @@ public class ConnectionHandler extends Thread {
                 }
                 pw.println(line);
             }
-            pw.println("~~And remember, respect is everything (GTA2)~~");
+            pw.println(EXIT_MESSAGE);
             closeConnection();
         } catch (IOException e) {
             System.err.println(e);
@@ -66,8 +70,8 @@ public class ConnectionHandler extends Thread {
             System.err.println("Error closing socket" + e);
         }
     }
+    
     // Display to console
-
     private void NotifyConsole(String msg) {
         System.out.println(msg);
     }
