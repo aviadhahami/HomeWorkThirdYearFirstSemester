@@ -17,7 +17,8 @@ public class ConnectionHandler extends Thread {
 
     private final Socket socket;
     private final String WELCOME_MESSAGE
-            = "Computer Networks: November 2015 :Aviya Sela & Aviad Hahami\n";
+            = "Computer Networks: November 2015 :"
+            + "Aviya Sela <302221403> & Aviad Hahami <302188347>\n";
     private final String TOKENS_MESSAGE
             = "=================================================\n"
             + "| You can type exit,q or quit in order to leave |\n"
