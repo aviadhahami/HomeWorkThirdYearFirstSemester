@@ -4,7 +4,11 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Arrays;
+import java.util.List;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -20,6 +24,7 @@ public class ConnectionHandler extends Thread {
     private final Socket socket;
     private final String WELCOME_MESSAGE = "Computer Networks: November 2015:"
             + "Aviya Sela & Aviad Hahami\n";
+    private final List<String> inputToken = Arrays.asList("q", "quit", "exit");
 
     public ConnectionHandler(Socket connection) {
         this.socket = connection;
@@ -28,26 +33,29 @@ public class ConnectionHandler extends Thread {
     @Override
     public void run() {
         try {
-            DataOutputStream out
-                    = new DataOutputStream(socket.getOutputStream());
-            out.writeUTF(WELCOME_MESSAGE);
+
+            OutputStream out = socket.getOutputStream();
+            PrintWriter pw = new PrintWriter(out, true);
+            pw.print(WELCOME_MESSAGE);
+            pw.println("=================================================");
+            pw.println("| You can type exit,q or quit in order to leave |");
+            pw.println("=================================================");
+
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null) {
-                if("q".equals(line)){
+                if (checkExitToken(line.toLowerCase())) {
                     break;
                 }
-                out.writeUTF(line + "\n");
+                pw.println(line);
             }
-
+            pw.println("~~And remember, respect is everything (GTA2)~~");
+            closeConnection();
         } catch (IOException e) {
             System.err.println(e);
         } catch (Exception e) {
             System.err.println(e);
         }
-
-        closeConnection();
-
     }
 
     private void closeConnection() {
@@ -58,11 +66,14 @@ public class ConnectionHandler extends Thread {
             System.err.println("Error closing socket" + e);
         }
     }
-      // Display to console
+    // Display to console
+
     private void NotifyConsole(String msg) {
         System.out.println(msg);
     }
 
-    
+    private boolean checkExitToken(String str) {
+        return inputToken.indexOf(str) > -1;
+    }
 
 }
