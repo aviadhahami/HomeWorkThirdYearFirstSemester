@@ -22,8 +22,9 @@ public class Server {
             boolean listenFlag = true;
             while (listenFlag) {
                 connection = server.accept();
-                ConnectionHandler connectionHandler = new ConnectionHandler(connection);
                 System.out.println("Client connected, generating thread");
+                ConnectionHandler connectionHandler = new ConnectionHandler(connection);
+
                 connectionHandler.start();
             }
             server.close();
