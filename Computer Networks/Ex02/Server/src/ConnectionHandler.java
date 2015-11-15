@@ -64,7 +64,13 @@ public class ConnectionHandler extends Thread {
 
                     // Find the hash and trim it
                     line = line.substring(line.indexOf("#") + 1, line.length());
-                    sb.append(line).append("\n");
+
+                    // Still check for exit token
+                    if (checkExitToken(line.toLowerCase())) {
+                        break;
+                    } else {
+                        sb.append(line).append("\n");
+                    }
 
                 } else if (checkExitToken(line.toLowerCase())) {
                     break;
