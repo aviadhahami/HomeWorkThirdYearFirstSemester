@@ -31,12 +31,13 @@ public class ConnectionHandler extends Thread {
             DataOutputStream out
                     = new DataOutputStream(socket.getOutputStream());
             out.writeUTF(WELCOME_MESSAGE);
-            DataInputStream in
-                    = new DataInputStream(socket.getInputStream());
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null) {
-                out.writeUTF(line);
+                if("q".equals(line)){
+                    break;
+                }
+                out.writeUTF(line + "\n");
             }
 
         } catch (IOException e) {
@@ -52,9 +53,16 @@ public class ConnectionHandler extends Thread {
     private void closeConnection() {
         try {
             this.socket.close();
+            NotifyConsole("Client disconnected, killing thread id " + this.getId());
         } catch (Exception e) {
             System.err.println("Error closing socket" + e);
         }
     }
+      // Display to console
+    private void NotifyConsole(String msg) {
+        System.out.println(msg);
+    }
+
+    
 
 }
