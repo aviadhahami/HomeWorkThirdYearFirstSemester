@@ -8,11 +8,6 @@ import java.net.Socket;
 import java.util.Arrays;
 import java.util.List;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  *
  * @author aviadh
@@ -24,11 +19,11 @@ public class ConnectionHandler extends Thread {
             + "Aviya Sela & Aviad Hahami\n";
     private final List<String> inputToken = Arrays.asList("q", "quit", "exit");
     private final String TOKENS_MESSAGE
-            = "=================================================\n" 
+            = "=================================================\n"
             + "| You can type exit,q or quit in order to leave |\n"
             + "=================================================\n";
     private String EXIT_MESSAGE
-             = "=================================================\n" 
+            = "=================================================\n"
             + "|             Thank you and goodbye!              |\n"
             + "=================================================\n";
 
@@ -39,19 +34,30 @@ public class ConnectionHandler extends Thread {
     @Override
     public void run() {
         try {
-
+            // Init readers and writers
             OutputStream out = socket.getOutputStream();
             PrintWriter pw = new PrintWriter(out, true);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            StringBuilder sb = new StringBuilder();
+            String line;
+
+            // Print welcome message
             pw.print(WELCOME_MESSAGE);
             pw.println(TOKENS_MESSAGE);
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            String line;
             while ((line = reader.readLine()) != null) {
+
+                NotifyConsole(line);
                 if (checkExitToken(line.toLowerCase())) {
                     break;
+                } else if (line.equals("") || line.equals(" ")) {
+                    NotifyConsole("Empty message, Posting");
+                    pw.println(sb.toString());
+                    sb.delete(0, sb.length());
+                } else {
+                    sb.append(line).append("\n");
                 }
-                pw.println(line);
+
             }
             pw.println(EXIT_MESSAGE);
             closeConnection();
@@ -62,6 +68,7 @@ public class ConnectionHandler extends Thread {
         }
     }
 
+    // Wrapper to close the connection
     private void closeConnection() {
         try {
             this.socket.close();
@@ -70,12 +77,13 @@ public class ConnectionHandler extends Thread {
             System.err.println("Error closing socket" + e);
         }
     }
-    
+
     // Display to console
     private void NotifyConsole(String msg) {
         System.out.println(msg);
     }
 
+    // Check for exit token
     private boolean checkExitToken(String str) {
         return inputToken.indexOf(str) > -1;
     }
