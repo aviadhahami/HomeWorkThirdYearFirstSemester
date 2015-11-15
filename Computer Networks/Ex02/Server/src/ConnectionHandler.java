@@ -18,7 +18,6 @@ public class ConnectionHandler extends Thread {
     private final Socket socket;
     private final String WELCOME_MESSAGE
             = "Computer Networks: November 2015 :Aviya Sela & Aviad Hahami\n";
-    private final List<String> inputToken = Arrays.asList("q", "quit", "exit");
     private final String TOKENS_MESSAGE
             = "=================================================\n"
             + "| You can type exit,q or quit in order to leave |\n"
@@ -27,8 +26,10 @@ public class ConnectionHandler extends Thread {
             = "=================================================\n"
             + "|             Thank you and goodbye!              |\n"
             + "=================================================\n";
-
+    private final List<String> inputToken = Arrays.asList("q", "quit", "exit");
     private boolean firstMessageFlag = true;
+    private final String SERVER_RESPONSE_SECTION
+            = "~~~~~~ YOUR MESSAGE ~~~~~~";
 
     public ConnectionHandler(Socket connection) {
         this.socket = connection;
@@ -53,15 +54,23 @@ public class ConnectionHandler extends Thread {
                 // Output into console for server side
                 NotifyConsole(line);
                 if (firstMessageFlag) {
+
+                    // We need to escsape the telnet protocol commands on first
+                    // input in the stream, the commands end with '#'
                     NotifyConsole("first read, escaping telnet protocol cmds");
+
+                    // Toggle flag
                     firstMessageFlag = !firstMessageFlag;
-                    int hashLoc = line.indexOf("#") + 1;
-                    line = line.substring(hashLoc, line.length());
+
+                    // Find the hash and trim it
+                    line = line.substring(line.indexOf("#") + 1, line.length());
                     sb.append(line).append("\n");
+
                 } else if (checkExitToken(line.toLowerCase())) {
                     break;
                 } else if (line.equals("") || line.equals(" ")) {
                     NotifyConsole("Empty message, Posting");
+                    pw.println(SERVER_RESPONSE_SECTION);
                     pw.println(sb.toString());
                     sb.delete(0, sb.length());
                 } else {
