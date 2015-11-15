@@ -16,17 +16,19 @@ import java.util.List;
 public class ConnectionHandler extends Thread {
 
     private final Socket socket;
-    private final String WELCOME_MESSAGE = "Computer Networks: November 2015:"
-            + "Aviya Sela & Aviad Hahami\n";
+    private final String WELCOME_MESSAGE
+            = "Computer Networks: November 2015 :Aviya Sela & Aviad Hahami\n";
     private final List<String> inputToken = Arrays.asList("q", "quit", "exit");
     private final String TOKENS_MESSAGE
             = "=================================================\n"
             + "| You can type exit,q or quit in order to leave |\n"
             + "=================================================\n";
-    private String EXIT_MESSAGE
+    private final String EXIT_MESSAGE
             = "=================================================\n"
             + "|             Thank you and goodbye!              |\n"
             + "=================================================\n";
+
+    private boolean firstMessageFlag = true;
 
     public ConnectionHandler(Socket connection) {
         this.socket = connection;
@@ -38,17 +40,25 @@ public class ConnectionHandler extends Thread {
             // Init readers and writers
             OutputStream out = socket.getOutputStream();
             PrintWriter pw = new PrintWriter(out, true);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream(),StandardCharsets.UTF_8));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
             StringBuilder sb = new StringBuilder();
             String line;
 
             // Print welcome message
             pw.print(WELCOME_MESSAGE);
             pw.println(TOKENS_MESSAGE);
-            while ((line = reader.readLine()) != null) {
 
+            // Text feed
+            while ((line = reader.readLine()) != null) {
+                // Output into console for server side
                 NotifyConsole(line);
-                if (checkExitToken(line.toLowerCase())) {
+                if (firstMessageFlag) {
+                    NotifyConsole("first read, escaping telnet protocol cmds");
+                    firstMessageFlag = !firstMessageFlag;
+                    int hashLoc = line.indexOf("#") + 1;
+                    line = line.substring(hashLoc, line.length());
+                    sb.append(line).append("\n");
+                } else if (checkExitToken(line.toLowerCase())) {
                     break;
                 } else if (line.equals("") || line.equals(" ")) {
                     NotifyConsole("Empty message, Posting");
