@@ -30,7 +30,7 @@ namespace FacebookIntegrationApp
 
             JavaScriptSerializer j = new JavaScriptSerializer();
 
-            horoscopeOutsideWrapper wrapper = j.Deserialize<horoscopeOutsideWrapper>(json);
+            HoroscopeOutsideWrapper wrapper = j.Deserialize<HoroscopeOutsideWrapper>(json);
 
             m_DailyHoroscopeTitle = wrapper.Horoscope.sign;
             m_DailyHoroscopeContent = wrapper.Horoscope.horoscope;

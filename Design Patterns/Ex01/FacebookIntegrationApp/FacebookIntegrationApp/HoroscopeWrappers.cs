@@ -4,16 +4,16 @@ using System.Text;
 
 namespace FacebookIntegrationApp
 {
-    public class horoscopeOutsideWrapper
+    public class HoroscopeOutsideWrapper
     {
-        public horoscopeInnerWrapper horoscope
+        public HoroscopeInnerWrapper horoscope
         {
             get;
             set;
         }
     }
 
-    public class horoscopeInnerWrapper
+    public class HoroscopeInnerWrapper
     {
         public string sign
         {

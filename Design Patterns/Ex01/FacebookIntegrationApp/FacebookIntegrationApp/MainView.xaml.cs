@@ -18,58 +18,51 @@ using System.Net;
 
 namespace FacebookIntegrationApp
 {
-    /// <summary>
-    /// Interaction logic for Window1.xaml
-    /// </summary>
-    public partial class MainView : Window
-    {
-        private User m_loggedInUser;
+	/// <summary>
+	/// Interaction logic for Window1.xaml
+	/// </summary>
+	public partial class MainView : Window
+	{
+		private User m_loggedInUser;
 
-        public MainView(User LoggedInUser)
-        {
-            InitializeComponent();
-            this.m_loggedInUser = LoggedInUser;
-            init();
+		public MainView (User i_LoggedInUser)
+		{
+			this.InitializeComponent ();
+			this.m_loggedInUser = i_LoggedInUser;
+			this.Init ();
+		}
 
-        }
+		// Populate fields around the app
+		private void Init ()
+		{
+			// Fetch photo
+			ProfilePic.Source = new BitmapImage (new Uri (m_loggedInUser.PictureNormalURL));
 
-        // Populate fields around the app
-        private void init()
-        {
-            // Fetch photo
-            ProfilePic.Source = new BitmapImage(new Uri(m_loggedInUser.PictureNormalURL));
+			// Fetch name for title
+			UserName.Text = m_loggedInUser.FirstName;
+		}
 
-            // Fetch name for title
-            UserName.Text = m_loggedInUser.FirstName;
-        }
+		private void PostStatus (object sender, RoutedEventArgs e)
+		{
+			string statusText = StatusText.Text;
+			try {
+				Status postedStatus = m_loggedInUser.PostStatus (statusText);
+				MessageBox.Show ("Posted! id: " + postedStatus.Id);
+			} catch (Exception exeption) {
+				MessageBox.Show ("something went wrong!" + Environment.NewLine + exeption.Message);
+			}
+		}
 
-        private void PostStatus(object sender, RoutedEventArgs e)
-        {
-            String statusText = StatusText.Text;
-            try
-            {
-                Status postedStatus = m_loggedInUser.PostStatus(statusText);
-                MessageBox.Show("Posted! id: " + postedStatus.Id);
-            }
-            catch (Exception exeption)
-            {
-                MessageBox.Show("something went wrong!" + Environment.NewLine + exeption.Message);
-            }
+		private void LuckFunction (object sender, RoutedEventArgs e)
+		{
 
-        }
-        private void LuckFunction(object sender, RoutedEventArgs e)
-        {
+			HoroscopeView horoscopeView = new HoroscopeView (m_loggedInUser.Birthday);
+			horoscopeView.Show ();
+		}
 
-            HoroscopeView horoscopeView = new HoroscopeView(m_loggedInUser.Birthday);
-            horoscopeView.Show();
-        }
-
-        private void PostStatistics(object sender, RoutedEventArgs e)
-        {
-
-            MessageBox.Show(FBHandler.PostStatistics(m_loggedInUser.Statuses));
-        }
-
-    }
-
+		private void PostStatistics (object sender, RoutedEventArgs e)
+		{
+			MessageBox.Show (FBHandler.PostStatistics (m_loggedInUser.Statuses));
+		}
+	}
 }
