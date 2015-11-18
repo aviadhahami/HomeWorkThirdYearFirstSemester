@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace FacebookIntegrationApp
 {
-    class horoscopeOutsideWrapper
+    public class horoscopeOutsideWrapper
     {
         public horoscopeInnerWrapper horoscope
         {

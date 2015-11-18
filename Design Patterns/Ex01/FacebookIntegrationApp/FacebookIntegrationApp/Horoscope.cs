@@ -32,8 +32,8 @@ namespace FacebookIntegrationApp
 
             horoscopeOutsideWrapper wrapper = j.Deserialize<horoscopeOutsideWrapper>(json);
 
-            m_DailyHoroscopeTitle = wrapper.horoscope.sign;
-            m_DailyHoroscopeContent = wrapper.horoscope.horoscope;
+            m_DailyHoroscopeTitle = wrapper.Horoscope.sign;
+            m_DailyHoroscopeContent = wrapper.Horoscope.horoscope;
 
         }
 

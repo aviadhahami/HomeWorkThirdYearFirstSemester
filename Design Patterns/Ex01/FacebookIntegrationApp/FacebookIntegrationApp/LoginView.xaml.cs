@@ -15,13 +15,10 @@ using System.Windows.Shapes;
 
 namespace FacebookIntegrationApp
 {
-	/// <summary>
-	/// Interaction logic for MainView.xaml
-	/// </summary>
 	public partial class LoginView : Window
 	{
-
 		private string m_appId = "1056989264331616";
+
 		public LoginView ()
 		{
 			InitializeComponent ();
@@ -29,7 +26,7 @@ namespace FacebookIntegrationApp
 
 		private void Login (object sender, RoutedEventArgs e)
 		{
-			
+
 			LoginResult result = FacebookWrapper.FacebookService.Login (m_appId,
 				                     "user_about_me",
 				                     "user_friends",
@@ -38,10 +35,10 @@ namespace FacebookIntegrationApp
 				                     "user_posts",
 				                     "user_photos",
 				                     "user_status",
-                                     "user_birthday");
+				                     "user_birthday");
 			if (!string.IsNullOrEmpty (result.AccessToken)) {
 
-				// If we're good with the data, we pass it to the next view
+// If we're good with the data, we pass it to the next view
 				User LoggedInUser = result.LoggedInUser;
 				MainView mainView = new MainView (LoggedInUser);
 				mainView.Show ();
