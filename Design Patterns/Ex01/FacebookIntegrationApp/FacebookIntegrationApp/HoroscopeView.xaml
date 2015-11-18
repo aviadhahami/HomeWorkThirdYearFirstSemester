@@ -1,0 +1,26 @@
+﻿<Window x:Class="FacebookIntegrationApp.HoroscopeView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FacebookIntegrationApp"
+        mc:Ignorable="d"
+        Title="HoroscopeView" Height="483.609" Width="610.376" Background="{x:Null}">
+    <Grid Margin="0,0,-4.5,0">
+        <Grid.Background>
+            <ImageBrush ImageSource="img/Horoscope.jpg" Opacity="0.4">
+                <ImageBrush.RelativeTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </ImageBrush.RelativeTransform>
+            </ImageBrush>
+        </Grid.Background>
+        <TextBlock x:Name="HoroscopeContent" HorizontalAlignment="Left" Height="217" Margin="63,150,0,0" Foreground="#FF719CDF" TextWrapping="Wrap" VerticalAlignment="Top" Width="487" FontWeight="Bold" FontSize="18.667"/>
+        <TextBlock x:Name="HoroscopeSign" HorizontalAlignment="Left" Margin="159,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="72" Width="307" Foreground="#FFE61414" FontSize="46.667" TextAlignment="Center"/>
+
+    </Grid>
+</Window>

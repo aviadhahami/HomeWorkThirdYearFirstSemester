@@ -34,7 +34,8 @@ namespace FacebookIntegrationApp
                 "user_events",
                 "user_posts",
                 "user_photos",
-                "user_status");
+                "user_status",
+                "user_birthday");
             if (!string.IsNullOrEmpty(result.AccessToken))
             {
 

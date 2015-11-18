@@ -36,14 +36,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Facebook">
-      <HintPath>..\FBApi\Facebook.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\..\01_FB01_BasicFacebookFeatures.V6.8.0.13\FBApi\Facebook.dll</HintPath>
     </Reference>
     <Reference Include="FbGraphApiWrapper">
-      <HintPath>..\FBApi\FbGraphApiWrapper.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\..\01_FB01_BasicFacebookFeatures.V6.8.0.13\FBApi\FbGraphApiWrapper.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -61,10 +63,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Horoscope.cs" />
     <Compile Include="FBHandler.cs" />
+    <Compile Include="HoroscopeView.xaml.cs">
+      <DependentUpon>HoroscopeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="HoroscopeWrappers.cs" />
     <Compile Include="MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utilities.cs" />
+    <Page Include="HoroscopeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LoginView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -109,7 +121,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="img\Horoscope.jpg" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="img\facebook-icon.png" />
   </ItemGroup>

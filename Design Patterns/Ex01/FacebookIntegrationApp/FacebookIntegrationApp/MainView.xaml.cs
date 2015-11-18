@@ -13,6 +13,8 @@ using Facebook;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
 using System.Globalization;
+using System.Text.RegularExpressions;
+using System.Net;
 
 namespace FacebookIntegrationApp
 {
@@ -55,10 +57,11 @@ namespace FacebookIntegrationApp
             }
 
         }
-
-        private void PickASongFunction(object sender, RoutedEventArgs e)
+        private void LuckFunction(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("pick a song clicked");
+
+            HoroscopeView horoscopeView = new HoroscopeView(m_loggedInUser.Birthday);
+            horoscopeView.Show();
         }
 
         private void PostStatistics(object sender, RoutedEventArgs e)
@@ -68,4 +71,5 @@ namespace FacebookIntegrationApp
         }
 
     }
+
 }
