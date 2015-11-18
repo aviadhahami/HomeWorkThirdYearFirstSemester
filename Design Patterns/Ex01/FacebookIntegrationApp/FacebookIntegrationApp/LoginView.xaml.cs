@@ -20,7 +20,8 @@ namespace FacebookIntegrationApp
 	/// </summary>
 	public partial class LoginView : Window
 	{
-		
+
+		private string m_appId = "1056989264331616";
 		public LoginView ()
 		{
 			InitializeComponent ();
@@ -28,8 +29,8 @@ namespace FacebookIntegrationApp
 
 		private void Login (object sender, RoutedEventArgs e)
 		{
-			string appId = "1056989264331616";
-			LoginResult result = FacebookWrapper.FacebookService.Login (appId,
+			
+			LoginResult result = FacebookWrapper.FacebookService.Login (m_appId,
 				                     "user_about_me",
 				                     "user_friends",
 				                     "publish_actions",
