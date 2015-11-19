@@ -14,7 +14,7 @@ namespace FacebookIntegrationApp
         }
     }
 
-    public class horoscopeInnerWrapper
+    class horoscopeInnerWrapper
     {
         public string sign
         {

@@ -19,9 +19,9 @@ namespace FacebookIntegrationApp
             GenerateHoroscope(myWebClient, i_BirthDay);
         }
 
-        private void GenerateHoroscope(WebClient o_myWebClient, string o_BirthDay)
+        private void GenerateHoroscope(WebClient i_myWebClient, string i_BirthDay)
         {
-            string luckSign = CalcLuckySign(o_BirthDay);
+            string luckSign = CalcLuckySign(i_BirthDay);
             string json;
             using (WebClient wc = new WebClient())
             {
@@ -52,10 +52,10 @@ namespace FacebookIntegrationApp
             }
         }
 
-        private string CalcLuckySign(string o_birthday)
+        private string CalcLuckySign(string i_birthday)
         {
             string[] splitBirthdayToDayMounthYear = new string[3];
-            splitBirthdayToDayMounthYear = Regex.Split(o_birthday, "/");
+            splitBirthdayToDayMounthYear = Regex.Split(i_birthday, "/");
             int day = LoseTheStartZero(splitBirthdayToDayMounthYear[1]);
             int month = LoseTheStartZero(splitBirthdayToDayMounthYear[0]);
             int midleOfMonth = 20;
@@ -63,24 +63,34 @@ namespace FacebookIntegrationApp
             int[] dayToReduceFromEachMonth = { 1, 2, 0, 1, 0, 0, -2, -2, -2, -2, -1, -1 };
             for (int i = 1; i < 13; i++)
             {
-                if (month == i)
+                bool dayBiggerThanMiddle = day < (midleOfMonth - dayToReduceFromEachMonth[i]);
+                bool ifLuckyMonth = month == i;
+                bool iflastMonth = i == 12;
+                if (ifLuckyMonth)
                 {
-                    symbleNumberOfLuck = (day < (midleOfMonth - dayToReduceFromEachMonth[i])) ? m_NamesOfLucksign[i] : m_NamesOfLucksign[i + 1];
+                    if (iflastMonth)
+                    {
+                        symbleNumberOfLuck = (dayBiggerThanMiddle) ? m_NamesOfLucksign[i - 1] : m_NamesOfLucksign[0];
+                    } else
+                    {
+                        symbleNumberOfLuck = (dayBiggerThanMiddle) ? m_NamesOfLucksign[i - 1] : m_NamesOfLucksign[i];
+                    }
                 }
             }
             return symbleNumberOfLuck;
         }
 
-        private int LoseTheStartZero(string o_DayMothYear)
+        private int LoseTheStartZero(string i_DayMothYear)
         {
             int numberWithoutZero = 0;
-            if (o_DayMothYear[0] == 0)
+            bool ifZeroBeforeNumber = i_DayMothYear[0] == 0;
+            if (ifZeroBeforeNumber)
             {
-                numberWithoutZero = int.Parse(o_DayMothYear[1].ToString());
+                numberWithoutZero = int.Parse(i_DayMothYear[1].ToString());
             }
             else
             {
-                numberWithoutZero = int.Parse(o_DayMothYear);
+                numberWithoutZero = int.Parse(i_DayMothYear);
             }
 
             return numberWithoutZero;
