@@ -15,9 +15,13 @@ import java.nio.charset.StandardCharsets;
 public class ConnectionHandler extends Thread {
 
 	private final Socket socket;
+	private String homePage;
+	private String root;
 
-	public ConnectionHandler(Socket connection) {
+	public ConnectionHandler(Socket connection, String root, String homePage) {
 		this.socket = connection;
+		this.root = root;
+		this.homePage = homePage;
 	}
 
 	@Override
@@ -36,7 +40,7 @@ public class ConnectionHandler extends Thread {
 			while ((line = reader.readLine()) != null) {
 				// Output into console for server side
 			}
-			
+
 			// Close connection
 			closeConnection();
 		} catch (IOException e) {

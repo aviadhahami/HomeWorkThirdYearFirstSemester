@@ -13,7 +13,7 @@ public class Main {
 		// Give option to run via terminals. #DevOps
 		String defaultConfigPath = "config/config.ini";
 		String configPath = args.length > 0 ? args[0] : defaultConfigPath;
-		Server s = new Server(ConfigLoader.load(configPath));
+		Server s = new Server(ServerConfigLoader.load(configPath));
 		s.listen();
 	}
 }

@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class ConfigLoader {
+public class ServerConfigLoader {
 	private final static String[] configKeys = { "port", "max_threads", "default_page", "root" };
 
-	public static ConfigObj load(String configPath) {
+	public static ServerConfigObj load(String configPath) {
 
-		ConfigObj config = new ConfigObj();
+		ServerConfigObj config = new ServerConfigObj();
 
 		try {
 			String content = new String(Files.readAllBytes(Paths.get(configPath)));

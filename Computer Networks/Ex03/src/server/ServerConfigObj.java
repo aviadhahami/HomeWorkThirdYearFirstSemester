@@ -1,6 +1,6 @@
 package server;
 
-public class ConfigObj {
+public class ServerConfigObj {
 
 	// Fallbacks
 	private final int defaultPort = 8080;
