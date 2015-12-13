@@ -272,3 +272,6 @@ local.properties
 
 # STS (Spring Tool Suite)
 .springBeans
+
+# recommends or some shit
+.recommenders/
