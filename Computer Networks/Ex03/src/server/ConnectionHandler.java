@@ -17,6 +17,7 @@ public class ConnectionHandler extends Thread {
 	private final Socket socket;
 	private String homePage;
 	private String root;
+	private HttpHeaderParser headerParser = new HttpHeaderParser();
 
 	public ConnectionHandler(Socket connection, String root, String homePage) {
 		this.socket = connection;
@@ -39,16 +40,17 @@ public class ConnectionHandler extends Thread {
 			// Input feed
 			while ((line = reader.readLine()) != null) {
 				// Output into console for server side
-				Console.printErr(line);
 				if (line.length() == 0) {
 					break;
 				}
-				sb.append(line);
+				sb.append(line + '\n');
 
 			}
-			sb.append("Thank you");
-			pw.println(sb.toString());
-
+			
+			pw.println(headerParser.parseForResponse(sb.toString()));
+			sb.setLength(0);
+			
+			
 			// Close connection
 			closeConnection();
 		} catch (IOException e) {
