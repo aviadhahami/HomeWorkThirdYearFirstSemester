@@ -2,7 +2,6 @@ package server;
 
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Queue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -13,7 +12,6 @@ import java.util.concurrent.Executors;
 public class Server {
 
 	private final int port;
-	private Queue<Socket> que;
 	ExecutorService threadPoolExecutor;
 
 	public Server(ConfigObj config) {
@@ -22,7 +20,7 @@ public class Server {
 	}
 
 	public void listen() {
-		NotifyConsole("Listening on " + port);
+		ConsoleNotifier.print("Listening on " + port);
 		try (ServerSocket server = new ServerSocket(port)) {
 			Socket connection;
 			boolean listenFlag = true;
@@ -30,6 +28,7 @@ public class Server {
 			// Listen to incoming connections
 			while (listenFlag) {
 				connection = server.accept();
+				
 				// System.out.println("Client connected, generating thread");
 				ConnectionHandler connectionHandler = new ConnectionHandler(connection);
 
@@ -40,11 +39,6 @@ public class Server {
 			System.out.println("Server.listen() exception" + e);
 			System.exit(1);
 		}
-	}
-
-	// Display to console
-	private void NotifyConsole(String msg) {
-		System.out.println(msg);
 	}
 
 }

@@ -17,6 +17,7 @@ public class ConfigObj {
 	public void setPort(int port) {
 		this.port = port;
 	}
+
 	public int getPort() {
 		if (this.port == 0) {
 			this.port = this.defaultPort;
@@ -28,6 +29,7 @@ public class ConfigObj {
 	public void setMaxThreads(int maxThreads) {
 		this.maxThreads = maxThreads;
 	}
+
 	public int getMaxThreads() {
 		if (this.maxThreads == 0) {
 			this.maxThreads = this.defaultMaxThreads;
@@ -39,6 +41,7 @@ public class ConfigObj {
 	public void setDefaultRoot(String path) {
 		this.root = path;
 	}
+
 	public String getRoot() {
 		if (this.root.equals(null)) {
 			this.root = this.defaultRoot;
@@ -50,6 +53,7 @@ public class ConfigObj {
 	public void setDefaultPage(String path) {
 		this.defaultPage = path;
 	}
+
 	public String getDefaultPage() {
 		if (this.defaultPage.equals(null)) {
 			this.defaultPage = this.defaultDefaultPage;

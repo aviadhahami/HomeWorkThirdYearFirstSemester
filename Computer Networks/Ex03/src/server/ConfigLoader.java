@@ -5,7 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class ConfigLoader {
-	private final static String[] configKeys = { "port", "maxthreads", "defaultpage", "root" };
+	private final static String[] configKeys = { "port", "max_threads", "default_page", "root" };
 
 	public static ConfigObj load(String configPath) {
 
@@ -23,10 +23,10 @@ public class ConfigLoader {
 						case "port":
 							config.setPort(praseIntValue(str));
 							break;
-						case "maxthreads":
+						case "max_threads":
 							config.setMaxThreads(praseIntValue(str));
 							break;
-						case "defaultpage":
+						case "default_page":
 							config.setDefaultPage(parseValue(str));
 							break;
 						case "root":
@@ -40,13 +40,11 @@ public class ConfigLoader {
 			System.out.println("Error!");
 			e.printStackTrace();
 		}
-System.out.println(config.getMaxThreads());
 		return config;
 	}
 
 	// Parsing int value from config file
 	private static int praseIntValue(String str) {
-		System.out.println(str);
 		String val = str.substring(str.indexOf("\"") + 1, str.lastIndexOf("\""));
 		int parsedVal;
 		try {
