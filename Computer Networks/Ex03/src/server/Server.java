@@ -24,7 +24,7 @@ public class Server {
 	}
 
 	public void listen() {
-		ConsoleNotifier.print("Listening on " + port);
+		Console.print("Listening on " + port);
 		try (ServerSocket server = new ServerSocket(port)) {
 			Socket connection;
 			boolean listenFlag = true;
@@ -41,8 +41,8 @@ public class Server {
 				threadPoolExecutor.execute(connectionHandler);
 			}
 		} catch (Exception e) {
-			ConsoleNotifier.printErr("Server couldn't start because " + e.getMessage());
-			ConsoleNotifier.printErr("please try again later");
+			Console.printErr("Server couldn't start because " + e.getMessage());
+			Console.printErr("please try again later");
 			System.exit(1);
 		}
 	}

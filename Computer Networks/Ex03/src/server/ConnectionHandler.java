@@ -39,7 +39,15 @@ public class ConnectionHandler extends Thread {
 			// Input feed
 			while ((line = reader.readLine()) != null) {
 				// Output into console for server side
+				Console.printErr(line);
+				if (line.length() == 0) {
+					break;
+				}
+				sb.append(line);
+
 			}
+			sb.append("Thank you");
+			pw.println(sb.toString());
 
 			// Close connection
 			closeConnection();
