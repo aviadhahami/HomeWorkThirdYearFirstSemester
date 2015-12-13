@@ -9,7 +9,8 @@ public class Main {
     public static void main(String[] args) {
         int port = 9000;
 
-        Server s = new Server(port);
-        s.listen();
+        System.out.println(HTTPResponses.getResponse(30));
+//        Server s = new Server(port);
+//        s.listen();
     }
 }

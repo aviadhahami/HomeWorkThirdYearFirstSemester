@@ -15,6 +15,7 @@ import java.util.Map;
 public class HTTPResponses {
 
 	private static final Map<Integer, String> HTTPcodesHash;
+	private static final String NO_SUCH_CODE = "No such HTTP code";
 
 	// Populate the hash
 	static {
@@ -28,6 +29,7 @@ public class HTTPResponses {
 	}
 
 	public static String getResponse(int code) {
-		return HTTPcodesHash.get(code);
+		String res = HTTPcodesHash.get(code);
+		return res == null ? NO_SUCH_CODE : res;
 	}
 }
