@@ -57,7 +57,7 @@ public class HTTPResponses {
 				res.append(CONTENT_TYPE + "\n");
 				res.append("\n" + content + "\n");
 			} catch (Exception e) {
-				// TODO: handle exception
+				// Means we serve no html, ok :(
 			}
 			break;
 		}
