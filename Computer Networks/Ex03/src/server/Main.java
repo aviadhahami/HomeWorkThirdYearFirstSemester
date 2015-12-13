@@ -10,10 +10,10 @@ public class Main {
 
 		// TODO: load config here and pass it to server
 
-		int port = 9000;
-
-		int poolSize = 2;
-		Server s = new Server(port, poolSize);
+		// Give option to run via terminals. #DevOps
+		String defaultConfigPath = "config/config.ini";
+		String configPath = args.length > 0 ? args[0] : defaultConfigPath;
+		Server s = new Server(ConfigLoader.load(configPath));
 		s.listen();
 	}
 }

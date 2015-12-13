@@ -16,9 +16,9 @@ public class Server {
 	private Queue<Socket> que;
 	ExecutorService threadPoolExecutor;
 
-	public Server(int port, int poolSize) {
-		this.port = port;
-		threadPoolExecutor = Executors.newFixedThreadPool(poolSize);
+	public Server(ConfigObj config) {
+		this.port = config.getPort();
+		threadPoolExecutor = Executors.newFixedThreadPool(config.getMaxThreads());
 	}
 
 	public void listen() {

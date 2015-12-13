@@ -35,8 +35,6 @@ public class ConnectionHandler extends Thread {
 			// Input feed
 			while ((line = reader.readLine()) != null) {
 				// Output into console for server side
-				
-				//NotifyConsole(line);
 			}
 			
 			// Close connection
