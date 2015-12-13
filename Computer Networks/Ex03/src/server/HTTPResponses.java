@@ -4,10 +4,13 @@
 package server;
 
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
 
 /**
+ *
+ * <h1>Description:</h1> Implements a private hash where you send an HTTP code
+ * and receive the proper header message
+ * 
  * @author aviadh
  *
  */
@@ -28,6 +31,7 @@ public class HTTPResponses {
 
 	}
 
+	// Public getter
 	public static String getResponse(int code) {
 		String res = HTTPcodesHash.get(code);
 		return res == null ? NO_SUCH_CODE : res;
