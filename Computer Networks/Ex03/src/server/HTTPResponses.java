@@ -3,6 +3,9 @@
  */
 package server;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,7 +26,11 @@ public class HTTPResponses {
 	// Final static strings
 	private static final String NO_SUCH_CODE = "No such HTTP code";
 	private static final String NO_SUCH_CONTENT_TYPE = "No such content type";
-	private static final String CONTENT_TYPE = "content-type: ";
+	private static final String DATE_HEADER = "Date: " + new Date().toString();
+	private static final String SERVER_HEADER = "Server: Badly implemented/1.0 (Ubuntu)";
+	private static final String CONTENT_LENGTH = "Content-Length: ";
+	private static final String CONTENT_TYPE = "Content-Type: text/html";
+	private static final String ASSETST = "assets/";
 
 	// Populate the hash
 	static {
@@ -38,11 +45,26 @@ public class HTTPResponses {
 
 	// Public getter
 	public static String getResponseCodeHeaderByCode(int code) {
-		String res = HTTPcodesHash.get(code);
-		return res == null ? NO_SUCH_CODE: res;
+		StringBuilder res = new StringBuilder();
+		res.append(HTTPcodesHash.get(code) + "\n");
+		res.append(DATE_HEADER + "\n");
+		res.append(SERVER_HEADER + "\n");
+		switch (code) {
+		case 500:
+			try {
+				String content = new String(Files.readAllBytes(Paths.get(ASSETST + "500.html")));
+				res.append(CONTENT_LENGTH + content.length() + "\n");
+				res.append(CONTENT_TYPE + "\n");
+				res.append("\n" + content + "\n");
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			break;
+		}
+		return res == null ? NO_SUCH_CODE : res.toString();
 	}
 
-	
+	// FIXME : URGENT
 	public static String getContentTypeHeaderByType(String cType) {
 		String res = NO_SUCH_CONTENT_TYPE;
 		switch (cType) {
