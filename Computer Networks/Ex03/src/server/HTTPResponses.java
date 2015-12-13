@@ -28,18 +28,18 @@ public class HTTPResponses {
 	// Populate the hash
 	static {
 		HTTPcodesHash = new HashMap<Integer, String>();
-		HTTPcodesHash.put(200, "200 OK");
-		HTTPcodesHash.put(404, "404 Not Found");
-		HTTPcodesHash.put(400, "400 Bad Request");
-		HTTPcodesHash.put(500, "500 Internal Server Error");
-		HTTPcodesHash.put(501, "501 Not Implemented");
+		HTTPcodesHash.put(200, "HTTP/1.1 200 OK");
+		HTTPcodesHash.put(404, "HTTP/1.1 404 Not Found");
+		HTTPcodesHash.put(400, "HTTP/1.1 400 Bad Request");
+		HTTPcodesHash.put(500, "HTTP/1.1 500 Internal Server Error");
+		HTTPcodesHash.put(501, "HTTP/1.1 501 Not Implemented");
 
 	}
 
 	// Public getter
 	public static String getResponseCodeHeaderByCode(int code) {
 		String res = HTTPcodesHash.get(code);
-		return res == null ? NO_SUCH_CODE : res;
+		return res == null ? NO_SUCH_CODE: res;
 	}
 
 	

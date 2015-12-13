@@ -67,8 +67,12 @@ public class ConnectionHandler extends Thread {
 						break;
 					}
 				}
-				res = headerParser.parseGET(sb.toString());
+				res = HTTPResponses.getResponseCodeHeaderByCode(500);
+				//res = headerParser.parseGET(sb.toString());
+			}else{
+				res = HTTPResponses.getResponseCodeHeaderByCode(500);
 			}
+			// TODO: add more methods (trace and another one, check files)
 
 			pw.println(res);
 			sb.setLength(0);
