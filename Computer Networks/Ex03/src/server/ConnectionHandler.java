@@ -7,8 +7,6 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  *
@@ -33,11 +31,15 @@ public class ConnectionHandler extends Thread {
 			StringBuilder sb = new StringBuilder();
 			String line;
 
-			// Text feed
+			System.out.println(this.getName());
+			// Input feed
 			while ((line = reader.readLine()) != null) {
 				// Output into console for server side
-				NotifyConsole(line);
+				
+				//NotifyConsole(line);
 			}
+			
+			// Close connection
 			closeConnection();
 		} catch (IOException e) {
 			System.err.println(e);
