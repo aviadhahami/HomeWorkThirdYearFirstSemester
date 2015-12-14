@@ -17,7 +17,7 @@ public class ConnectionHandler extends Thread {
 	private final Socket socket;
 	private String homePage;
 	private String root;
-	private HttpHeaderParser headerParser = new HttpHeaderParser();
+	private boolean isAdmin = false;
 
 	public ConnectionHandler(Socket connection, String root, String homePage) {
 		this.socket = connection;
@@ -57,7 +57,8 @@ public class ConnectionHandler extends Thread {
 				for (int i = 0; i < contentLength; i++) {
 					sb.append((char) reader.read());
 				}
-				res = headerParser.parsePOST(sb.toString());
+				res = HTTPHandler.parsePOST(sb.toString());
+
 			} else if (line.startsWith("GET")) {
 
 				// Accept GET request
@@ -67,10 +68,9 @@ public class ConnectionHandler extends Thread {
 						break;
 					}
 				}
-				res = HTTPResponses.getResponseCodeHeaderByCode(500);
-				//res = headerParser.parseGET(sb.toString());
-			}else{
-				res = HTTPResponses.getResponseCodeHeaderByCode(500);
+				res = HTTPHandler.parseGET(sb.toString());
+			} else {
+				res = HTTPHandler.getResponseCodeHeaderByCode(500);
 			}
 			// TODO: add more methods (trace and another one, check files)
 
@@ -90,7 +90,7 @@ public class ConnectionHandler extends Thread {
 	private void closeConnection() {
 		try {
 			this.socket.close();
-			Console.printErr("Client disconnected, killing thread id " + this.getId());
+			Console.logErr("Client disconnected, killing thread id " + this.getId());
 		} catch (Exception e) {
 			System.err.println("Error closing socket" + e);
 		}
