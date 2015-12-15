@@ -61,4 +61,14 @@ public class ServerConfigObj {
 		}
 		return this.defaultPage;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("port : " + this.port + "\n");
+		sb.append("max threads : " + this.maxThreads + "\n");
+		sb.append("root : " + this.root + "\n");
+		sb.append("default page : " + this.defaultPage + "\n");
+		return sb.toString();
+	}
 }

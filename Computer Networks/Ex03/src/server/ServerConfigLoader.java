@@ -5,7 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class ServerConfigLoader {
-	private final static String[] configKeys = { "port", "max_threads", "default_page", "root" };
+	private final static String[] configKeys = { "port", "maxthreads", "defaultpage", "root" };
 
 	public static ServerConfigObj load(String configPath) {
 
@@ -17,16 +17,22 @@ public class ServerConfigLoader {
 
 			// Parse the config file
 			for (String str : configFile) {
+
+				// Escape comments
+				if (str.startsWith("#")) {
+					continue;
+				}
+
 				for (String key : configKeys) {
 					if (str.indexOf(key) > -1) {
 						switch (key) {
 						case "port":
 							config.setPort(praseIntValue(str));
 							break;
-						case "max_threads":
+						case "maxthreads":
 							config.setMaxThreads(praseIntValue(str));
 							break;
-						case "default_page":
+						case "defaultpage":
 							config.setDefaultPage(parseValue(str));
 							break;
 						case "root":
@@ -45,7 +51,7 @@ public class ServerConfigLoader {
 
 	// Parsing int value from config file
 	private static int praseIntValue(String str) {
-		String val = str.substring(str.indexOf("\"") + 1, str.lastIndexOf("\""));
+		String val = str.substring(str.indexOf("=") + 1);
 		int parsedVal;
 		try {
 			parsedVal = Integer.parseInt(val);
@@ -58,7 +64,7 @@ public class ServerConfigLoader {
 	}
 
 	private static String parseValue(String str) {
-		return str.substring(str.indexOf("\"") + 1, str.lastIndexOf("\""));
+		return str.substring(str.indexOf("=") + 1);
 	}
 
 }
