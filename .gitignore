@@ -275,3 +275,6 @@ local.properties
 
 # recommends or some shit
 .recommenders/
+
+#Web Storm shit
+.idea/
