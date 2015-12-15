@@ -48,7 +48,7 @@ public class ConnectionHandler extends Thread {
 					validReqType = true;
 				}
 			}
-			if (!validReqType) {
+			if (validReqType) {
 				// TODO:Return bad request
 				String a = HTTPResponseHandler.getResponseCodeHeaderByCode(400);
 				pw.println(a);

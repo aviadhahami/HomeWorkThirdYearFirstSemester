@@ -3,6 +3,7 @@
  */
 package server;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Date;
@@ -43,24 +44,31 @@ public class HTTPResponseHandler {
 		res.fields.put(HTTPcodesHash.get(code), "");
 		res.fields.put("Date", new Date().toString());
 		res.fields.put("Server", "Badly implemented/1.0 (Ubuntu)");
-		switch (code) {
-		case 401: {
-			// Unauthorized
+		String content = "";
+		try {
 
-		}
-		default:
-		case 500: {
-			try {
-				String content = new String(Files.readAllBytes(Paths.get(ASSETST + "500.html")));
-				res.fields.put("Content-Length", Integer.toString(content.length()));
-				res.fields.put("Content-Type", "text/html");
-				res.fields.put("\n" + content, "");
-			} catch (Exception e) {
-				// Means we serve no html, ok :(
+			switch (code) {
+			case 401: {
+				// Unauthorized
+				content = new String(Files.readAllBytes(Paths.get(ASSETST + "401.html")));
+				break;
 			}
-			break;
+			case 400: {
+				content = new String(Files.readAllBytes(Paths.get(ASSETST + "400.html")));
+				break;
+			}
+			default:
+			case 500: {
+				content = new String(Files.readAllBytes(Paths.get(ASSETST + "500.html")));
+				break;
+			}
+			}
+		} catch (Exception e) {
+			// No html then :\
 		}
-		}
+		res.fields.put("Content-Length", Integer.toString(content.length()));
+		res.fields.put("Content-Type", "text/html");
+		res.fields.put("\n" + content, "");
 		return res.toString();
 	}
 
