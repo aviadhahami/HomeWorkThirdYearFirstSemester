@@ -3,7 +3,6 @@
  */
 package server;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Date;
@@ -19,7 +18,7 @@ import java.util.Map;
  *
  */
 
-public class HTTPResponseHandler {
+public class ResponseHandler {
 
 	// Private members
 	private static final Map<Integer, String> HTTPcodesHash;
@@ -80,5 +79,20 @@ public class HTTPResponseHandler {
 	public static String parsePOST(String string) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public static String buildResponse(HTTPRequest req) {
+		HTTPResponse res = new HTTPResponse();
+		String reqType = req.getRequestType();
+		if (reqType == "GET") {
+
+			// TODO : process
+		} else if (reqType == "POST") {
+
+			// TODO : process
+		} else {
+
+		}
+		return res.toString();
 	}
 }

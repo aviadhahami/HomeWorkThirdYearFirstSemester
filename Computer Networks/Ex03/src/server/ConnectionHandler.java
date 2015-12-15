@@ -48,11 +48,13 @@ public class ConnectionHandler extends Thread {
 					validReqType = true;
 				}
 			}
+
+			// If not proper HTTP header we don't even try.
 			if (!validReqType) {
 				// TODO:Return bad request
-				String a = HTTPResponseHandler.getResponseCodeHeaderByCode(400);
+				String a = ResponseHandler.getResponseCodeHeaderByCode(400);
 				pw.println(a);
-				
+				closeConnection();
 			}
 
 			// If we reached this - means the request type is viable
@@ -70,6 +72,7 @@ public class ConnectionHandler extends Thread {
 			}
 
 			while ((line = reader.readLine()) != null) {
+
 				// If we hit an empty line then we received all the header
 				if (line.length() == 0) {
 					break;
@@ -96,10 +99,10 @@ public class ConnectionHandler extends Thread {
 			if (req.getGenericHeaders("connection") == "keep-alive") {
 				// TODO: implement this
 			}
-			
+
 			Console.log(req.toString());
-			
-			// TODO: send response here
+
+			pw.print(ResponseHandler.buildResponse(req));
 
 			closeConnection();
 
