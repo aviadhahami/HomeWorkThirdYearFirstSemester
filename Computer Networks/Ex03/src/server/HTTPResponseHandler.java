@@ -18,7 +18,7 @@ import java.util.Map;
  *
  */
 
-public class HTTPHandler {
+public class HTTPResponseHandler {
 
 	// Private members
 	private static final Map<Integer, String> HTTPcodesHash;

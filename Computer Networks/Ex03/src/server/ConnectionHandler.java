@@ -35,7 +35,6 @@ public class ConnectionHandler extends Thread {
 					new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
 			StringBuilder sb = new StringBuilder();
 			String line;
-			String res = "";
 
 			// Input feed
 			line = reader.readLine();
@@ -50,7 +49,10 @@ public class ConnectionHandler extends Thread {
 				}
 			}
 			if (!validReqType) {
-				// Return bad request
+				// TODO:Return bad request
+				String a = HTTPResponseHandler.getResponseCodeHeaderByCode(400);
+				pw.println(a);
+				
 			}
 
 			// If we reached this - means the request type is viable
@@ -68,22 +70,39 @@ public class ConnectionHandler extends Thread {
 			}
 
 			while ((line = reader.readLine()) != null) {
+				// If we hit an empty line then we received all the header
+				if (line.length() == 0) {
+					break;
+				}
+				String[] parsedInputLine = line.toLowerCase().replace(" ", "").split(":");
+				req.setGenericHeaders(parsedInputLine[0], parsedInputLine[1]);
 			}
+
+			// Try to read request body according to accepted content length
+			// value
 			int contentLength;
 			try {
-				contentLength = Integer.parseInt(req.getGenericHeaders("Content-Length"));
+				contentLength = Integer.parseInt(req.getGenericHeaders("content-length"));
 			} catch (NumberFormatException e) {
 				contentLength = 0;
 			}
 
-			// Get the request post data
+			// Get the request body as single characters
 			for (int i = 0; i < contentLength; i++) {
 				sb.append((char) reader.read());
 			}
 			req.setRequestBody(sb.toString());
 
-			// Close connection
+			if (req.getGenericHeaders("connection") == "keep-alive") {
+				// TODO: implement this
+			}
+			
+			Console.log(req.toString());
+			
+			// TODO: send response here
+
 			closeConnection();
+
 		} catch (IOException e) {
 			System.err.println(e);
 		} catch (Exception e) {

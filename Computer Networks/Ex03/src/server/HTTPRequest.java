@@ -55,9 +55,9 @@ public class HTTPRequest {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(this.getRequestType() + this.getRequestedResource() + this.getHTTPVersion() + '\n');
+		sb.append(this.getRequestType() + " " + this.getRequestedResource() + " " + this.getHTTPVersion() + '\n');
 		for (String key : headers.keySet()) {
-			sb.append(key + " : " + headers.get(key));
+			sb.append(key + " : " + headers.get(key) + '\n');
 		}
 		sb.append('\n' + this.getRequestBody());
 		return sb.toString();
