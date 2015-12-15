@@ -39,43 +39,48 @@ public class ConnectionHandler extends Thread {
 
 			// Input feed
 			line = reader.readLine();
-			sb.append(line + '\n');
-			if (line.startsWith("POST")) {
-				int contentLength = 0;
-				// Accept POST request
-				while ((line = reader.readLine()) != null) {
-					sb.append(line + '\n');
-					if (line.startsWith("Content-Length:")) {
-						contentLength = Integer.parseInt(line.substring(line.indexOf(" ") + 1));
-					}
-					if (line.length() == 0) {
-						break;
-					}
-				}
 
-				// Get the request post data
-				for (int i = 0; i < contentLength; i++) {
-					sb.append((char) reader.read());
+			// Check request type header validity
+			String reqType;
+			boolean validReqType = false;
+			for (HTTPRequestTypesEnum type : HTTPRequestTypesEnum.values()) {
+				reqType = type.toString();
+				if (line.startsWith(reqType)) {
+					validReqType = true;
 				}
-				res = HTTPHandler.parsePOST(sb.toString());
-
-			} else if (line.startsWith("GET")) {
-
-				// Accept GET request
-				while ((line = reader.readLine()) != null) {
-					sb.append(line + '\n');
-					if (line.length() == 0) {
-						break;
-					}
-				}
-				res = HTTPHandler.parseGET(sb.toString());
-			} else {
-				res = HTTPHandler.getResponseCodeHeaderByCode(500);
 			}
-			// TODO: add more methods (trace and another one, check files)
+			if (!validReqType) {
+				// Return bad request
+			}
 
-			pw.println(res);
-			sb.setLength(0);
+			// If we reached this - means the request type is viable
+			HTTPRequest req = new HTTPRequest();
+			String[] reqHeader = line.split(" ");
+			if (reqHeader.length == 3) {
+				// Means we have specific resource requested
+				req.setRequestType(reqHeader[0]);
+				req.setRequestedResource(reqHeader[1]);
+				req.setHTTPVersion(reqHeader[2]);
+			} else {
+				req.setRequestType(reqHeader[0]);
+				req.setRequestedResource("");
+				req.setHTTPVersion(reqHeader[1]);
+			}
+
+			while ((line = reader.readLine()) != null) {
+			}
+			int contentLength;
+			try {
+				contentLength = Integer.parseInt(req.getGenericHeaders("Content-Length"));
+			} catch (NumberFormatException e) {
+				contentLength = 0;
+			}
+
+			// Get the request post data
+			for (int i = 0; i < contentLength; i++) {
+				sb.append((char) reader.read());
+			}
+			req.setRequestBody(sb.toString());
 
 			// Close connection
 			closeConnection();

@@ -43,7 +43,7 @@ public class ServerConfigLoader {
 				}
 			}
 		} catch (IOException e) {
-			System.out.println("Error!");
+			Console.logErr("Something bad happened");
 			e.printStackTrace();
 		}
 		return config;
