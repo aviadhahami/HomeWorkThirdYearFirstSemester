@@ -31,7 +31,7 @@ public class HTTPResponse {
 	@Override
 	public String toString() {
 		StringBuilder res = new StringBuilder();
-		res.append(responseStatus);
+		res.append(this.responseStatus);
 		for (String k : fields.keySet()) {
 			if (fields.get(k) == "") {
 				res.append(k);
@@ -42,7 +42,7 @@ public class HTTPResponse {
 			res.append("\n");
 		}
 		res.append('\n');
-		res.append(responseBody + '\n');
+		res.append(this.responseBody + '\n');
 		return res.toString();
 	}
 }

@@ -24,7 +24,7 @@ public class ResponseHandler {
 	private static final Map<Integer, String> HTTPcodesHash;
 
 	// Final static strings
-	private static final String ASSETST = "assets/";
+	private static final String ASSETS = Routes.getRoot() + "assets/";
 
 	// Populate the hash
 	static {
@@ -34,57 +34,24 @@ public class ResponseHandler {
 		HTTPcodesHash.put(400, "HTTP/1.1 400 Bad Request");
 		HTTPcodesHash.put(500, "HTTP/1.1 500 Internal Server Error");
 		HTTPcodesHash.put(501, "HTTP/1.1 501 Not Implemented");
-
 	}
 
 	// Public getter
-	public static String getResponseCodeHeaderByCode(int code) {
-		HTTPResponse res = new HTTPResponse();
-		res.fields.put(HTTPcodesHash.get(code), "");
-		res.fields.put("Date", new Date().toString());
-		res.fields.put("Server", "Badly implemented/1.0 (Ubuntu)");
-		String content = "";
-		try {
+	public static String getResponseHeaderByCode(int code) {
 
-			switch (code) {
-			case 401: {
-				// Unauthorized
-				content = new String(Files.readAllBytes(Paths.get(ASSETST + "401.html")));
-				break;
-			}
-			case 400: {
-				content = new String(Files.readAllBytes(Paths.get(ASSETST + "400.html")));
-				break;
-			}
-			default:
-			case 500: {
-				content = new String(Files.readAllBytes(Paths.get(ASSETST + "500.html")));
-				break;
-			}
-			}
-		} catch (Exception e) {
-			// No html then :\
-		}
-		res.fields.put("Content-Length", Integer.toString(content.length()));
-		res.fields.put("Content-Type", "text/html");
-		res.fields.put("\n" + content, "");
-		return res.toString();
-	}
+		String header = HTTPcodesHash.get(code);
 
-	public static String parseGET(String string) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public static String parsePOST(String string) {
-		// TODO Auto-generated method stub
-		return null;
+		// If the code is null return server error
+		return header.length() == 0 ? HTTPcodesHash.get(500) : header;
 	}
 
 	public static String buildResponse(HTTPRequest req) {
 		HTTPResponse res = new HTTPResponse();
+		res.fields.put("Date", new Date().toString());
+		res.fields.put("Server", "Badly implemented/1.0 (Ubuntu)");
+
 		String reqType = req.getRequestType();
-		if (reqType == "GET") {
+		if (reqType == "GET1") {
 
 			// TODO : process
 		} else if (reqType == "POST") {
@@ -92,7 +59,23 @@ public class ResponseHandler {
 			// TODO : process
 		} else {
 
+			// Else is server error
+			res.setStatus(getResponseHeaderByCode(500));
+			res.setBody(getHTMLErrorAssetsByCode(500));
+			res.fields.put("Content-Length", Integer.toString(res.getBody().length()));
+			res.fields.put("Content-Type", "text/html");
 		}
 		return res.toString();
+	}
+
+	private static String getHTMLErrorAssetsByCode(int code) {
+		String content = null;
+		try {
+			content = new String(Files.readAllBytes(Paths.get(ASSETS + code + ".html")));
+		} catch (Exception e) {
+			Console.log("Couldn't load asset for " + code + ".html");
+			Console.logErr(e.getMessage());
+		}
+		return content;
 	}
 }

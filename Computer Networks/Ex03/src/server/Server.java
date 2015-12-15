@@ -13,13 +13,14 @@ public class Server {
 
 	private final int port;
 	ExecutorService threadPoolExecutor;
-	private ServerConfigObj configPropertiesObject;
 
 	public Server(ServerConfigObj config) {
-		this.configPropertiesObject = config;
 		this.port = config.getPort();
 		threadPoolExecutor = Executors.newFixedThreadPool(config.getMaxThreads());
-
+		
+		// Initialize global routes object
+		Routes.setRoot(config.getRoot());
+		Routes.setDefaultPage(config.getDefaultPage());
 	}
 
 	public void listen() {
@@ -33,8 +34,7 @@ public class Server {
 				connection = server.accept();
 
 				// System.out.println("Client connected, generating thread");
-				ConnectionHandler connectionHandler = new ConnectionHandler(connection,
-						configPropertiesObject.getRoot(), configPropertiesObject.getDefaultPage());
+				ConnectionHandler connectionHandler = new ConnectionHandler(connection);
 
 				// Executing via pool manager
 				threadPoolExecutor.execute(connectionHandler);

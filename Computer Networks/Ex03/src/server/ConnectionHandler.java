@@ -15,14 +15,10 @@ import java.nio.charset.StandardCharsets;
 public class ConnectionHandler extends Thread {
 
 	private final Socket socket;
-	private String homePage;
-	private String root;
 	private boolean isAdmin = false;
 
-	public ConnectionHandler(Socket connection, String root, String homePage) {
+	public ConnectionHandler(Socket connection) {
 		this.socket = connection;
-		this.root = root;
-		this.homePage = homePage;
 	}
 
 	@Override
@@ -52,7 +48,7 @@ public class ConnectionHandler extends Thread {
 			// If not proper HTTP header we don't even try.
 			if (!validReqType) {
 				// TODO:Return bad request
-				String a = ResponseHandler.getResponseCodeHeaderByCode(400);
+				String a = ResponseHandler.getResponseHeaderByCode(400);
 				pw.println(a);
 				closeConnection();
 			}
@@ -102,7 +98,8 @@ public class ConnectionHandler extends Thread {
 
 			Console.log(req.toString());
 
-			pw.print(ResponseHandler.buildResponse(req));
+			String res = ResponseHandler.buildResponse(req);
+			pw.println(res);
 
 			closeConnection();
 
