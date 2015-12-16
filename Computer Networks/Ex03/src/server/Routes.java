@@ -11,7 +11,7 @@ public class Routes {
 	public static void initRoutes(String _root, String _defaultPage) {
 		root = _root;
 		defaultPage = _defaultPage;
-		routesAccessMap.put("/", 0);
+		routesAccessMap.put("/",0);
 	}
 
 	/*
@@ -24,12 +24,15 @@ public class Routes {
 			return false;
 		}
 
+		Console.log("THIS IS PATE " + unifiedPath);
 		StringBuilder sb = new StringBuilder();
 		char curr;
 		int previousLevel = 0;
 		String builtPath = "";
 		int extractedLevel;
-
+		
+		
+		sb.append("/");
 		for (int i = 0; i < unifiedPath.length(); i++) {
 			curr = unifiedPath.charAt(i);
 			if (curr == '/') {
