@@ -15,7 +15,7 @@ import java.nio.charset.StandardCharsets;
 public class ConnectionHandler extends Thread {
 
 	private final Socket socket;
-	private boolean isAdmin = false;
+	private Client client = new Client();
 
 	public ConnectionHandler(Socket connection) {
 		this.socket = connection;
@@ -96,9 +96,13 @@ public class ConnectionHandler extends Thread {
 				// TODO: implement this
 			}
 
+			// Update permission for the client
+			updateClient(req.getGenericHeaders("user-agent"), req.getGenericHeaders("cookie"));
+
+			// Spill request to console
 			Console.log(req.toString());
 
-			String res = ResponseHandler.buildResponse(req);
+			String res = ResponseHandler.buildResponse(req,client);
 			pw.println(res);
 
 			closeConnection();
@@ -108,6 +112,23 @@ public class ConnectionHandler extends Thread {
 		} catch (Exception e) {
 			System.err.println(e);
 		}
+	}
+
+	private void updateClient(String UA, String cookie) {
+		this.client.UA = UA;
+
+		// TODO: implement better security methodology
+
+		// Search the "level" cookie to extract user permission level
+		String regex = "(.*)level=([0-9]*)(.*)";
+		String userLevel = cookie.replaceAll(regex, "$2");
+		int level = 0;
+		try {
+			level = Integer.parseInt(userLevel);
+		} catch (Exception e) {
+			Console.logErr("Couldn't parse user level");
+		}
+		this.client.permissionLevel = level;
 	}
 
 	// Wrapper to close the connection

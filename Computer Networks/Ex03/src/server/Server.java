@@ -17,10 +17,9 @@ public class Server {
 	public Server(ServerConfigObj config) {
 		this.port = config.getPort();
 		threadPoolExecutor = Executors.newFixedThreadPool(config.getMaxThreads());
-		
+
 		// Initialize global routes object
-		Routes.setRoot(config.getRoot());
-		Routes.setDefaultPage(config.getDefaultPage());
+		Routes.initRoutes(config.getRoot(), config.getDefaultPage());
 	}
 
 	public void listen() {

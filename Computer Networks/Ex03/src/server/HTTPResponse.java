@@ -39,7 +39,7 @@ public class HTTPResponse {
 				res.append(k + " : " + fields.get(k));
 			}
 
-			res.append("\n");
+			res.append('\n');
 		}
 		res.append('\n');
 		res.append(this.responseBody + '\n');

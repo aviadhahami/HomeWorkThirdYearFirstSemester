@@ -45,15 +45,15 @@ public class ResponseHandler {
 		return header.length() == 0 ? HTTPcodesHash.get(500) : header;
 	}
 
-	public static String buildResponse(HTTPRequest req) {
+	public static String buildResponse(HTTPRequest req, Client client) {
 		HTTPResponse res = new HTTPResponse();
 		res.fields.put("Date", new Date().toString());
 		res.fields.put("Server", "Badly implemented/1.0 (Ubuntu)");
 
 		String reqType = req.getRequestType();
-		if (reqType == "GET1") {
+		if (reqType == "GET") {
 
-			// TODO : process
+			return "yes";
 		} else if (reqType == "POST") {
 
 			// TODO : process
