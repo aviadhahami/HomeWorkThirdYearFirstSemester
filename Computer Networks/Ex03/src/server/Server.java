@@ -2,8 +2,6 @@ package server;
 
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  *
@@ -12,13 +10,13 @@ import java.util.concurrent.Executors;
 public class Server {
 
 	private final int port;
-	ExecutorService threadPoolExecutor;
+	ThreadPoolManager poolManager;
 
 	public Server(ServerConfigObj config) {
 		this.port = config.getPort();
-		
+
 		// TODO : Implement executor by yourself
-		threadPoolExecutor = Executors.newFixedThreadPool(config.getMaxThreads());
+		poolManager = new ThreadPoolManager(config.getMaxThreads());
 
 		// Initialize global routes object
 		Routes.initRoutes(config.getRoot(), config.getDefaultPage());
@@ -38,7 +36,7 @@ public class Server {
 				ConnectionHandler connectionHandler = new ConnectionHandler(connection);
 
 				// Executing via pool manager
-				threadPoolExecutor.execute(connectionHandler);
+				poolManager.submitTask(connectionHandler);
 			}
 		} catch (Exception e) {
 			Console.logErr("Server couldn't start because " + e.getMessage());
