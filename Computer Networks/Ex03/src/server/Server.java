@@ -15,7 +15,6 @@ public class Server {
 	public Server(ServerConfigObj config) {
 		this.port = config.getPort();
 
-		// TODO : Implement executor by yourself
 		poolManager = new ThreadPoolManager(config.getMaxThreads());
 
 		// Initialize global routes object

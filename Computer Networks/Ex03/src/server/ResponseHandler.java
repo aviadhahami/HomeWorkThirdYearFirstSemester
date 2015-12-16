@@ -42,7 +42,7 @@ public class ResponseHandler {
 
 		String header = HTTPcodesHash.get(code);
 
-		// If the code is null return server error
+		// If the status code is null return server error
 		return header.length() == 0 ? HTTPcodesHash.get(500) : header;
 	}
 
@@ -55,7 +55,7 @@ public class ResponseHandler {
 			res.setStatus(getResponseHeaderByCode(400));
 			res.setBody(getHTMLErrorAssetsByCode(400));
 			res.fields.put("Content-Length", Integer.toString(res.getBody().length()));
-			res.fields.put("Content-Type", "text/html");
+			res.fields.put("Content-Type", ContentTypeDictionary.getContentTypeByExt("html"));
 		} else {
 
 			String reqType = req.getRequestType();
@@ -63,19 +63,21 @@ public class ResponseHandler {
 				res.setStatus(getResponseHeaderByCode(403));
 				res.setBody(getHTMLErrorAssetsByCode(403));
 				res.fields.put("Content-Length", Integer.toString(res.getBody().length()));
-				res.fields.put("Content-Type", "text/html");
-			} else if (reqType.equals("GET")) {
+				res.fields.put("Content-Type", ContentTypeDictionary.getContentTypeByExt("html"));
+			} else if (reqType.equals("GET1")) {
+
 				// TODO: implement
+
 			} else if (reqType.equals("POST")) {
 
-				// TODO : process
+				// TODO : Implement
 			} else {
 
 				// Else is server error
 				res.setStatus(getResponseHeaderByCode(500));
 				res.setBody(getHTMLErrorAssetsByCode(500));
 				res.fields.put("Content-Length", Integer.toString(res.getBody().length()));
-				res.fields.put("Content-Type", "text/html");
+				res.fields.put("Content-Type", ContentTypeDictionary.getContentTypeByExt("html"));
 			}
 		}
 		return res.toString();
