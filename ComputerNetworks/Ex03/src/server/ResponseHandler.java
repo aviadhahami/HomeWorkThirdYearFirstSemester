@@ -66,16 +66,27 @@ public class ResponseHandler {
 				res.fields.put("Content-Type", ContentTypeDictionary.getContentTypeByExt("html"));
 			} else if (reqType.equals("GET1")) {
 
-				// TODO: implement
+				// TODO: Isolate params from req
+				// TODO: Verify proper path
+				// TODO: Look for resource
+				// TODO: Send params to resource
+				// TODO: Respond with resource
 
 			} else if (reqType.equals("POST")) {
 
-				// TODO : Implement
+				// TODO: Verify proper path
+				// TODO: Look for resource
+				// TODO: Send body to resource
+				// TODO: Respond from resource
+			} else if (reqType.equals("HEAD")) {
+				// TODO: Implement
+			} else if (reqType.equals("TRACE")) {
+				// TODO: Implement
 			} else {
 
-				// Else is server error
-				res.setStatus(getResponseHeaderByCode(500));
-				res.setBody(getHTMLErrorAssetsByCode(500));
+				// Else means we haven't implemented this
+				res.setStatus(getResponseHeaderByCode(501));
+				res.setBody(getHTMLErrorAssetsByCode(501));
 				res.fields.put("Content-Length", Integer.toString(res.getBody().length()));
 				res.fields.put("Content-Type", ContentTypeDictionary.getContentTypeByExt("html"));
 			}
