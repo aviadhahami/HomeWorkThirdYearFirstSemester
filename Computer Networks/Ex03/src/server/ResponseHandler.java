@@ -80,6 +80,7 @@ public class ResponseHandler {
 			Console.log("Couldn't load asset for " + code + ".html");
 			Console.logErr(e.getMessage());
 			e.printStackTrace();
+			content = "";
 		}
 		return content;
 	}
