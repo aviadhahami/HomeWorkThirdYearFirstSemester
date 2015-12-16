@@ -20,6 +20,9 @@ public class Routes {
 	public static boolean testRouteAccessibility(String path, int userLevel) {
 
 		String unifiedPath = unifyPath(path);
+		if (!isValidPath(unifiedPath)) {
+			return false;
+		}
 
 		StringBuilder sb = new StringBuilder();
 		char curr;
@@ -51,6 +54,7 @@ public class Routes {
 
 					// Means the returned value was null
 					Console.logErr("Unmonitored path - adding to cache and using inherited level");
+					Console.logErr("Path added - " + builtPath + " : " + previousLevel);
 					routesAccessMap.put(builtPath, previousLevel);
 				}
 
@@ -77,13 +81,20 @@ public class Routes {
 	private static String unifyPath(String path) {
 		StringBuilder sb = new StringBuilder();
 		if (!path.startsWith("/")) {
-			sb.append("/" + path);
+			sb.append("/");
+			sb.append(path);
+		} else {
+			sb.append(path);
 		}
 		return sb.toString();
 	}
 
 	// Test if there's a try to inject faulty path i.e. "a.html/abc"
-	public boolean isValidPath(String path) {
+	public static boolean isValidPath(String path) {
+
+		if (path.equals("/")) {
+			return true;
+		}
 		String firstDot = path.substring(path.indexOf("."));
 
 		// If there is a slash after the dot, than the path is not valid so we

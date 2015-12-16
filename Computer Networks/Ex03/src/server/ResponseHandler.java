@@ -49,11 +49,11 @@ public class ResponseHandler {
 		HTTPResponse res = new HTTPResponse();
 		res.fields.put("Date", new Date().toString());
 		res.fields.put("Server", "Badly implemented/1.0 (Ubuntu)");
-
+		Console.log(Routes.testRouteAccessibility(req.getRequestedResource(), client.permissionLevel));
 		String reqType = req.getRequestType();
 		if (reqType == "GET") {
 
-			return "yes";
+			// TODO: implement
 		} else if (reqType == "POST") {
 
 			// TODO : process
@@ -75,6 +75,7 @@ public class ResponseHandler {
 		} catch (Exception e) {
 			Console.log("Couldn't load asset for " + code + ".html");
 			Console.logErr(e.getMessage());
+			e.printStackTrace();
 		}
 		return content;
 	}

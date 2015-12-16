@@ -111,6 +111,7 @@ public class ConnectionHandler extends Thread {
 			System.err.println(e);
 		} catch (Exception e) {
 			System.err.println(e);
+			e.printStackTrace();
 		}
 	}
 
