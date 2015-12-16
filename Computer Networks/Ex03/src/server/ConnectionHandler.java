@@ -47,9 +47,8 @@ public class ConnectionHandler extends Thread {
 
 			// If not proper HTTP header we don't even try.
 			if (!validReqType) {
-				// TODO:Return bad request
-				String a = ResponseHandler.getResponseHeaderByCode(400);
-				pw.println(a);
+				String res = ResponseHandler.buildResponse(null, null);
+				pw.println(res);
 				closeConnection();
 			}
 
@@ -102,7 +101,7 @@ public class ConnectionHandler extends Thread {
 			// Spill request to console
 			Console.log(req.toString());
 
-			String res = ResponseHandler.buildResponse(req,client);
+			String res = ResponseHandler.buildResponse(req, client);
 			pw.println(res);
 
 			closeConnection();

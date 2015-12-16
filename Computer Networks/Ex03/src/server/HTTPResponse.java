@@ -31,7 +31,7 @@ public class HTTPResponse {
 	@Override
 	public String toString() {
 		StringBuilder res = new StringBuilder();
-		res.append(this.responseStatus);
+		res.append(this.responseStatus + "\n");
 		for (String k : fields.keySet()) {
 			if (fields.get(k) == "") {
 				res.append(k);

@@ -50,24 +50,33 @@ public class ResponseHandler {
 		HTTPResponse res = new HTTPResponse();
 		res.fields.put("Date", new Date().toString());
 		res.fields.put("Server", "Badly implemented/1.0 (Ubuntu)");
-		String reqType = req.getRequestType();
-		if (!Routes.testRouteAccessibility(req.getRequestedResource(), client.permissionLevel)) {
-			res.setStatus(getResponseHeaderByCode(403));
-			res.setBody(getHTMLErrorAssetsByCode(403));
+		if (req == null) {
+			// Then it's a bad request already
+			res.setStatus(getResponseHeaderByCode(400));
+			res.setBody(getHTMLErrorAssetsByCode(400));
 			res.fields.put("Content-Length", Integer.toString(res.getBody().length()));
 			res.fields.put("Content-Type", "text/html");
-		} else if (reqType.equals("GET")) {
-			// TODO: implement
-		} else if (reqType.equals("POST")) {
-
-			// TODO : process
 		} else {
 
-			// Else is server error
-			res.setStatus(getResponseHeaderByCode(500));
-			res.setBody(getHTMLErrorAssetsByCode(500));
-			res.fields.put("Content-Length", Integer.toString(res.getBody().length()));
-			res.fields.put("Content-Type", "text/html");
+			String reqType = req.getRequestType();
+			if (!Routes.testRouteAccessibility(req.getRequestedResource(), client.permissionLevel)) {
+				res.setStatus(getResponseHeaderByCode(403));
+				res.setBody(getHTMLErrorAssetsByCode(403));
+				res.fields.put("Content-Length", Integer.toString(res.getBody().length()));
+				res.fields.put("Content-Type", "text/html");
+			} else if (reqType.equals("GET")) {
+				// TODO: implement
+			} else if (reqType.equals("POST")) {
+
+				// TODO : process
+			} else {
+
+				// Else is server error
+				res.setStatus(getResponseHeaderByCode(500));
+				res.setBody(getHTMLErrorAssetsByCode(500));
+				res.fields.put("Content-Length", Integer.toString(res.getBody().length()));
+				res.fields.put("Content-Type", "text/html");
+			}
 		}
 		return res.toString();
 	}
