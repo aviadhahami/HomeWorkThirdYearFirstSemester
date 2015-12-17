@@ -119,8 +119,13 @@ public class ConnectionHandler extends Thread {
 		// FIXME: implement better security methodology
 
 		// Search the "level" cookie to extract user permission level
-		String regex = "(.*)level=([0-9]*)(.*)";
-		String userLevel = cookie.replaceAll(regex, "$2");
+		String userLevel;
+		try {
+			String regex = "(.*)level=([0-9]*)(.*)";
+			userLevel = cookie.replaceAll(regex, "$2");
+		} catch (NullPointerException e) {
+			userLevel = "0";
+		}
 		int level = 0;
 		try {
 			level = Integer.parseInt(userLevel);

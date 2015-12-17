@@ -46,7 +46,7 @@ public class ResponseHandler {
 		String header = HTTPcodesHash.get(code);
 
 		// If the status code is null return server error
-		return header.length() == 0 ? HTTPcodesHash.get(500) : header;
+		return header.length() == 0 ? HTTPcodesHash.get(501) : header;
 	}
 
 	public static String buildResponse(HTTPRequest req, Client client) {
@@ -96,7 +96,12 @@ public class ResponseHandler {
 				} else if (reqType.equals("HEAD")) {
 					// TODO: Implement
 				} else if (reqType.equals("TRACE")) {
-					// TODO: Implement
+					// TODO: Echo request data as body
+					res.setStatus(getResponseHeaderByCode(200));
+					res.setBody(req.toString());
+					res.fields.put("Content-Length", Integer.toString(res.getBody().length()));
+					res.fields.put("Content-Type", ContentTypeDictionary.getContentTypeByExt(null));
+
 				} else {
 
 					// Else means we haven't implemented this
