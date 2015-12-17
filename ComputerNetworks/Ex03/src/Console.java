@@ -1,4 +1,4 @@
-package server;
+
 
 /*
  * The love to JavaScript never ends
