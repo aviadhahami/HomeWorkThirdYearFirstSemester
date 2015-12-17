@@ -4,6 +4,7 @@
  */
 
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.Date;
 import java.util.HashMap;
@@ -59,15 +60,13 @@ public class ResponseHandler {
 			res.fields.put("Content-Length", Integer.toString(res.getBody().length()));
 			res.fields.put("Content-Type", ContentTypeDictionary.getContentTypeByExt("html"));
 		} else {
-			// FIXME String askedResourcePath = ;
 
 			try {
 
 				// Access frequently accessed variables once
 				String reqType = req.getRequestType();
 				String requestedResource = PathUtils.toFullPath(req.getRequestedResource());
-				
-				
+
 				// Verify security
 				if (!Routes.testRouteAccessibility(requestedResource, client.permissionLevel)) {
 					res.setStatus(getResponseHeaderByCode(403));
@@ -106,6 +105,11 @@ public class ResponseHandler {
 					res.fields.put("Content-Length", Integer.toString(res.getBody().length()));
 					res.fields.put("Content-Type", ContentTypeDictionary.getContentTypeByExt("html"));
 				}
+			} catch (NoSuchFileException e) {
+				res.setStatus(getResponseHeaderByCode(404));
+				res.setBody(getHTMLErrorAssetsByCode(404));
+				res.fields.put("Content-Length", Integer.toString(res.getBody().length()));
+				res.fields.put("Content-Type", ContentTypeDictionary.getContentTypeByExt("html"));
 
 			} catch (Exception e) {
 				Console.logErr(e.getMessage());

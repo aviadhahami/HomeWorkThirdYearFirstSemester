@@ -10,7 +10,7 @@ public class Routes {
 	public static void initRoutes(String _root, String _defaultPage) {
 		root = _root;
 		defaultPage = _defaultPage;
-		routesAccessMap.put("/", 0);
+		routesAccessMap.put("", 0);
 	}
 
 	/*
@@ -29,7 +29,7 @@ public class Routes {
 		String builtPath = "";
 		int extractedLevel;
 
-		sb.append("/");
+		
 		for (int i = 0; i < path.length(); i++) {
 			curr = path.charAt(i);
 			if (curr == '/') {
