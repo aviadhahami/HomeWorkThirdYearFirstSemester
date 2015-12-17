@@ -5,7 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class ServerConfigLoader {
-	private final static String[] configKeys = { "port", "maxthreads", "defaultpage", "root" };
+	private final static String[] configKeys = { "port", "maxThreads", "defaultPage", "root" };
 
 	public static ServerConfigObj load(String configPath) {
 
@@ -13,7 +13,7 @@ public class ServerConfigLoader {
 
 		try {
 			String content = new String(Files.readAllBytes(Paths.get(configPath)));
-			String[] configFile = content.toLowerCase().split("\n");
+			String[] configFile = content.split("\n");
 
 			// Parse the config file
 			for (String str : configFile) {
@@ -29,10 +29,10 @@ public class ServerConfigLoader {
 						case "port":
 							config.setPort(praseIntValue(str));
 							break;
-						case "maxthreads":
+						case "maxThreads":
 							config.setMaxThreads(praseIntValue(str));
 							break;
-						case "defaultpage":
+						case "defaultPage":
 							config.setDefaultPage(parseValue(str));
 							break;
 						case "root":

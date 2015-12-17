@@ -55,7 +55,7 @@ public class ServerConfigObj {
 	}
 
 	public String getDefaultPage() {
-		if (this.defaultPage.equals(null)) {
+		if (this.defaultPage == null) {
 			this.defaultPage = this.defaultDefaultPage;
 			System.out.println("Used default main page : " + this.defaultPage);
 		}
