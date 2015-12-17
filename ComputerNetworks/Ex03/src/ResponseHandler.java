@@ -96,7 +96,6 @@ public class ResponseHandler {
 				} else if (reqType.equals("HEAD")) {
 					// TODO: Implement
 				} else if (reqType.equals("TRACE")) {
-					// TODO: Echo request data as body
 					res.setStatus(getResponseHeaderByCode(200));
 					res.setBody(req.toString());
 					res.fields.put("Content-Length", Integer.toString(res.getBody().length()));
