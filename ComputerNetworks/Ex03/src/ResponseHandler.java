@@ -1,7 +1,7 @@
+
 /**
  * 
  */
-
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -38,6 +38,8 @@ public class ResponseHandler {
 	}
 
 	// Public getter
+
+	// FIXME: Verify this
 	public static String getResponseHeaderByCode(int code) {
 
 		String header = HTTPcodesHash.get(code);
@@ -57,41 +59,61 @@ public class ResponseHandler {
 			res.fields.put("Content-Length", Integer.toString(res.getBody().length()));
 			res.fields.put("Content-Type", ContentTypeDictionary.getContentTypeByExt("html"));
 		} else {
+			try {
 
-			String reqType = req.getRequestType();
-			if (!Routes.testRouteAccessibility(req.getRequestedResource(), client.permissionLevel)) {
-				res.setStatus(getResponseHeaderByCode(403));
-				res.setBody(getHTMLErrorAssetsByCode(403));
-				res.fields.put("Content-Length", Integer.toString(res.getBody().length()));
-				res.fields.put("Content-Type", ContentTypeDictionary.getContentTypeByExt("html"));
-			} else if (reqType.equals("GET1")) {
+				String reqType = req.getRequestType();
 
-				// TODO: Isolate params from req
-				// TODO: Verify proper path
-				// TODO: Look for resource
-				// TODO: Send params to resource
-				// TODO: Respond with resource
+				// Verify security
+				if (!Routes.testRouteAccessibility(req.getRequestedResource(), client.permissionLevel)) {
+					res.setStatus(getResponseHeaderByCode(403));
+					res.setBody(getHTMLErrorAssetsByCode(403));
+					res.fields.put("Content-Length", Integer.toString(res.getBody().length()));
+					res.fields.put("Content-Type", ContentTypeDictionary.getContentTypeByExt("html"));
+				} else if (reqType.equals("GET")) {
 
-			} else if (reqType.equals("POST")) {
+					// TODO: Isolate params from req
+					// TODO: Verify proper path
+					// TODO: Look for resource
+					// TODO: Send params to resource
+					// TODO: Respond with resource
+					try {
+						String content = new String(Files.readAllBytes(Paths.get(req.getRequestedResource())));
+					} catch (Exception e) {
 
-				// TODO: Verify proper path
-				// TODO: Look for resource
-				// TODO: Send body to resource
-				// TODO: Respond from resource
-			} else if (reqType.equals("HEAD")) {
-				// TODO: Implement
-			} else if (reqType.equals("TRACE")) {
-				// TODO: Implement
-			} else {
+					}
 
-				// Else means we haven't implemented this
-				res.setStatus(getResponseHeaderByCode(501));
-				res.setBody(getHTMLErrorAssetsByCode(501));
+				} else if (reqType.equals("POST")) {
+
+					// TODO: Verify proper path
+					// TODO: Look for resource
+					// TODO: Send body to resource
+					// TODO: Respond from resource
+				} else if (reqType.equals("HEAD")) {
+					// TODO: Implement
+				} else if (reqType.equals("TRACE")) {
+					// TODO: Implement
+				} else {
+
+					// Else means we haven't implemented this
+					res.setStatus(getResponseHeaderByCode(501));
+					res.setBody(getHTMLErrorAssetsByCode(501));
+					res.fields.put("Content-Length", Integer.toString(res.getBody().length()));
+					res.fields.put("Content-Type", ContentTypeDictionary.getContentTypeByExt("html"));
+				}
+
+			} catch (Exception e) {
+				// Means there was an error generating response
+				// So we build server error
+				res.setStatus(getResponseHeaderByCode(500));
+				res.setBody(getHTMLErrorAssetsByCode(500));
 				res.fields.put("Content-Length", Integer.toString(res.getBody().length()));
 				res.fields.put("Content-Type", ContentTypeDictionary.getContentTypeByExt("html"));
 			}
+
 		}
+
 		return res.toString();
+
 	}
 
 	private static String getHTMLErrorAssetsByCode(int code) {
