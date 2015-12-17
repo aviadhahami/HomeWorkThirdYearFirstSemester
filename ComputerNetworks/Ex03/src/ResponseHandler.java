@@ -59,6 +59,8 @@ public class ResponseHandler {
 			res.fields.put("Content-Length", Integer.toString(res.getBody().length()));
 			res.fields.put("Content-Type", ContentTypeDictionary.getContentTypeByExt("html"));
 		} else {
+			//FIXME String askedResourcePath = ;
+
 			try {
 
 				String reqType = req.getRequestType();
@@ -76,11 +78,12 @@ public class ResponseHandler {
 					// TODO: Look for resource
 					// TODO: Send params to resource
 					// TODO: Respond with resource
-					try {
-						String content = new String(Files.readAllBytes(Paths.get(req.getRequestedResource())));
-					} catch (Exception e) {
-
-					}
+					String content = new String(Files.readAllBytes(Paths.get(req.getRequestedResource())));
+					String ext = req.getRequestedResource().replaceAll("^.*\\.(.*)$", "$1");
+					res.setStatus(getResponseHeaderByCode(200));
+					res.setBody(content);
+					res.fields.put("Content-Length", Integer.toString(res.getBody().length()));
+					res.fields.put("Content-Type", ContentTypeDictionary.getContentTypeByExt(ext));
 
 				} else if (reqType.equals("POST")) {
 
@@ -102,6 +105,8 @@ public class ResponseHandler {
 				}
 
 			} catch (Exception e) {
+				Console.logErr(e.getMessage());
+				e.printStackTrace();
 				// Means there was an error generating response
 				// So we build server error
 				res.setStatus(getResponseHeaderByCode(500));
