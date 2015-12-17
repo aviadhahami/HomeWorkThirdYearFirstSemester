@@ -1,5 +1,4 @@
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -48,7 +47,7 @@ public class ConnectionHandler extends Thread {
 			// If not proper HTTP header we don't even try.
 			if (!validReqType) {
 				String res = ResponseHandler.buildResponse(null, null);
-				pw.println(res);
+				pw.println(res.toString());
 				closeConnection();
 			}
 

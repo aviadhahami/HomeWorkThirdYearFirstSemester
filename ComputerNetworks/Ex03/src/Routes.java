@@ -1,5 +1,4 @@
 
-
 import java.util.HashMap;
 
 public class Routes {
@@ -11,7 +10,7 @@ public class Routes {
 	public static void initRoutes(String _root, String _defaultPage) {
 		root = _root;
 		defaultPage = _defaultPage;
-		routesAccessMap.put("/",0);
+		routesAccessMap.put("/", 0);
 	}
 
 	/*
@@ -19,22 +18,20 @@ public class Routes {
 	 */
 	public static boolean testRouteAccessibility(String path, int userLevel) {
 
-		String unifiedPath = unifyPath(path);
-		if (!isValidPath(unifiedPath)) {
+		if (!PathUtils.isValidPath(path)) {
 			return false;
 		}
 
-		Console.log("THIS IS PATE " + unifiedPath);
+		Console.log("THIS IS PATH " + path);
 		StringBuilder sb = new StringBuilder();
 		char curr;
 		int previousLevel = 0;
 		String builtPath = "";
 		int extractedLevel;
-		
-		
+
 		sb.append("/");
-		for (int i = 0; i < unifiedPath.length(); i++) {
-			curr = unifiedPath.charAt(i);
+		for (int i = 0; i < path.length(); i++) {
+			curr = path.charAt(i);
 			if (curr == '/') {
 				// Test for allowance
 				extractedLevel = 0;
@@ -78,32 +75,6 @@ public class Routes {
 			}
 		}
 		return true;
-	}
-
-	// Unify the paths we test
-	private static String unifyPath(String path) {
-		StringBuilder sb = new StringBuilder();
-		if (!path.startsWith("/")) {
-			sb.append("/");
-			sb.append(path);
-		} else {
-			sb.append(path);
-		}
-		return sb.toString();
-	}
-
-	// Test if there's a try to inject faulty path i.e. "a.html/abc"
-	public static boolean isValidPath(String path) {
-
-		if (path.equals("/")) {
-			return true;
-		}
-		String firstDot = path.substring(path.indexOf("."));
-
-		// If there is a slash after the dot, than the path is not valid so we
-		// return the opposite of the condition
-		return !(firstDot.indexOf('/') > -1);
-
 	}
 
 	public static String getDefaultPage() {

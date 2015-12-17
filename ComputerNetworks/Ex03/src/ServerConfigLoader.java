@@ -1,5 +1,4 @@
 
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -27,10 +26,10 @@ public class ServerConfigLoader {
 					if (str.indexOf(key) > -1) {
 						switch (key) {
 						case "port":
-							config.setPort(praseIntValue(str));
+							config.setPort(parseIntValue(str));
 							break;
 						case "maxThreads":
-							config.setMaxThreads(praseIntValue(str));
+							config.setMaxThreads(parseIntValue(str));
 							break;
 						case "defaultPage":
 							config.setDefaultPage(parseValue(str));
@@ -50,7 +49,7 @@ public class ServerConfigLoader {
 	}
 
 	// Parsing int value from config file
-	private static int praseIntValue(String str) {
+	private static int parseIntValue(String str) {
 		String val = str.substring(str.indexOf("=") + 1);
 		int parsedVal;
 		try {

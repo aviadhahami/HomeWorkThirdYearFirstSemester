@@ -59,14 +59,17 @@ public class ResponseHandler {
 			res.fields.put("Content-Length", Integer.toString(res.getBody().length()));
 			res.fields.put("Content-Type", ContentTypeDictionary.getContentTypeByExt("html"));
 		} else {
-			//FIXME String askedResourcePath = ;
+			// FIXME String askedResourcePath = ;
 
 			try {
 
+				// Access frequently accessed variables once
 				String reqType = req.getRequestType();
-
+				String requestedResource = PathUtils.toFullPath(req.getRequestedResource());
+				
+				
 				// Verify security
-				if (!Routes.testRouteAccessibility(req.getRequestedResource(), client.permissionLevel)) {
+				if (!Routes.testRouteAccessibility(requestedResource, client.permissionLevel)) {
 					res.setStatus(getResponseHeaderByCode(403));
 					res.setBody(getHTMLErrorAssetsByCode(403));
 					res.fields.put("Content-Length", Integer.toString(res.getBody().length()));
@@ -78,8 +81,8 @@ public class ResponseHandler {
 					// TODO: Look for resource
 					// TODO: Send params to resource
 					// TODO: Respond with resource
-					String content = new String(Files.readAllBytes(Paths.get(req.getRequestedResource())));
-					String ext = req.getRequestedResource().replaceAll("^.*\\.(.*)$", "$1");
+					String content = new String(Files.readAllBytes(Paths.get(requestedResource)));
+					String ext = requestedResource.replaceAll("^.*\\.(.*)$", "$1");
 					res.setStatus(getResponseHeaderByCode(200));
 					res.setBody(content);
 					res.fields.put("Content-Length", Integer.toString(res.getBody().length()));

@@ -18,6 +18,6 @@ public class ContentTypeDictionary {
 
 	public static String getContentTypeByExt(String type) {
 		String dictVal = contentTypesDictionary.get(type);
-		return (dictVal.equals(null) ? DEFAULT_TYPE : dictVal);
+		return (dictVal == null) ? DEFAULT_TYPE : dictVal;
 	}
 }

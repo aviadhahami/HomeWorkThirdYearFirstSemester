@@ -1,5 +1,4 @@
 
-
 public class ServerConfigObj {
 
 	// Fallbacks
@@ -71,4 +70,5 @@ public class ServerConfigObj {
 		sb.append("default page : " + this.defaultPage + "\n");
 		return sb.toString();
 	}
+
 }
