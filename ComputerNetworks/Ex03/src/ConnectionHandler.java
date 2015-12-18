@@ -5,7 +5,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
-import java.util.concurrent.TimeoutException;
 
 /**
  *
@@ -15,7 +14,7 @@ public class ConnectionHandler extends Thread {
 
 	private final Socket socket;
 	private Client client = new Client();
-	private int timeoutThreshhold;
+	private int timeoutThreshhold; // FIXME : implement
 	OutputStream out;
 	byte[] res;
 
@@ -68,8 +67,7 @@ public class ConnectionHandler extends Thread {
 				req.setHTTPVersion(reqHeader[1]);
 			}
 
-			long startTime = System.currentTimeMillis();
-			while (((line = reader.readLine()) != null) && !checkTimeout(startTime)) {
+			while ((line = reader.readLine()) != null) {
 
 				// If we hit an empty line then we received all the header
 				if (line.length() == 0) {
@@ -108,10 +106,6 @@ public class ConnectionHandler extends Thread {
 			Console.log(req.toString());
 
 			res = ResponseHandler.buildResponse(req, client);
-		} catch (TimeoutException e) {
-
-			res = ResponseHandler.buildResponseByCode(408);
-
 		} catch (Exception e) {
 			res = ResponseHandler.buildResponseByCode(500);
 			Console.logErr(e.getMessage());
@@ -126,13 +120,6 @@ public class ConnectionHandler extends Thread {
 		}
 
 		closeConnection();
-	}
-
-	private boolean checkTimeout(long startTime) throws TimeoutException {
-		if (System.currentTimeMillis() - startTime < this.timeoutThreshhold) {
-			throw new TimeoutException("Timeout threshold reached - will close socket");
-		}
-		return System.currentTimeMillis() - startTime < this.timeoutThreshhold;
 	}
 
 	private void updateClient(String UA, String cookie) {
