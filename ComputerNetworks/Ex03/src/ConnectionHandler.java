@@ -25,7 +25,7 @@ public class ConnectionHandler extends Thread {
 		try {
 			// Init readers and writers
 			OutputStream out = socket.getOutputStream();
-			PrintWriter pw = new PrintWriter(out, true);
+			// PrintWriter pw = new PrintWriter(out, true);
 			BufferedReader reader = new BufferedReader(
 					new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
 			StringBuilder sb = new StringBuilder();
@@ -47,7 +47,8 @@ public class ConnectionHandler extends Thread {
 			// If not proper HTTP header we don't even try.
 			if (!validReqType) {
 				String res = ResponseHandler.buildResponse(null, null);
-				pw.println(res.toString());
+				// pw.println(res.toString());
+				out.write(res.getBytes());
 				closeConnection();
 			}
 
@@ -100,8 +101,9 @@ public class ConnectionHandler extends Thread {
 			// Spill request to console
 			Console.log(req.toString());
 
-			String res = ResponseHandler.buildResponse(req, client);
-			pw.println(res);
+			// String res = ResponseHandler.buildResponse(req, client);
+			// pw.println(res.getBytes());
+			out.write(ResponseHandler.buildResponse(req, client));
 
 			closeConnection();
 
