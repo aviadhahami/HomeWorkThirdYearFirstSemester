@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Database demo</title>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            color: white;
+            font-family: "Roboto", "Times New Roman";
+        }
+
+        .container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: #78909C;
+        }
+
+        .content {
+            margin-top: 5%;
+            text-align: center;
+        }
+
+        .page-title {
+            color: white;
+            font-family: "Roboto", "Times New Roman";
+            text-align: center;
+        }
+
+        .page-title h1 {
+            font-family: "Pacifico", "Times New Roman";
+            font-weight: 400;
+        }
+
+        .page-title small {
+            font-weight: 300;
+        }
+
+        .database-container {
+            margin-top: 2%;
+        }
+
+        button {
+            background-color: transparent;
+            border: solid white 1px;
+            border-radius: 5px;
+            color: white;
+            font-family: "Roboto", "Times New Roman";
+            padding: 5px;
+        }
+
+        input {
+            background-color: transparent;
+            border: solid white 1px;
+            border-radius: 5px;
+            color: white;
+            font-family: "Roboto", "Times New Roman";
+            padding: 5px;
+        }
+
+        ::-webkit-input-placeholder {
+            color: rgba(255, 255, 255, 0.5);
+            font-family: "Roboto", "Times New Roman";
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="content">
+        <div class="page-title">
+            <h1>Database Demo</h1>
+            <small>
+                In this part one may want to type a name and wait for auto-complete from server <br>
+                or click on the button and show all records
+            </small>
+        </div>
+        <div class="database-container">
+
+            <div class="search-box">
+                <input id="search-box" type="text" placeholder="Search name(i.e Davie Jones)"/>
+                OR
+                <button id="showAll">
+                    show all records
+                </button>
+            </div>
+            <br><br>
+            <div class="table-box">
+                <div id="result">
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!--Load JQ-->
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <!--load private js file-->
+    <script src="scripts/database.js"></script>
+</body>
+</html>
