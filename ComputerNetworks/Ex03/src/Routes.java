@@ -1,4 +1,7 @@
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 
 public class Routes {
@@ -28,7 +31,6 @@ public class Routes {
 		String builtPath = "";
 		int extractedLevel;
 
-		
 		for (int i = 0; i < path.length(); i++) {
 			curr = path.charAt(i);
 			if (curr == '/') {
@@ -84,4 +86,12 @@ public class Routes {
 		return root;
 	}
 
+	public static byte[] invokeController(String path) throws IOException {
+		if (controllerMap.get(path) == null) {
+			return Files.readAllBytes(Paths.get(path));
+		}else{
+			return controllerMap.get(path).invoke();
+		}
+		
+	}
 }

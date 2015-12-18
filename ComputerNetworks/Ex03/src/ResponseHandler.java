@@ -81,7 +81,10 @@ public class ResponseHandler {
 				// TODO: Look for resource
 				// TODO: Send params to resource
 				// TODO: Respond with resource
-				byte[] content = Files.readAllBytes(Paths.get(requestedResource.getPath()));
+				byte[] content = Routes.invokeController(requestedResource.getPath());
+
+//				content = Files.readAllBytes(Paths.get(requestedResource.getPath()));
+
 				String ext = requestedResource.getPath().replaceAll("^.*\\.(.*)$", "$1");
 				res.setStatus(getResponseHeaderByCode(200));
 				res.setBody(content);
