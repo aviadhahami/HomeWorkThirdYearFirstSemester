@@ -36,7 +36,7 @@ $(document).ready(function () {
 
 
     $('#showAll').click(function () {
-        $.get("/getDB", function (data) {
+        $.get("/api/getDB", function (data) {
             alert("Load was performed.");
         }).done(function (res) {
             appendRecordList(res.data);
@@ -48,11 +48,11 @@ $(document).ready(function () {
     // Bind input box
     $('#search-box').on("keyup", function () {
         var val = $('#search-box').val();
-        $.get("/getDB", function (data) {
+        $.get("/api/getDB?name=" + val, function (data) {
             console.log('data', data);
             alert("Load was performed.");
         }).done(function (data) {
-            console.log(data);
+            console.log(JSON.parse(data));
         }).fail(function (err) {
             result.html("");
             result.append('<p style="color:#BF360C;">Error! server responed with ' + err.status + ' </p>');

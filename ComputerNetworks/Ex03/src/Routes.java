@@ -1,7 +1,4 @@
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashMap;
 
 public class Routes {
@@ -9,11 +6,18 @@ public class Routes {
 	private static String root = "";
 	private static String defaultPage = "";
 	private static HashMap<String, Integer> routesAccessMap = new HashMap<>();
+	private static HashMap<String, RouteController> controllerMap = new HashMap<>();
 
 	public static void initRoutes(String _root, String _defaultPage) {
 		root = _root;
 		defaultPage = _defaultPage;
 		routesAccessMap.put("", 0);
+		populateRouteControllers();
+	}
+
+	private static void populateRouteControllers() {
+		controllerMap.put("api/getDB", new databaseController());
+
 	}
 
 	/*
@@ -86,12 +90,8 @@ public class Routes {
 		return root;
 	}
 
-	public static byte[] invokeController(String path) throws IOException {
-		if (controllerMap.get(path) == null) {
-			return Files.readAllBytes(Paths.get(path));
-		}else{
-			return controllerMap.get(path).invoke();
-		}
-		
+	public static RouteController getController(String path) {
+		RouteController controller = controllerMap.get(path);
+		return controller;
 	}
 }

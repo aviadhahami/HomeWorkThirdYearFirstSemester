@@ -12,7 +12,7 @@ public class Database {
 		records.put("Ann", "20");
 	}
 
-	public static String find(String k) {
+	public static String get(String k) {
 		String res = records.get(k);
 		return res == null ? "" : res;
 	}
