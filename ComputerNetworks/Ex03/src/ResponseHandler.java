@@ -57,7 +57,7 @@ public class ResponseHandler {
 			// Then it's a bad request already
 			res.setStatus(getResponseHeaderByCode(400));
 			res.setBody(getHTMLErrorAssetsByCode(400));
-			res.fields.put("Content-Length", Integer.toString(res.getBody().length()));
+			res.fields.put("Content-Length", Integer.toString(res.getBodySize()));
 			res.fields.put("Content-Type", ContentTypeDictionary.getContentTypeByExt("html"));
 		} else {
 
@@ -71,7 +71,7 @@ public class ResponseHandler {
 				if (!Routes.testRouteAccessibility(requestedResource, client.permissionLevel)) {
 					res.setStatus(getResponseHeaderByCode(403));
 					res.setBody(getHTMLErrorAssetsByCode(403));
-					res.fields.put("Content-Length", Integer.toString(res.getBody().length()));
+					res.fields.put("Content-Length", Integer.toString(res.getBodySize()));
 					res.fields.put("Content-Type", ContentTypeDictionary.getContentTypeByExt("html"));
 				} else if (reqType.equals("GET")) {
 
@@ -80,11 +80,11 @@ public class ResponseHandler {
 					// TODO: Look for resource
 					// TODO: Send params to resource
 					// TODO: Respond with resource
-					String content = new String(Files.readAllBytes(Paths.get(requestedResource)));
+					byte[] content = Files.readAllBytes(Paths.get(requestedResource));
 					String ext = requestedResource.replaceAll("^.*\\.(.*)$", "$1");
 					res.setStatus(getResponseHeaderByCode(200));
 					res.setBody(content);
-					res.fields.put("Content-Length", Integer.toString(res.getBody().length()));
+					res.fields.put("Content-Length", Integer.toString(res.getBodySize()));
 					res.fields.put("Content-Type", ContentTypeDictionary.getContentTypeByExt(ext));
 
 				} else if (reqType.equals("POST")) {
@@ -97,8 +97,8 @@ public class ResponseHandler {
 					// TODO: Implement
 				} else if (reqType.equals("TRACE")) {
 					res.setStatus(getResponseHeaderByCode(200));
-					res.setBody(req.toString());
-					res.fields.put("Content-Length", Integer.toString(res.getBody().length()));
+					res.setBody(req.toString().getBytes());
+					res.fields.put("Content-Length", Integer.toString(res.getBodySize()));
 					res.fields.put("Content-Type", ContentTypeDictionary.getContentTypeByExt(null));
 
 				} else {
@@ -106,13 +106,13 @@ public class ResponseHandler {
 					// Else means we haven't implemented this
 					res.setStatus(getResponseHeaderByCode(501));
 					res.setBody(getHTMLErrorAssetsByCode(501));
-					res.fields.put("Content-Length", Integer.toString(res.getBody().length()));
+					res.fields.put("Content-Length", Integer.toString(res.getBodySize()));
 					res.fields.put("Content-Type", ContentTypeDictionary.getContentTypeByExt("html"));
 				}
 			} catch (NoSuchFileException e) {
 				res.setStatus(getResponseHeaderByCode(404));
 				res.setBody(getHTMLErrorAssetsByCode(404));
-				res.fields.put("Content-Length", Integer.toString(res.getBody().length()));
+				res.fields.put("Content-Length", Integer.toString(res.getBodySize()));
 				res.fields.put("Content-Type", ContentTypeDictionary.getContentTypeByExt("html"));
 
 			} catch (Exception e) {
@@ -122,7 +122,7 @@ public class ResponseHandler {
 				// So we build server error
 				res.setStatus(getResponseHeaderByCode(500));
 				res.setBody(getHTMLErrorAssetsByCode(500));
-				res.fields.put("Content-Length", Integer.toString(res.getBody().length()));
+				res.fields.put("Content-Length", Integer.toString(res.getBodySize()));
 				res.fields.put("Content-Type", ContentTypeDictionary.getContentTypeByExt("html"));
 			}
 

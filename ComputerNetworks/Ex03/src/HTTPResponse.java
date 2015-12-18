@@ -27,8 +27,7 @@ public class HTTPResponse {
 		this.responseBody = body;
 	}
 
-	@Override
-	public String toString() {
+	public String headerToString() {
 		StringBuilder res = new StringBuilder();
 		res.append(this.responseStatus + "\n");
 		for (String k : fields.keySet()) {
@@ -37,14 +36,26 @@ public class HTTPResponse {
 			} else {
 				res.append(k + " : " + fields.get(k));
 			}
-
 			res.append('\n');
 		}
 		return res.toString();
 	}
 
 	public byte[] generateBytes() {
-		// TODO Auto-generated method stub
-		return null;
+		return composeByteBasedResponse(this.headerToString().getBytes(), this.responseBody);
+	}
+
+	private byte[] composeByteBasedResponse(byte[] head, byte[] body) {
+		byte[] merged = new byte[head.length + body.length];
+		System.arraycopy(head, 0, merged, 0, head.length);
+		System.arraycopy(body, 0, merged, head.length, body.length);
+		return merged;
+	}
+
+	/*
+	 * Return the size Octet based
+	 */
+	public int getBodySize() {
+		return this.getBody().length;
 	}
 }
