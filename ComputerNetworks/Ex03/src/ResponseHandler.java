@@ -49,7 +49,7 @@ public class ResponseHandler {
 		return header.length() == 0 ? HTTPcodesHash.get(501) : header;
 	}
 
-	public static String buildResponse(HTTPRequest req, Client client) {
+	public static byte[] buildResponse(HTTPRequest req, Client client) {
 		HTTPResponse res = new HTTPResponse();
 		res.fields.put("Date", new Date().toString());
 		res.fields.put("Server", "Badly implemented/1.0 (Ubuntu)");
@@ -128,18 +128,17 @@ public class ResponseHandler {
 
 		}
 
-		return res.toString();
+		return res.generateBytes();
 
 	}
 
-	private static String getHTMLErrorAssetsByCode(int code) {
-		String content = null;
+	private static byte[] getHTMLErrorAssetsByCode(int code) {
+		byte[] content = null;
 		try {
-			content = new String(Files.readAllBytes(Paths.get(ASSETS + code + ".html")));
+			content = Files.readAllBytes(Paths.get(ASSETS + code + ".html"));
 		} catch (Exception e) {
 			Console.log("Couldn't load asset for " + code + ".html");
 			Console.logErr("Reason : " + e.getMessage());
-			content = "";
 		}
 		return content;
 	}

@@ -1,5 +1,4 @@
 
-
 import java.util.LinkedHashMap;
 
 public class HTTPResponse {
@@ -7,7 +6,7 @@ public class HTTPResponse {
 	// A bit of overkill I know but other DS destroy insertion order
 	public LinkedHashMap<String, String> fields = new LinkedHashMap<>();
 	private String responseStatus = null;
-	private String responseBody = null;
+	private byte[] responseBody = null;
 
 	public HTTPResponse() {
 	}
@@ -20,11 +19,11 @@ public class HTTPResponse {
 		return this.responseStatus;
 	}
 
-	public String getBody() {
+	public byte[] getBody() {
 		return this.responseBody;
 	}
 
-	public void setBody(String body) {
+	public void setBody(byte[] body) {
 		this.responseBody = body;
 	}
 
@@ -41,8 +40,11 @@ public class HTTPResponse {
 
 			res.append('\n');
 		}
-		res.append('\n');
-		res.append(this.responseBody + '\n');
 		return res.toString();
+	}
+
+	public byte[] generateBytes() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

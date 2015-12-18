@@ -46,9 +46,9 @@ public class ConnectionHandler extends Thread {
 
 			// If not proper HTTP header we don't even try.
 			if (!validReqType) {
-				String res = ResponseHandler.buildResponse(null, null);
+//				String res = ResponseHandler.buildResponse(null, null);
 				// pw.println(res.toString());
-				out.write(res.getBytes());
+				out.write(ResponseHandler.buildResponse(null, null));
 				closeConnection();
 			}
 
