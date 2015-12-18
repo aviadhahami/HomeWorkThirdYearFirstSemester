@@ -4,6 +4,7 @@
  */
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
@@ -116,6 +117,12 @@ public class ResponseHandler {
 			} else {
 				return buildResponseByCode(501);
 			}
+		} catch (URISyntaxException e) {
+			Console.logErr(e.getMessage());
+			return buildResponseByCode(400);
+		} catch (IllegalArgumentException e) {
+			Console.logErr(e.getMessage());
+			return buildResponseByCode(400);
 		} catch (NoSuchFileException e) {
 			return buildResponseByCode(404);
 		} catch (Exception e) {

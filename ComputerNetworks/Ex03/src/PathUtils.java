@@ -16,6 +16,9 @@ public class PathUtils {
 
 	}
 
+	/*
+	 * Deprecated
+	 */
 	public static boolean isValidPath(String path) {
 		if (path == null) {
 			return false;
