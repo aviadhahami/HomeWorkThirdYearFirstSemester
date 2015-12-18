@@ -3,6 +3,7 @@
  * 
  */
 
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
@@ -26,8 +27,8 @@ public class ResponseHandler {
 
 	// Final static strings
 	private static final String ASSETS = Routes.getRoot() + "assets/";
-	private static final String CONTENT_LENGTH = "Content-Length : ";
-	private static final String CONTENT_TYPE = "Content-Type : ";
+	private static final String CONTENT_LENGTH = "Content-Length";
+	private static final String CONTENT_TYPE = "Content-Type";
 
 	// Populate the hash
 	static {
@@ -54,96 +55,78 @@ public class ResponseHandler {
 	public static byte[] buildResponse(HTTPRequest req, Client client) {
 		HTTPResponse res = new HTTPResponse();
 		res.fields.put("Date", new Date().toString());
-		res.fields.put("Server", "Badly implemented/1.0 (Ubuntu)");
+		res.fields.put("Server", "Computer Networks/1.0 (Ubuntu)");
+
+		// If somehow the request object is still null, server error
 		if (req == null) {
-			// Then it's a bad request already
-			res.setStatus(getResponseHeaderByCode(400));
-			res.setBody(getHTMLErrorAssetsByCode(400));
-			res.fields.put(CONTENT_LENGTH, Integer.toString(res.getBodySize()));
-			res.fields.put(CONTENT_TYPE, ContentTypeDictionary.getContentTypeByExt("html"));
-		} else {
+			return buildResponseByCode(500);
+		}
+		try {
 
-			try {
+			// Access frequently accessed variables once
+			String reqType = req.getRequestType();
+			URI requestedResource = PathUtils.toFullPath(req.getRequestedResource());
 
-				// Access frequently accessed variables once
-				String reqType = req.getRequestType();
-				String requestedResource = PathUtils.toFullPath(req.getRequestedResource());
-
-				// Verify security
-				if (!Routes.testRouteAccessibility(requestedResource, client.permissionLevel)) {
-					res.setStatus(getResponseHeaderByCode(403));
-					res.setBody(getHTMLErrorAssetsByCode(403));
-					res.fields.put(CONTENT_LENGTH, Integer.toString(res.getBodySize()));
-					res.fields.put(CONTENT_TYPE, ContentTypeDictionary.getContentTypeByExt("html"));
-				} else if (reqType.equals("GET")) {
-
-					// TODO: Isolate params from req
-					// TODO: Verify proper path
-					// TODO: Look for resource
-					// TODO: Send params to resource
-					// TODO: Respond with resource
-					byte[] content = Files.readAllBytes(Paths.get(requestedResource));
-					String ext = requestedResource.replaceAll("^.*\\.(.*)$", "$1");
-					res.setStatus(getResponseHeaderByCode(200));
-					res.setBody(content);
-					res.fields.put(CONTENT_LENGTH, Integer.toString(res.getBodySize()));
-					res.fields.put(CONTENT_TYPE, ContentTypeDictionary.getContentTypeByExt(ext));
-
-				} else if (reqType.equals("POST")) {
-
-					// TODO: Verify proper path
-					// TODO: Look for resource
-					// TODO: Send body to resource
-					// TODO: Respond from resource
-				} else if (reqType.equals("HEAD")) {
-					// TODO: Isolate params from req
-					// TODO: Verify proper path
-					// TODO: Look for resource
-					// TODO: Send params to resource
-					// TODO: Respond with resource
-					byte[] content = Files.readAllBytes(Paths.get(requestedResource));
-					String ext = requestedResource.replaceAll("^.*\\.(.*)$", "$1");
-					res.setStatus(getResponseHeaderByCode(200));
-					res.setBody(content);
-					res.fields.put(CONTENT_LENGTH, Integer.toString(res.getBodySize()));
-					res.fields.put(CONTENT_TYPE, ContentTypeDictionary.getContentTypeByExt(ext));
-					res.setBody(new byte[0]);
-
-				} else if (reqType.equals("TRACE")) {
-					res.setStatus(getResponseHeaderByCode(200));
-					res.setBody(req.toString().getBytes());
-					res.fields.put(CONTENT_LENGTH, Integer.toString(res.getBodySize()));
-					res.fields.put(CONTENT_TYPE, ContentTypeDictionary.getContentTypeByExt(null));
-
-				} else {
-
-					// Else means we haven't implemented this
-					res.setStatus(getResponseHeaderByCode(501));
-					res.setBody(getHTMLErrorAssetsByCode(501));
-					res.fields.put(CONTENT_LENGTH, Integer.toString(res.getBodySize()));
-					res.fields.put(CONTENT_TYPE, ContentTypeDictionary.getContentTypeByExt("html"));
-				}
-			} catch (NoSuchFileException e) {
-				res.setStatus(getResponseHeaderByCode(404));
-				res.setBody(getHTMLErrorAssetsByCode(404));
+			// Verify security
+			if (!Routes.testRouteAccessibility(requestedResource.getPath(), client.permissionLevel)) {
+				res.setStatus(getResponseHeaderByCode(403));
+				res.setBody(getHTMLErrorAssetsByCode(403));
 				res.fields.put(CONTENT_LENGTH, Integer.toString(res.getBodySize()));
 				res.fields.put(CONTENT_TYPE, ContentTypeDictionary.getContentTypeByExt("html"));
+			} else if (reqType.equals("GET")) {
 
-			} catch (Exception e) {
-				Console.logErr(e.getMessage());
-				e.printStackTrace();
-				// Means there was an error generating response
-				// So we build server error
-				res.setStatus(getResponseHeaderByCode(500));
-				res.setBody(getHTMLErrorAssetsByCode(500));
+				// TODO: Isolate params from req
+				// TODO: Verify proper path
+				// TODO: Look for resource
+				// TODO: Send params to resource
+				// TODO: Respond with resource
+				byte[] content = Files.readAllBytes(Paths.get(requestedResource.getPath()));
+				String ext = requestedResource.getPath().replaceAll("^.*\\.(.*)$", "$1");
+				res.setStatus(getResponseHeaderByCode(200));
+				res.setBody(content);
 				res.fields.put(CONTENT_LENGTH, Integer.toString(res.getBodySize()));
-				res.fields.put(CONTENT_TYPE, ContentTypeDictionary.getContentTypeByExt("html"));
+				res.fields.put(CONTENT_TYPE, ContentTypeDictionary.getContentTypeByExt(ext));
+
+			} else if (reqType.equals("POST")) {
+
+				// TODO: Verify proper path
+				// TODO: Look for resource
+				// TODO: Send body to resource
+				// TODO: Respond from resource
+			} else if (reqType.equals("HEAD")) {
+				// TODO: Isolate params from req
+				// TODO: Verify proper path
+				// TODO: Look for resource
+				// TODO: Send params to resource
+				// TODO: Respond with resource
+				byte[] content = Files.readAllBytes(Paths.get(requestedResource));
+				String ext = requestedResource.getPath().replaceAll("^.*\\.(.*)$", "$1");
+				res.setStatus(getResponseHeaderByCode(200));
+				res.setBody(content);
+				res.fields.put(CONTENT_LENGTH, Integer.toString(res.getBodySize()));
+				res.fields.put(CONTENT_TYPE, ContentTypeDictionary.getContentTypeByExt(ext));
+				res.setBody(new byte[0]);
+
+			} else if (reqType.equals("TRACE")) {
+				res.setStatus(getResponseHeaderByCode(200));
+				res.setBody(req.toString().getBytes());
+				res.fields.put(CONTENT_LENGTH, Integer.toString(res.getBodySize()));
+				res.fields.put(CONTENT_TYPE, ContentTypeDictionary.getContentTypeByExt(null));
+
+			} else {
+				return buildResponseByCode(501);
 			}
-
+		} catch (NoSuchFileException e) {
+			return buildResponseByCode(404);
+		} catch (Exception e) {
+			Console.logErr(e.getMessage());
+			e.printStackTrace();
+			// Means there was an error generating response
+			// So we build server error
+			return buildResponseByCode(500);
 		}
 
 		return res.generateBytes();
-
 	}
 
 	private static byte[] getHTMLErrorAssetsByCode(int code) {
