@@ -26,6 +26,8 @@ public class ResponseHandler {
 
 	// Final static strings
 	private static final String ASSETS = Routes.getRoot() + "assets/";
+	private static final String CONTENT_LENGTH = "Content-Length : ";
+	private static final String CONTENT_TYPE = "Content-Type : ";
 
 	// Populate the hash
 	static {
@@ -57,8 +59,8 @@ public class ResponseHandler {
 			// Then it's a bad request already
 			res.setStatus(getResponseHeaderByCode(400));
 			res.setBody(getHTMLErrorAssetsByCode(400));
-			res.fields.put("Content-Length", Integer.toString(res.getBodySize()));
-			res.fields.put("Content-Type", ContentTypeDictionary.getContentTypeByExt("html"));
+			res.fields.put(CONTENT_LENGTH, Integer.toString(res.getBodySize()));
+			res.fields.put(CONTENT_TYPE, ContentTypeDictionary.getContentTypeByExt("html"));
 		} else {
 
 			try {
@@ -71,8 +73,8 @@ public class ResponseHandler {
 				if (!Routes.testRouteAccessibility(requestedResource, client.permissionLevel)) {
 					res.setStatus(getResponseHeaderByCode(403));
 					res.setBody(getHTMLErrorAssetsByCode(403));
-					res.fields.put("Content-Length", Integer.toString(res.getBodySize()));
-					res.fields.put("Content-Type", ContentTypeDictionary.getContentTypeByExt("html"));
+					res.fields.put(CONTENT_LENGTH, Integer.toString(res.getBodySize()));
+					res.fields.put(CONTENT_TYPE, ContentTypeDictionary.getContentTypeByExt("html"));
 				} else if (reqType.equals("GET")) {
 
 					// TODO: Isolate params from req
@@ -84,8 +86,8 @@ public class ResponseHandler {
 					String ext = requestedResource.replaceAll("^.*\\.(.*)$", "$1");
 					res.setStatus(getResponseHeaderByCode(200));
 					res.setBody(content);
-					res.fields.put("Content-Length", Integer.toString(res.getBodySize()));
-					res.fields.put("Content-Type", ContentTypeDictionary.getContentTypeByExt(ext));
+					res.fields.put(CONTENT_LENGTH, Integer.toString(res.getBodySize()));
+					res.fields.put(CONTENT_TYPE, ContentTypeDictionary.getContentTypeByExt(ext));
 
 				} else if (reqType.equals("POST")) {
 
@@ -98,22 +100,22 @@ public class ResponseHandler {
 				} else if (reqType.equals("TRACE")) {
 					res.setStatus(getResponseHeaderByCode(200));
 					res.setBody(req.toString().getBytes());
-					res.fields.put("Content-Length", Integer.toString(res.getBodySize()));
-					res.fields.put("Content-Type", ContentTypeDictionary.getContentTypeByExt(null));
+					res.fields.put(CONTENT_LENGTH, Integer.toString(res.getBodySize()));
+					res.fields.put(CONTENT_TYPE, ContentTypeDictionary.getContentTypeByExt(null));
 
 				} else {
 
 					// Else means we haven't implemented this
 					res.setStatus(getResponseHeaderByCode(501));
 					res.setBody(getHTMLErrorAssetsByCode(501));
-					res.fields.put("Content-Length", Integer.toString(res.getBodySize()));
-					res.fields.put("Content-Type", ContentTypeDictionary.getContentTypeByExt("html"));
+					res.fields.put(CONTENT_LENGTH, Integer.toString(res.getBodySize()));
+					res.fields.put(CONTENT_TYPE, ContentTypeDictionary.getContentTypeByExt("html"));
 				}
 			} catch (NoSuchFileException e) {
 				res.setStatus(getResponseHeaderByCode(404));
 				res.setBody(getHTMLErrorAssetsByCode(404));
-				res.fields.put("Content-Length", Integer.toString(res.getBodySize()));
-				res.fields.put("Content-Type", ContentTypeDictionary.getContentTypeByExt("html"));
+				res.fields.put(CONTENT_LENGTH, Integer.toString(res.getBodySize()));
+				res.fields.put(CONTENT_TYPE, ContentTypeDictionary.getContentTypeByExt("html"));
 
 			} catch (Exception e) {
 				Console.logErr(e.getMessage());
@@ -122,8 +124,8 @@ public class ResponseHandler {
 				// So we build server error
 				res.setStatus(getResponseHeaderByCode(500));
 				res.setBody(getHTMLErrorAssetsByCode(500));
-				res.fields.put("Content-Length", Integer.toString(res.getBodySize()));
-				res.fields.put("Content-Type", ContentTypeDictionary.getContentTypeByExt("html"));
+				res.fields.put(CONTENT_LENGTH, Integer.toString(res.getBodySize()));
+				res.fields.put(CONTENT_TYPE, ContentTypeDictionary.getContentTypeByExt("html"));
 			}
 
 		}
@@ -141,5 +143,11 @@ public class ResponseHandler {
 			Console.logErr("Reason : " + e.getMessage());
 		}
 		return content;
+	}
+
+	public static byte[] buildResponseByCode(int i) {
+		
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

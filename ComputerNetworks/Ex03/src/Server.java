@@ -1,5 +1,4 @@
 
-
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -11,10 +10,11 @@ public class Server {
 
 	private final int port;
 	ThreadPoolManager poolManager;
+	private int socketTimeout;
 
 	public Server(ServerConfigObj config) {
 		this.port = config.getPort();
-
+		this.socketTimeout = config.getSocketTimeout();
 		poolManager = new ThreadPoolManager(config.getMaxThreads());
 
 		// Initialize global routes object
@@ -32,7 +32,7 @@ public class Server {
 				connection = server.accept();
 
 				// System.out.println("Client connected, generating thread");
-				ConnectionHandler connectionHandler = new ConnectionHandler(connection);
+				ConnectionHandler connectionHandler = new ConnectionHandler(connection,this.socketTimeout);
 
 				// Executing via pool manager
 				poolManager.submitTask(connectionHandler);

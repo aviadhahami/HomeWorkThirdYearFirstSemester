@@ -4,7 +4,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class ServerConfigLoader {
-	private final static String[] configKeys = { "port", "maxThreads", "defaultPage", "root" };
+	private final static String[] configKeys = { "port", "maxThreads", "defaultPage", "root", "socketTimeout" };
 
 	public static ServerConfigObj load(String configPath) {
 
@@ -36,6 +36,9 @@ public class ServerConfigLoader {
 							break;
 						case "root":
 							config.setDefaultRoot(parseValue(str));
+							break;
+						case "socketTimeout":
+							config.setSocketTimeout(parseIntValue(str));
 							break;
 						}
 					}

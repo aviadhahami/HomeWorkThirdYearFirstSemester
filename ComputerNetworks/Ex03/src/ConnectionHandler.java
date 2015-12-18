@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.TimeoutException;
 
 /**
  *
@@ -14,16 +15,20 @@ public class ConnectionHandler extends Thread {
 
 	private final Socket socket;
 	private Client client = new Client();
+	private int timeoutThreshhold;
+	OutputStream out;
+	byte[] res;
 
-	public ConnectionHandler(Socket connection) {
+	public ConnectionHandler(Socket connection, int timout) {
 		this.socket = connection;
+		this.timeoutThreshhold = timout;
 	}
 
 	@Override
 	public void run() {
 		try {
 			// Init readers and writers
-			OutputStream out = socket.getOutputStream();
+			out = socket.getOutputStream();
 			BufferedReader reader = new BufferedReader(
 					new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
 			StringBuilder sb = new StringBuilder();
@@ -44,7 +49,8 @@ public class ConnectionHandler extends Thread {
 
 			// If not proper HTTP header we don't even try.
 			if (!validReqType) {
-				out.write(ResponseHandler.buildResponse(null, null));
+				res = ResponseHandler.buildResponseByCode(400);
+				out.write(res);
 				closeConnection();
 			}
 
@@ -62,14 +68,18 @@ public class ConnectionHandler extends Thread {
 				req.setHTTPVersion(reqHeader[1]);
 			}
 
-			while ((line = reader.readLine()) != null) {
+			long startTime = System.currentTimeMillis();
+			while (((line = reader.readLine()) != null) && !checkTimeout(startTime)) {
 
 				// If we hit an empty line then we received all the header
 				if (line.length() == 0) {
 					break;
 				}
 				String[] parsedInputLine = line.toLowerCase().replace(" ", "").split(":");
-				req.setGenericHeaders(parsedInputLine[0], parsedInputLine[1]);
+				if (parsedInputLine.length > 0) {
+					req.setGenericHeaders(parsedInputLine[0], parsedInputLine.length > 1 ? parsedInputLine[1] : "");
+				}
+
 			}
 
 			// Try to read request body according to accepted content length
@@ -97,16 +107,32 @@ public class ConnectionHandler extends Thread {
 			// Spill request to console
 			Console.log(req.toString());
 
-			out.write(ResponseHandler.buildResponse(req, client));
+			res = ResponseHandler.buildResponse(req, client);
+		} catch (TimeoutException e) {
 
-			closeConnection();
+			res = ResponseHandler.buildResponseByCode(408);
 
-		} catch (IOException e) {
-			Console.logErr(e.getMessage());
 		} catch (Exception e) {
+			res = ResponseHandler.buildResponseByCode(500);
 			Console.logErr(e.getMessage());
 			e.printStackTrace();
 		}
+
+		try {
+			out.write(res);
+		} catch (IOException e) {
+			Console.logErr(e.getMessage());
+			e.printStackTrace();
+		}
+
+		closeConnection();
+	}
+
+	private boolean checkTimeout(long startTime) throws TimeoutException {
+		if (System.currentTimeMillis() - startTime < this.timeoutThreshhold) {
+			throw new TimeoutException("Timeout threshold reached - will close socket");
+		}
+		return System.currentTimeMillis() - startTime < this.timeoutThreshhold;
 	}
 
 	private void updateClient(String UA, String cookie) {

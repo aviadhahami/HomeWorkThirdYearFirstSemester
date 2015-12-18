@@ -6,11 +6,13 @@ public class ServerConfigObj {
 	private final int defaultMaxThreads = 10;
 	private final String defaultRoot = "";
 	private final String defaultDefaultPage = "";
+	private int socketTimeout;
 
 	private int port = 0;
 	private int maxThreads = 0;
 	private String root = null;
 	private String defaultPage = null;
+	private int defaultSocketTimeout = 20000; // In ms
 
 	// Getters and setters for all members
 	public void setPort(int port) {
@@ -69,6 +71,18 @@ public class ServerConfigObj {
 		sb.append("root : " + this.root + "\n");
 		sb.append("default page : " + this.defaultPage + "\n");
 		return sb.toString();
+	}
+
+	public int getSocketTimeout() {
+		if (this.socketTimeout == 0) {
+			this.socketTimeout = this.defaultSocketTimeout;
+			System.out.println("Used default socket timeout : " + this.socketTimeout);
+		}
+		return this.socketTimeout;
+	}
+
+	public void setSocketTimeout(int val) {
+		this.socketTimeout = val;
 	}
 
 }
