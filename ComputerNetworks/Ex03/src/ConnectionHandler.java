@@ -24,7 +24,6 @@ public class ConnectionHandler extends Thread {
 		try {
 			// Init readers and writers
 			OutputStream out = socket.getOutputStream();
-			// PrintWriter pw = new PrintWriter(out, true);
 			BufferedReader reader = new BufferedReader(
 					new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
 			StringBuilder sb = new StringBuilder();
