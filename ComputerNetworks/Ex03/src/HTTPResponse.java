@@ -49,7 +49,7 @@ public class HTTPResponse {
 	}
 
 	private byte[] composeByteBasedResponse(byte[] head, byte[] body) {
-		byte[] merged = new byte[head.length + body.length];
+		byte[] merged = new byte[head.length + (body.length > 0 ? body.length : 0)];
 		System.arraycopy(head, 0, merged, 0, head.length);
 		System.arraycopy(body, 0, merged, head.length, body.length);
 		return merged;

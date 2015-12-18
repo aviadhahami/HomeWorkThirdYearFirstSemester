@@ -96,7 +96,19 @@ public class ResponseHandler {
 					// TODO: Send body to resource
 					// TODO: Respond from resource
 				} else if (reqType.equals("HEAD")) {
-					// TODO: Implement
+					// TODO: Isolate params from req
+					// TODO: Verify proper path
+					// TODO: Look for resource
+					// TODO: Send params to resource
+					// TODO: Respond with resource
+					byte[] content = Files.readAllBytes(Paths.get(requestedResource));
+					String ext = requestedResource.replaceAll("^.*\\.(.*)$", "$1");
+					res.setStatus(getResponseHeaderByCode(200));
+					res.setBody(content);
+					res.fields.put(CONTENT_LENGTH, Integer.toString(res.getBodySize()));
+					res.fields.put(CONTENT_TYPE, ContentTypeDictionary.getContentTypeByExt(ext));
+					res.setBody(new byte[0]);
+
 				} else if (reqType.equals("TRACE")) {
 					res.setStatus(getResponseHeaderByCode(200));
 					res.setBody(req.toString().getBytes());
