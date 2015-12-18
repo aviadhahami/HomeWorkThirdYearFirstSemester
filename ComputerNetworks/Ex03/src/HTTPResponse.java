@@ -38,10 +38,14 @@ public class HTTPResponse {
 			}
 			res.append('\n');
 		}
+		
+		// CRITICAL TO ADD THE GOD DAMN SPACE!
+		res.append('\n');
 		return res.toString();
 	}
 
 	public byte[] generateBytes() {
+		Console.log("RES BODY SIZE : " + this.responseBody.length);
 		return composeByteBasedResponse(this.headerToString().getBytes(), this.responseBody);
 	}
 
