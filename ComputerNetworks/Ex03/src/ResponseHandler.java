@@ -145,9 +145,16 @@ public class ResponseHandler {
 		return content;
 	}
 
-	public static byte[] buildResponseByCode(int i) {
-		
-		// TODO Auto-generated method stub
-		return null;
+	public static byte[] buildResponseByCode(int code) {
+		HTTPResponse res = new HTTPResponse();
+		res.fields.put("Date", new Date().toString());
+		res.fields.put("Server", "Badly implemented/1.0 (Ubuntu)");
+
+		res.setStatus(getResponseHeaderByCode(code));
+		res.setBody(getHTMLErrorAssetsByCode(code));
+		res.fields.put(CONTENT_LENGTH, Integer.toString(res.getBodySize()));
+		res.fields.put(CONTENT_TYPE, ContentTypeDictionary.getContentTypeByExt("html"));
+
+		return res.generateBytes();
 	}
 }
