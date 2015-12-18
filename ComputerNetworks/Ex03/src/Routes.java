@@ -22,7 +22,6 @@ public class Routes {
 			return false;
 		}
 
-		Console.log("THIS IS PATH " + path);
 		StringBuilder sb = new StringBuilder();
 		char curr;
 		int previousLevel = 0;

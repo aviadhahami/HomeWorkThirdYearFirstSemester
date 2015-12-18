@@ -45,7 +45,6 @@ public class HTTPResponse {
 	}
 
 	public byte[] generateBytes() {
-		Console.log("RES BODY SIZE : " + this.responseBody.length);
 		return composeByteBasedResponse(this.headerToString().getBytes(), this.responseBody);
 	}
 
