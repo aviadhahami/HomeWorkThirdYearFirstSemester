@@ -1,5 +1,4 @@
 
-
 import java.util.LinkedHashMap;
 
 public class HTTPResponse {
@@ -7,7 +6,7 @@ public class HTTPResponse {
 	// A bit of overkill I know but other DS destroy insertion order
 	public LinkedHashMap<String, String> fields = new LinkedHashMap<>();
 	private String responseStatus = null;
-	private String responseBody = null;
+	private byte[] responseBody = null;
 
 	public HTTPResponse() {
 	}
@@ -20,16 +19,15 @@ public class HTTPResponse {
 		return this.responseStatus;
 	}
 
-	public String getBody() {
+	public byte[] getBody() {
 		return this.responseBody;
 	}
 
-	public void setBody(String body) {
+	public void setBody(byte[] body) {
 		this.responseBody = body;
 	}
 
-	@Override
-	public String toString() {
+	public String headerToString() {
 		StringBuilder res = new StringBuilder();
 		res.append(this.responseStatus + "\n");
 		for (String k : fields.keySet()) {
@@ -38,11 +36,29 @@ public class HTTPResponse {
 			} else {
 				res.append(k + " : " + fields.get(k));
 			}
-
 			res.append('\n');
 		}
+		
+		// CRITICAL TO ADD THE GOD DAMN SPACE!
 		res.append('\n');
-		res.append(this.responseBody + '\n');
 		return res.toString();
+	}
+
+	public byte[] generateBytes() {
+		return composeByteBasedResponse(this.headerToString().getBytes(), this.responseBody);
+	}
+
+	private byte[] composeByteBasedResponse(byte[] head, byte[] body) {
+		byte[] merged = new byte[head.length + body.length];
+		System.arraycopy(head, 0, merged, 0, head.length);
+		System.arraycopy(body, 0, merged, head.length, body.length);
+		return merged;
+	}
+
+	/*
+	 * Return the size Octet based
+	 */
+	public int getBodySize() {
+		return this.getBody().length;
 	}
 }

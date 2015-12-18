@@ -3,7 +3,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
@@ -25,7 +24,6 @@ public class ConnectionHandler extends Thread {
 		try {
 			// Init readers and writers
 			OutputStream out = socket.getOutputStream();
-			PrintWriter pw = new PrintWriter(out, true);
 			BufferedReader reader = new BufferedReader(
 					new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
 			StringBuilder sb = new StringBuilder();
@@ -46,8 +44,7 @@ public class ConnectionHandler extends Thread {
 
 			// If not proper HTTP header we don't even try.
 			if (!validReqType) {
-				String res = ResponseHandler.buildResponse(null, null);
-				pw.println(res.toString());
+				out.write(ResponseHandler.buildResponse(null, null));
 				closeConnection();
 			}
 
@@ -100,15 +97,14 @@ public class ConnectionHandler extends Thread {
 			// Spill request to console
 			Console.log(req.toString());
 
-			String res = ResponseHandler.buildResponse(req, client);
-			pw.println(res);
+			out.write(ResponseHandler.buildResponse(req, client));
 
 			closeConnection();
 
 		} catch (IOException e) {
-			System.err.println(e);
+			Console.logErr(e.getMessage());
 		} catch (Exception e) {
-			System.err.println(e);
+			Console.logErr(e.getMessage());
 			e.printStackTrace();
 		}
 	}
