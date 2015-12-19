@@ -71,7 +71,6 @@
 
         #result {
 
-
         }
 
         .href-icon {
@@ -87,48 +86,64 @@
             overflow-y: scroll;
         }
 
-        table{
+        table {
             background-color: white;
             width: 100%;
             table-layout: fixed;
             border-collapse: collapse;
         }
-        thead{
+
+        thead {
             font-family: "Roboto", "Times New Roman";
             font-weight: 300;
             font-size: 15px;
-            color:rgba(0,0,0,0.45)!important;
+            color: rgba(0, 0, 0, 0.45) !important;
         }
-        tbody tr:hover{
+
+        tbody tr:hover {
             background-color: #F5F5F5;
         }
-        tr{
+
+        tr {
             border-bottom: 1px solid #ccc;
         }
-        tbody td{
+
+        tbody td {
             color: #000;
             font-family: "Roboto", "Times New Roman";
             font-weight: 300;
             border: none;
         }
-        ::-webkit-scrollbar{
-            width:10px;
+
+        ::-webkit-scrollbar {
+            width: 10px;
         }
+
         ::-webkit-scrollbar-track {
             border-radius: 10px;
         }
+
         ::-webkit-scrollbar-thumb {
             border-radius: 5px;
-            background-color:white;
+            background-color: white;
+        }
+        .navbar a{
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="content">
-        <a href="../index.html">
-            <img class="href-icon" title="home" src="img/home.png" alt="back home">
-        </a>
+        <div class="navbar">
+            <a href="../index.html">
+                <img class="href-icon" title="home" src="img/home.png" alt="back home">
+            </a>
+            <a href="form.html">
+                <img class="href-icon" title="Add records" src="img/database-plus.png" alt="back home">
+            </a>
+        </div>
+
         <div class="page-title">
             <h1>Database Demo</h1>
             <small>

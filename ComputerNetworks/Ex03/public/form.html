@@ -42,6 +42,7 @@
 
         .href-icon {
             width: 35px;
+            color: #ffffff;
         }
 
         input {
@@ -66,14 +67,28 @@
             color: rgba(255, 255, 255, 0.5);
             font-family: "Roboto", "Times New Roman";
         }
+
+        #server-response {
+            color: white;
+            font-family: "Roboto", "Times New Roman";
+        }
+        .navbar a{
+          text-decoration: none;
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="content">
-        <a href="../index.html">
-            <img class="href-icon" title="home" src="img/home.png" alt="back home">
-        </a>
+        <div class="navbar">
+            <a href="../index.html">
+                <img class="href-icon" title="Home" src="img/home.png" alt="Back home">
+            </a>
+
+            <a href="database.html">
+                <img class="href-icon" title="Inspect database" src="img/database.png" alt="Inspect database">
+            </a>
+        </div>
         <div class="page-title">
             <h1>Database Editor</h1>
             <small>
@@ -89,7 +104,46 @@
                 <input type="submit" id="submit" value="Insert to database"/>
             </form>
         </div>
+        <div id="server-response">
+
+        </div>
     </div>
 </div>
+
+
+<!--Load JQ-->
+<script src="scripts/jquery-1.11.3.min.js"></script>
+<script src="scripts/jquery-migrate-1.2.1.min.js"></script>
+<!--personal script-->
+<script>
+    $(document).ready(function () {
+        var resContainer = $('#server-response');
+        var form = $('form');
+        form.submit(function () {
+            $.ajax({
+                url: form.attr('action'),
+                method: 'post',
+                data: form.serialize(),
+                success: function (res) {
+                    var parsedRes = JSON.parse(res);
+                    console.log(parsedRes)
+                    resContainer.empty();
+                    resContainer.append('<p> Great! <br/> ' + parsedRes.name + ' (' + parsedRes.age +
+                            ' years old) was added to the database!</p>');
+
+                    // Clear form
+                    form[0].reset();
+                },
+                error: function (res) {
+                    resContainer.empty();
+                    resContainer.append('<p> Woops! our server didn\'t receive your request and responded with '
+                            + +res.status + '</p>');
+
+                }
+            });
+            return false;
+        });
+    });
+</script>
 </body>
 </html>

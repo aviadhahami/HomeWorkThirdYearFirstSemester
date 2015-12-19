@@ -25,7 +25,7 @@ public class databaseSetterController implements RouteController {
 		sb.append("\"age\" : \"" + age + "\"");
 		sb.append("}");
 
-		return new byte[0];//sb.toString().getBytes();
+		return sb.toString().getBytes();
 	}
 
 	@Override
