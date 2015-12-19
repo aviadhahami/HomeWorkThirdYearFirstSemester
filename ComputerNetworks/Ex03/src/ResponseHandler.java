@@ -75,18 +75,12 @@ public class ResponseHandler {
 				res.fields.put(CONTENT_LENGTH, Integer.toString(res.getBodySize()));
 				res.fields.put(CONTENT_TYPE, ContentTypeDictionary.getContentTypeByExt("html"));
 			} else if (reqType.equals("GET")) {
-
-				// TODO: Isolate params from req
-				// TODO: Verify proper path
-				// TODO: Look for resource
-				// TODO: Send params to resource
-				// TODO: Respond with resource
 				RouteController controller = Routes.getController(requestedResource.getPath());
 				byte[] content;
 				if (controller != null) {
 					content = controller.GET(requestedResource.getQuery());
-				}else{
-				content = Files.readAllBytes(Paths.get(requestedResource.getPath()));
+				} else {
+					content = Files.readAllBytes(Paths.get(requestedResource.getPath()));
 				}
 				String ext = requestedResource.getPath().replaceAll("^.*\\.(.*)$", "$1");
 				res.setStatus(getResponseHeaderByCode(200));
@@ -95,17 +89,20 @@ public class ResponseHandler {
 				res.fields.put(CONTENT_TYPE, ContentTypeDictionary.getContentTypeByExt(ext));
 
 			} else if (reqType.equals("POST")) {
+				RouteController controller = Routes.getController(requestedResource.getPath());
+				byte[] content = null;
+				if (controller != null) {
+					content = controller.POST(req.getRequestBody());
+				} else {
+					content = Files.readAllBytes(Paths.get(requestedResource.getPath()));
+				}
+				String ext = requestedResource.getPath().replaceAll("^.*\\.(.*)$", "$1");
+				res.setStatus(getResponseHeaderByCode(200));
+				res.setBody(content);
+				res.fields.put(CONTENT_LENGTH, Integer.toString(res.getBodySize()));
+				res.fields.put(CONTENT_TYPE, ContentTypeDictionary.getContentTypeByExt(ext));
 
-				// TODO: Verify proper path
-				// TODO: Look for resource
-				// TODO: Send body to resource
-				// TODO: Respond from resource
 			} else if (reqType.equals("HEAD")) {
-				// TODO: Isolate params from req
-				// TODO: Verify proper path
-				// TODO: Look for resource
-				// TODO: Send params to resource
-				// TODO: Respond with resource
 				byte[] content = Files.readAllBytes(Paths.get(requestedResource));
 				String ext = requestedResource.getPath().replaceAll("^.*\\.(.*)$", "$1");
 				res.setStatus(getResponseHeaderByCode(200));

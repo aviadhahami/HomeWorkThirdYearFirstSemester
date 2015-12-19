@@ -1,6 +1,6 @@
 import java.util.Iterator;
 
-public class databaseController implements RouteController {
+public class databaseGetterController implements RouteController {
 
 	@Override
 	public byte[] GET(String query) {

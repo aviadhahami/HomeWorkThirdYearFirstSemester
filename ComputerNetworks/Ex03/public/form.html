@@ -82,8 +82,8 @@
         <br>
         <div class="form">
             <form action="/api/insertDB" method="POST">
-                <input type="text" id="name" placeholder="Name">
-                <input type="number" id="age" placeholder="Age">
+                <input type="text" id="name" name="name" placeholder="Name" required>
+                <input type="number" id="age" name="age" placeholder="Age" required>
                 <br>
                 <input type="submit" value="Insert to database">
             </form>
