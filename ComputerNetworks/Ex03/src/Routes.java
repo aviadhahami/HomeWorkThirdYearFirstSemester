@@ -12,6 +12,7 @@ public class Routes {
 		root = _root;
 		defaultPage = _defaultPage;
 		routesAccessMap.put("", 0);
+		routesAccessMap.put("private",5);
 		populateRouteControllers();
 	}
 

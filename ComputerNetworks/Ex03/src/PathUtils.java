@@ -6,8 +6,9 @@ public class PathUtils {
 
 	public static URI toFullPath(String path) throws URISyntaxException {
 		StringBuilder sb = new StringBuilder();
-
-		if (path.equals("/") || path.length() == 0 || path == null) {
+		if (path.contains("..")) {
+			sb.append(Routes.getDefaultPage());
+		} else if (path.equals("/") || path.length() == 0 || path == null) {
 			sb.append(Routes.getDefaultPage());
 		} else if (path.startsWith("/")) {
 			sb.append(path.substring(1, path.length()));
