@@ -11,7 +11,8 @@ $(document).ready(function () {
         clearResult();
         resultCount.text(data.length);
         data.forEach(function (obj) {
-            result.append('<p>' + obj.name + ' is ' + obj.age + ' years old</p>');
+
+            result.append('<li>' + obj.name + ' is ' + obj.age + ' years old</li>');
         })
     };
     var appendError = function (errCode) {

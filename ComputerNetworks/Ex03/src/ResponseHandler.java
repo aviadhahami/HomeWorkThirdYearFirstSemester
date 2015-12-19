@@ -100,6 +100,7 @@ public class ResponseHandler {
 				res.setStatus(getResponseHeaderByCode(200));
 				res.setBody(content);
 				res.fields.put(CONTENT_LENGTH, Integer.toString(res.getBodySize()));
+				Console.log("File type " + ext);
 				res.fields.put(CONTENT_TYPE, ContentTypeDictionary.getContentTypeByExt(ext));
 
 			} else if (reqType.equals("HEAD")) {

@@ -57,8 +57,9 @@
         input[type="submit"] {
             width: 200px;
         }
+
         input[type="submit"]:hover {
-           background-color: #9575CD;
+            background-color: #9575CD;
         }
 
         ::-webkit-input-placeholder {
@@ -81,16 +82,14 @@
         </div>
         <br>
         <div class="form">
-            <form action="/api/insertDB" method="POST">
+            <form action="/api/insertDB" method="post">
                 <input type="text" id="name" name="name" placeholder="Name" required>
                 <input type="number" id="age" name="age" placeholder="Age" required>
                 <br>
-                <input type="submit" value="Insert to database">
+                <input type="submit" id="submit" value="Insert to database"/>
             </form>
         </div>
     </div>
 </div>
-
-
 </body>
 </html>
