@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Database Injector</title>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: #7B1FA2;
+        }
+
+        .content {
+            margin-top: 10%;
+            text-align: center;
+        }
+
+        .page-title {
+            color: white;
+            font-family: "Roboto", "Times New Roman";
+            text-align: center;
+        }
+
+        .page-title h1 {
+            font-family: "Pacifico", "Times New Roman";
+            font-weight: 400;
+        }
+
+        .page-title small {
+            font-weight: 300;
+        }
+
+        .href-icon {
+            width: 35px;
+        }
+
+        input {
+            background-color: transparent;
+            border: solid white 1px;
+            border-radius: 5px;
+            color: white;
+            font-family: "Roboto", "Times New Roman";
+            padding: 5px;
+            margin: 1%;
+        }
+
+        input[type="submit"] {
+            width: 200px;
+        }
+        input[type="submit"]:hover {
+           background-color: #9575CD;
+        }
+
+        ::-webkit-input-placeholder {
+            color: rgba(255, 255, 255, 0.5);
+            font-family: "Roboto", "Times New Roman";
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="content">
+        <a href="../index.html">
+            <img class="href-icon" title="home" src="img/home.png" alt="back home">
+        </a>
+        <div class="page-title">
+            <h1>Database Editor</h1>
+            <small>
+                In this page one may wish to insert values into the database
+            </small>
+        </div>
+        <br>
+        <div class="form">
+            <form action="/api/insertDB" method="POST">
+                <input type="text" id="name" placeholder="Name">
+                <input type="number" id="age" placeholder="Age">
+                <br>
+                <input type="submit" value="Insert to database">
+            </form>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
