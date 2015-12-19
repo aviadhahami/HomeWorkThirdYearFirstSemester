@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Set;
 
 public class Database {
 
@@ -19,5 +20,9 @@ public class Database {
 
 	public static void insert(String k, String v) {
 		records.put(k, v);
+	}
+
+	public static Set<String> getAll() {
+		return records.keySet();
 	}
 }

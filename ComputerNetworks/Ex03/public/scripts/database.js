@@ -4,30 +4,19 @@
 
 $(document).ready(function () {
 
-    var dataStub = [{
-        name: 'a',
-        age: '33'
-    }, {
-        name: 'b',
-        age: '33'
-    }, {
-        name: 'c',
-        age: '33'
-    }, {
-        name: 'd',
-        age: '33'
-    }];
-
-
     var result = $('#result');
+    var resultCount = $('#resultCount');
+
     var appendRecordList = function (data) {
         clearResult();
+        resultCount.text(data.length);
         data.forEach(function (obj) {
             result.append('<p>' + obj.name + ' is ' + obj.age + ' years old</p>');
         })
     };
     var appendError = function (errCode) {
         clearResult();
+        resultCount.text(0);
         result.append('<p style="color:#BF360C;">Error! server responed with ' + errCode + ' </p>');
     };
     var clearResult = function () {
@@ -37,9 +26,10 @@ $(document).ready(function () {
 
     $('#showAll').click(function () {
         $.get("/api/getDB", function (data) {
-            alert("Load was performed.");
+
         }).done(function (res) {
-            appendRecordList(res.data);
+           // console.log(JSON.parse(res));
+            appendRecordList(JSON.parse(res));
         }).fail(function (err) {
             appendError(err.status);
         });
@@ -49,13 +39,11 @@ $(document).ready(function () {
     $('#search-box').on("keyup", function () {
         var val = $('#search-box').val();
         $.get("/api/getDB?name=" + val, function (data) {
-            console.log('data', data);
-            alert("Load was performed.");
-        }).done(function (data) {
-            console.log(JSON.parse(data));
+
+        }).done(function (res) {
+            appendRecordList(JSON.parse(res));
         }).fail(function (err) {
-            result.html("");
-            result.append('<p style="color:#BF360C;">Error! server responed with ' + err.status + ' </p>');
+            appendError(err.status);
         });
     });
 
