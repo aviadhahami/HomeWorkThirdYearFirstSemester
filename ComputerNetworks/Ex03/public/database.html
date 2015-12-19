@@ -71,7 +71,7 @@
 
         #result {
 
-            text-align: left;
+
         }
 
         .href-icon {
@@ -79,15 +79,47 @@
         }
 
         #results-frame {
-            max-height:200px;
-            width: 50%;
+            max-height: 200px;
+            width: 60%;
             border: 1px white solid;
             border-radius: 3px;
             margin: 0 auto;
             overflow-y: scroll;
         }
-        #result li{
-            list-style: none;
+
+        table{
+            background-color: white;
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+        thead{
+            font-family: "Roboto", "Times New Roman";
+            font-weight: 300;
+            font-size: 15px;
+            color:rgba(0,0,0,0.45)!important;
+        }
+        tbody tr:hover{
+            background-color: #F5F5F5;
+        }
+        tr{
+            border-bottom: 1px solid #ccc;
+        }
+        tbody td{
+            color: #000;
+            font-family: "Roboto", "Times New Roman";
+            font-weight: 300;
+            border: none;
+        }
+        ::-webkit-scrollbar{
+            width:10px;
+        }
+        ::-webkit-scrollbar-track {
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            border-radius: 5px;
+            background-color:white;
         }
     </style>
 </head>
@@ -118,9 +150,18 @@
                 <hr>
                 <h5>Results - showing <i id="resultCount">0</i> records</h5>
                 <div id="results-frame">
-                    <ul id="result">
+                    <table id="result">
+                        <thead>
+                        <tr>
+                            <td>Index</td>
+                            <td>Name</td>
+                            <td>Age</td>
+                        </tr>
+                        </thead>
+                        <tbody id="tbody">
+                        </tbody>
 
-                    </ul>
+                    </table>
                 </div>
 
             </div>

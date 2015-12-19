@@ -10,26 +10,32 @@ $(document).ready(function () {
     var appendRecordList = function (data) {
         clearResult();
         resultCount.text(data.length);
+        var i = 1;
         data.forEach(function (obj) {
 
-            result.append('<li>' + obj.name + ' is ' + obj.age + ' years old</li>');
-        })
+            result.append(
+                '<tr><td>' + i + '</td>'
+                + '<td>' + obj.name + '</td>'
+                + '<td>' + obj.age + '</td></tr>');
+            i++;
+        });
     };
     var appendError = function (errCode) {
         clearResult();
         resultCount.text(0);
-        result.append('<p style="color:#BF360C;">Error! server responed with ' + errCode + ' </p>');
+        result.append('<tr style="color:#BF360C;">' +
+            '<td colspan="3">Error! server responed with ' + errCode + '</td></tr>');
     };
     var clearResult = function () {
-        result.html("");
-    }
+        $("#result tbody").empty();
+    };
 
 
     $('#showAll').click(function () {
         $.get("/api/getDB", function (data) {
 
         }).done(function (res) {
-           // console.log(JSON.parse(res));
+            // console.log(JSON.parse(res));
             appendRecordList(JSON.parse(res));
         }).fail(function (err) {
             appendError(err.status);
