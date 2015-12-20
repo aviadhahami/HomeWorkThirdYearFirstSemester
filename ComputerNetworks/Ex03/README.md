@@ -25,6 +25,38 @@ We serve clients with their custom-generated response(HTTPResponse.class) while 
 Assuming client tries to reach 'out of bound' path, we remove illegal characthers from the path and force the search on root folder.
 [More on security module in bonus.txt]
 
-That's it.
-Hope you enjoy :)
+# Bonuses
+Security reach:
+
+	Each connection's cookie gets read and looking for "level" cookie.
+	If such exists, the integer it holds marks the user's "level" in the system.
+	on Routes.class:11 you can see that we bind levels with routes, hence if someone will try to reach "/private/pass.txt"
+	he will hit 403 if he's below level 5.
+Security update:
+
+	Assuming the "/private/pass.txt" from previous section, if on runtime someone added "/private/private2/x.html", once 
+	a request will be made to this path it will inherit it's closest known-parent security level and add itself to the 
+	routes-levels binding. [logs are provided within the CLI on such event]
+Out-of-root reach:
+
+	If client is trying to reach outside the root folder, the illegal chars are getting removed hence the path will be
+	reconstructed and the client will be passed to the root again. (i.e "root/../something" -> "root/something")
+Database:
+
+	We've implemented simple NoSQL (hash) database
+Material Design:
+
+	Some client-side magic
+Route-controllers:
+
+	On Routes.class:19 we bind each route to a specific controller.
+	Each controller can implemented which-ever method it likes, such that '/api/db' can serve both for GET or for POST
+	and behave differently.
+	
+
+
+##### Disclaimer : 
+Some things should've been added to the config (i.e controllers, timeout and more) but we didn't have time nor
+	man-power for this 8)
+	Hope this one satisfies :d
 
