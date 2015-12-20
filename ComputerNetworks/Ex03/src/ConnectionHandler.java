@@ -17,6 +17,7 @@ public class ConnectionHandler extends Thread {
 	private int timeoutThreshhold; // FIXME : implement
 	OutputStream out;
 	HTTPResponse res;
+	HTTPRequest req;
 
 	public ConnectionHandler(Socket connection, int timout) {
 		this.socket = connection;
@@ -54,7 +55,7 @@ public class ConnectionHandler extends Thread {
 			}
 
 			// If we reached this - means the request type is viable
-			HTTPRequest req = new HTTPRequest();
+			this.req = new HTTPRequest();
 			String[] reqHeader = line.split(" ");
 			if (reqHeader.length == 3) {
 				// Means we have specific resource requested
@@ -114,38 +115,40 @@ public class ConnectionHandler extends Thread {
 		}
 
 		try {
-			if (res.fields.containsKey("Transfer-Encoding") || res.fields.get("Transfer-Encoding") == "chunked") {
+			if ("yes".equals(req.getGenericHeaders("chunked"))){
 				// FIXME: Write as chunks
 				res.fields.remove("Content-Length"); // Remove content length
 														// header
+				res.fields.put("Transfer-Encoding", "chunked");
+				
+				
 				// Send header to client
 				out.write(res.headerToString().getBytes());
 				byte[] resBody = res.getBody();
-				int bufferSize = 1024*2;
-				
-				
+				int bufferSize = 1024 * 2;
+
 				// index for body
 				int bodyIndex = 0;
 				int spanToCopy = 0;
-				
+
 				// Byte buffer
 				byte[] bb;
 
 				// Loop over chunks
-				while (bodyIndex<resBody.length) {
+				while (bodyIndex < resBody.length) {
 
 					// Copy from main to sub
 					spanToCopy = Math.min(resBody.length - bodyIndex, bufferSize) < 0 ? 0
 							: Math.min(resBody.length - bodyIndex, bufferSize);
-					bb = new byte[spanToCopy];			
-					
+					bb = new byte[spanToCopy];
+
 					// Copy the bytes
 					System.arraycopy(resBody, bodyIndex, bb, 0, bb.length);
-					
+
 					// Update index
 					bodyIndex += bb.length;
-					Console.log(bb.length + " length");
-					
+					Console.log("Chunk length" +bb.length);
+
 					// Out the size
 					out.write(Integer.toHexString(bb.length).getBytes());
 					// Down a line
@@ -160,9 +163,7 @@ public class ConnectionHandler extends Thread {
 				out.write("0".getBytes());
 				// Down a line
 				out.write("\r\n".getBytes());
-				// Out the bytes
-//				out.write("".getBytes());
-//				// Down a line
+				// Down a line
 				out.write("\r\n".getBytes());
 
 			} else {

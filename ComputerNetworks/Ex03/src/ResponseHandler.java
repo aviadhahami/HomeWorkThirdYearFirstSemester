@@ -134,12 +134,6 @@ public class ResponseHandler {
 			return buildResponseByCode(500);
 		}
 
-		// Split to chunks
-
-		if (res.getBodySize() > 500) {
-			res.fields.put("Transfer-Encoding", "chunked");
-		}
-
 		return res;
 	}
 
