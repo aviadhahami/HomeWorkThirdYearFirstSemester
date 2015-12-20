@@ -50,7 +50,7 @@ public class ResponseHandler {
 		return header.length() == 0 ? HTTPcodesHash.get(501) : header;
 	}
 
-	public static byte[] buildResponse(HTTPRequest req, Client client) {
+	public static HTTPResponse buildResponse(HTTPRequest req, Client client) {
 		HTTPResponse res = new HTTPResponse();
 		res.fields.put("Date", new Date().toString());
 		res.fields.put("Server", "Computer Networks/1.0 (Ubuntu)");
@@ -134,7 +134,13 @@ public class ResponseHandler {
 			return buildResponseByCode(500);
 		}
 
-		return res.generateBytes();
+		// Split to chunks
+
+		if (res.getBodySize() > 500) {
+			res.fields.put("Transfer-Encoding", "chunked");
+		}
+
+		return res;
 	}
 
 	private static byte[] getHTMLErrorAssetsByCode(int code) {
@@ -148,7 +154,7 @@ public class ResponseHandler {
 		return content;
 	}
 
-	public static byte[] buildResponseByCode(int code) {
+	public static HTTPResponse buildResponseByCode(int code) {
 		HTTPResponse res = new HTTPResponse();
 		res.fields.put("Date", new Date().toString());
 		res.fields.put("Server", "Badly implemented/1.0 (Ubuntu)");
@@ -158,6 +164,6 @@ public class ResponseHandler {
 		res.fields.put(CONTENT_LENGTH, Integer.toString(res.getBodySize()));
 		res.fields.put(CONTENT_TYPE, ContentTypeDictionary.getContentTypeByExt("html"));
 
-		return res.generateBytes();
+		return res;
 	}
 }

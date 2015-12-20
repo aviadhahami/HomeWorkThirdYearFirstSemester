@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.util.Iterator;
 
 /**
  *
@@ -16,7 +18,7 @@ public class ConnectionHandler extends Thread {
 	private Client client = new Client();
 	private int timeoutThreshhold; // FIXME : implement
 	OutputStream out;
-	byte[] res;
+	HTTPResponse res;
 
 	public ConnectionHandler(Socket connection, int timout) {
 		this.socket = connection;
@@ -49,7 +51,7 @@ public class ConnectionHandler extends Thread {
 			// If not proper HTTP header we don't even try.
 			if (!validReqType) {
 				res = ResponseHandler.buildResponseByCode(400);
-				out.write(res);
+				out.write(res.generateBytes());
 				closeConnection();
 			}
 
@@ -107,13 +109,66 @@ public class ConnectionHandler extends Thread {
 
 			res = ResponseHandler.buildResponse(req, client);
 		} catch (Exception e) {
-			res = "HTTP/1.1 500 Internal Server Error".getBytes();
+			res.setStatus("500");// "HTTP/1.1 500 Internal Server
+									// Error".getBytes();
 			Console.logErr(e.getMessage());
 			e.printStackTrace();
 		}
 
 		try {
-			out.write(res);
+			if (res.fields.containsKey("Transfer-Encoding") || res.fields.get("Transfer-Encoding") == "chunked") {
+				// FIXME: Write as chunks
+				res.fields.remove("Content-Length"); // Remove content length
+														// header
+				// Send header to client
+				out.write(res.headerToString().getBytes());
+				
+				Console.log(res.headerToString());
+
+				int bufferSize = 10;
+				// Chunk
+				byte[] bb;
+				// Loop over chunks
+				int remain;
+				int i = 0;
+				int j = 0;
+				remain = Math.min(res.getBodySize() - i, bufferSize);
+				bb = new byte[remain];
+				while (i < res.getBodySize()) {
+					if (j == bb.length - 1) {
+						// dump
+						out.write(Integer.valueOf(String.valueOf(bb.length), 16));
+						out.write("\r\n".getBytes());
+						out.write(bb);
+						out.write("\r\n".getBytes());
+						Console.log("chunk size" + Integer.valueOf(String.valueOf(bb.length), 16));
+						Console.log(bb.length);
+						
+						
+						
+						// init all
+						j=0;
+						remain = Math.min(res.getBodySize() - i, bufferSize);
+						bb = new byte[remain];
+					}else{
+						bb[j] = res.getBody()[i];
+						j++;
+						i++;
+					}
+				}
+				out.write(Integer.toHexString(bb.length).getBytes());
+				out.write('\n');
+
+				// Puke all
+				// out.write(Integer.toHexString(bb.length).getBytes());
+				// out.write(bb);
+				// out.write("\n".getBytes());
+
+			} else {
+				// Write as chunks
+				out.write(res.generateBytes());
+			}
+
 		} catch (IOException e) {
 			Console.logErr(e.getMessage());
 			e.printStackTrace();

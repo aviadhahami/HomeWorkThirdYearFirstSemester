@@ -36,11 +36,11 @@ public class HTTPResponse {
 			} else {
 				res.append(k + " : " + fields.get(k));
 			}
-			res.append('\n');
+			res.append("\r\n");
 		}
 		
 		// CRITICAL TO ADD THE GOD DAMN SPACE!
-		res.append('\n');
+		res.append("\r\n");
 		return res.toString();
 	}
 
