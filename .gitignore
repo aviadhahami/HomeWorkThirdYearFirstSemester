@@ -278,3 +278,6 @@ local.properties
 
 #Web Storm shit
 .idea/
+
+# Java class files
+.class
