@@ -15,4 +15,17 @@ Out-of-root reach:
 	reconstructed and the client will be passed to the root again. (i.e "root/../something" -> "root/something")
 Database:
 	We've implemented simple NoSQL (hash) database
+Material Design:
+	Some client-side magic
+Route-controllers:
+	On Routes.class:19 we bind each route to a specific controller.
+	Each controller can implemented which-ever method it likes, such that '/api/db' can serve both for GET or for POST
+	and behave differently.
+	
+
+
+Disclaimer : 
+	Some things should've been added to the config (i.e controllers, timeout and more) but we didn't have time nor
+	man-power for this 8)
+	Hope this one satisfies :d
 
