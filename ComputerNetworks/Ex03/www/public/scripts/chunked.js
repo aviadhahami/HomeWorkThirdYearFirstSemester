@@ -8,6 +8,9 @@ $(document).ready(function () {
         $('#image').empty();
         $('#requests').empty();
 
+
+        // This is cheating i know :(
+        // Couldn't find JQ ajax loading with onprogress
         var img = $("<img />").attr('src', 'img/bigImg.jpg')
             .on('load', function () {
                 if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
@@ -23,6 +26,7 @@ $(document).ready(function () {
                 onprogress: function (e) {
                     console.log(e);
                     $('#requests').append('<p style="color:white;">' + e.loaded + '</p>');
+                    $('#loaded').html('<p>Loaded <i>' + e.loaded/1000000+'</i> MB</p>');
                 }
             },
             beforeSend: function (request) {

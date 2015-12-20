@@ -51,31 +51,36 @@
             height: 200px;
             overflow-y: scroll;
             font-family: "Roboto", "Times New Roman";
-            margin:0 auto;
+            margin: 0 auto;
         }
 
         table {
             width: 100%;
         }
-        td{
-            width:50%;
+
+        td {
+            width: 50%;
         }
 
         #image img {
             width: 200px;
         }
 
-        button{
+        button {
             background-color: transparent;
-            border:1px solid white;
+            border: 1px solid white;
             border-radius: 5px;
-            color:forestgreen;
+            color: forestgreen;
             font-family: "Roboto", "Times New Roman";
             font-size: large;
-            padding:1%;
+            padding: 1%;
         }
-        #chunk{
+
+        #chunk {
             margin-bottom: 5px;
+        }
+        #loaded{
+            font-family:"Roboto", "Times New Roman";
         }
     </style>
 </head>
@@ -116,11 +121,12 @@
                         </div>
                     </td>
                 </tr>
-
-
             </table>
-        </div>
 
+        </div>
+        <div id="loaded">
+            loaded
+        </div>
     </div>
 </div>
 
