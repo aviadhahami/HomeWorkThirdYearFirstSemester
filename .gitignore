@@ -280,4 +280,4 @@ local.properties
 .idea/
 
 # Java class files
-.class
+*.class
