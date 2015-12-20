@@ -29,7 +29,7 @@ public class HTTPResponse {
 
 	public String headerToString() {
 		StringBuilder res = new StringBuilder();
-		res.append(this.responseStatus + "\n");
+		res.append(this.responseStatus + "\r\n");
 		for (String k : fields.keySet()) {
 			if (fields.get(k) == "") {
 				res.append(k);

@@ -115,13 +115,12 @@ public class ConnectionHandler extends Thread {
 		}
 
 		try {
-			if ("yes".equals(req.getGenericHeaders("chunked"))){
+			if ("yes".equals(req.getGenericHeaders("chunked"))) {
 				// FIXME: Write as chunks
 				res.fields.remove("Content-Length"); // Remove content length
 														// header
 				res.fields.put("Transfer-Encoding", "chunked");
-				
-				
+
 				// Send header to client
 				out.write(res.headerToString().getBytes());
 				byte[] resBody = res.getBody();
@@ -147,24 +146,25 @@ public class ConnectionHandler extends Thread {
 
 					// Update index
 					bodyIndex += bb.length;
-					Console.log("Chunk length" +bb.length);
+					Console.log("Chunk length" + bb.length);
 
 					// Out the size
-					out.write(Integer.toHexString(bb.length).getBytes());
+					Console.log(Integer.toHexString(17));
+					out.write((Integer.toHexString(bb.length) + "\r\n").getBytes());
 					// Down a line
-					out.write("\r\n".getBytes());
+					// out.write("\n".getBytes());
 					// Out the bytes
 					out.write(bb);
 					// Down a line
 					out.write("\r\n".getBytes());
 					// Clear a line
-					out.write("\r\n".getBytes());
+					// out.write("\n".getBytes());
 				}
-				out.write("0".getBytes());
+				out.write("0 \r\n".getBytes());
 				// Down a line
-				out.write("\r\n".getBytes());
-				// Down a line
-				out.write("\r\n".getBytes());
+				 out.write("\r\n".getBytes());
+				// // Down a line
+				// out.write("\r\n".getBytes());
 
 			} else {
 				// Write as chunks
