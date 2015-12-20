@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
-import java.util.Iterator;
 
 /**
  *
@@ -122,14 +120,51 @@ public class ConnectionHandler extends Thread {
 														// header
 				// Send header to client
 				out.write(res.headerToString().getBytes());
+				byte[] resBody = res.getBody();
+				int bufferSize = 1024*20;
 				
-				Console.log(res.headerToString());
-
-				int bufferSize = 1024;
-				// Chunk
+				
+				// index for body
+				int bodyIndex = 0;
+				int spanToCopy = 0;
+				
+				// Byte buffer
 				byte[] bb;
-				// Loop over chunks
 
+				// Loop over chunks
+				while (bodyIndex<resBody.length) {
+
+					// Copy from main to sub
+					spanToCopy = Math.min(resBody.length - bodyIndex, bufferSize) < 0 ? 0
+							: Math.min(resBody.length - bodyIndex, bufferSize);
+					bb = new byte[spanToCopy];			
+					
+					// Copy the bytes
+					System.arraycopy(resBody, bodyIndex, bb, 0, bb.length);
+					
+					// Update index
+					bodyIndex += bb.length;
+					
+					// Out the size
+					out.write(Integer.valueOf(String.valueOf(bb.length), 16));
+					// Down a line
+					out.write("\r\n".getBytes());
+					// Out the bytes
+					out.write(bb);
+					// Down a line
+					out.write("\r\n".getBytes());
+					// Clear a line
+					out.write("\r\n".getBytes());
+				}
+				out.write(Integer.valueOf(String.valueOf(0), 16));
+				// Down a line
+				out.write("\r\n".getBytes());
+				// Out the bytes
+				out.write(new byte[0]);
+				// Down a line
+				out.write("\r\n".getBytes());
+				// Clear a line
+				out.write("\r\n".getBytes());
 
 			} else {
 				// Write as chunks
