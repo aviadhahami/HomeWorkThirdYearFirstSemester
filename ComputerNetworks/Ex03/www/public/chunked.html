@@ -46,11 +46,12 @@
         }
 
         .console {
-            width: 100%;
+            width: 80%;
             border: 1px solid white;
             height: 200px;
             overflow-y: scroll;
             font-family: "Roboto", "Times New Roman";
+            margin:0 auto;
         }
 
         table {
@@ -62,6 +63,19 @@
 
         #image img {
             width: 200px;
+        }
+
+        button{
+            background-color: transparent;
+            border:1px solid white;
+            border-radius: 5px;
+            color:forestgreen;
+            font-family: "Roboto", "Times New Roman";
+            font-size: large;
+            padding:1%;
+        }
+        #chunk{
+            margin-bottom: 5px;
         }
     </style>
 </head>
@@ -86,10 +100,10 @@
             <table>
                 <tr>
                     <td>
-                        <h4>Bytes loaded</h4>
+                        <p>Bytes loaded</p>
                     </td>
                     <td>
-                        Image loaded
+                        <p>Image loaded</p>
                     </td>
                 </tr>
                 <tr>

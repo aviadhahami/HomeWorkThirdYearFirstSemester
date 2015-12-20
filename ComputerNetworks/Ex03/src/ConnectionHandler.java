@@ -146,7 +146,7 @@ public class ConnectionHandler extends Thread {
 
 					// Update index
 					bodyIndex += bb.length;
-					Console.log("Chunk length" + bb.length);
+					Console.log("Chunk length : " + bb.length);
 
 					// Out the size
 					out.write((Integer.toHexString(bb.length) + "\r\n").getBytes());
