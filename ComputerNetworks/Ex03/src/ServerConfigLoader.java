@@ -70,8 +70,11 @@ public class ServerConfigLoader {
 			}
 
 		} catch (IOException e) {
-			Console.logErr("Something bad happened");
-			e.printStackTrace();
+			Console.logErr("We hit IO exception loading the config. Server will now terminate");
+			System.exit(1);
+		} catch (Exception e) {
+			Console.logErr("We hit general exception loading the config. Server will now terminate");
+			System.exit(1);
 		}
 
 		return config;
