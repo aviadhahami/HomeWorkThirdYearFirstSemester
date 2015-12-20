@@ -1,4 +1,5 @@
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -35,6 +36,7 @@ public class ServerConfigLoader {
 							config.setDefaultPage(parseValue(str));
 							break;
 						case "root":
+							// Verify root is a folder
 							config.setDefaultRoot(parseValue(str));
 							break;
 						case "socketTimeout":
@@ -44,11 +46,40 @@ public class ServerConfigLoader {
 					}
 				}
 			}
+
+			boolean exceptionFlag = false;
+			File root = new File(config.getRoot());
+			File defaultPage = new File(config.getRoot() + config.getDefaultPage());
+			if (!root.exists()) {
+				errorLogger("Root does not exist", root.getPath());
+				exceptionFlag = true;
+			} else if (!root.isDirectory()) {
+				errorLogger("Root is not a directory", root.getPath());
+				exceptionFlag = true;
+			} else if (!defaultPage.exists()) {
+				errorLogger("Default page does not exist", defaultPage.getPath());
+				exceptionFlag = true;
+			} else if (defaultPage.isDirectory()) {
+				errorLogger("Default page is a directory", defaultPage.getPath());
+				exceptionFlag = true;
+			}
+
+			if (exceptionFlag) {
+				Console.logErr("The server will now terminate");
+				System.exit(1);
+			}
+
 		} catch (IOException e) {
 			Console.logErr("Something bad happened");
 			e.printStackTrace();
 		}
+
 		return config;
+	}
+
+	private static void errorLogger(String reason, String path) {
+		Console.logErr(reason);
+		Console.logErr("Path : " + path);
 	}
 
 	// Parsing int value from config file

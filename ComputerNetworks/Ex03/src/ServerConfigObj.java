@@ -44,7 +44,7 @@ public class ServerConfigObj {
 	}
 
 	public String getRoot() {
-		if (this.root.equals(null)) {
+		if (this.root == null) {
 			this.root = this.defaultRoot;
 			System.out.println("Used default root path : " + this.root);
 		}
