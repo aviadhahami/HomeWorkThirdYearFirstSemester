@@ -124,7 +124,7 @@ public class ConnectionHandler extends Thread {
 				// Send header to client
 				out.write(res.headerToString().getBytes());
 				byte[] resBody = res.getBody();
-				int bufferSize = 1024 * 2;
+				int bufferSize = 1024 * 10;
 
 				// index for body
 				int bodyIndex = 0;
@@ -149,22 +149,16 @@ public class ConnectionHandler extends Thread {
 					Console.log("Chunk length" + bb.length);
 
 					// Out the size
-					Console.log(Integer.toHexString(17));
 					out.write((Integer.toHexString(bb.length) + "\r\n").getBytes());
-					// Down a line
-					// out.write("\n".getBytes());
 					// Out the bytes
 					out.write(bb);
 					// Down a line
 					out.write("\r\n".getBytes());
-					// Clear a line
-					// out.write("\n".getBytes());
 				}
 				out.write("0 \r\n".getBytes());
 				// Down a line
 				 out.write("\r\n".getBytes());
 				// // Down a line
-				// out.write("\r\n".getBytes());
 
 			} else {
 				// Write as chunks

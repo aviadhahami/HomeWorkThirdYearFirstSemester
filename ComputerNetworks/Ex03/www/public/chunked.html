@@ -17,7 +17,9 @@
             position: fixed;
             width: 100%;
             height: 100%;
-            background-color: #7B1FA2;
+            background-color: black;
+            color: forestgreen;
+
         }
 
         .content {
@@ -26,7 +28,6 @@
         }
 
         .page-title {
-            color: white;
             font-family: "Roboto", "Times New Roman";
             text-align: center;
         }
@@ -37,43 +38,30 @@
         }
 
         .page-title small {
-            font-weight: 300;
+            font-weight: 400;
         }
 
         .href-icon {
             width: 35px;
-            color: #ffffff;
         }
 
-        input {
-            background-color: transparent;
-            border: solid white 1px;
-            border-radius: 5px;
-            color: white;
+        .console {
+            width: 100%;
+            border: 1px solid white;
+            height: 200px;
+            overflow-y: scroll;
             font-family: "Roboto", "Times New Roman";
-            padding: 5px;
-            margin: 1%;
         }
 
-        input[type="submit"] {
+        table {
+            width: 100%;
+        }
+        td{
+            width:50%;
+        }
+
+        #image img {
             width: 200px;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #9575CD;
-        }
-
-        ::-webkit-input-placeholder {
-            color: rgba(255, 255, 255, 0.5);
-            font-family: "Roboto", "Times New Roman";
-        }
-
-        #server-response {
-            color: white;
-            font-family: "Roboto", "Times New Roman";
-        }
-        .navbar a{
-          text-decoration: none;
         }
     </style>
 </head>
@@ -84,10 +72,6 @@
             <a href="../index.html">
                 <img class="href-icon" title="Home" src="img/home.png" alt="Back home">
             </a>
-
-            <a href="database.html">
-                <img class="href-icon" title="Inspect database" src="img/database.png" alt="Inspect database">
-            </a>
         </div>
         <div class="page-title">
             <h1>Chunked</h1>
@@ -96,10 +80,33 @@
             </small>
         </div>
         <br>
-        <button id="chunk">CHUNK</button>
-        <div id="server-response">
+        <button id="chunk">Load image in the chunky-way</button>
+        <br>
+        <div class="console">
+            <table>
+                <tr>
+                    <td>
+                        <h4>Bytes loaded</h4>
+                    </td>
+                    <td>
+                        Image loaded
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div id="requests">
+                        </div>
+                    </td>
+                    <td>
+                        <div id="image">
+                        </div>
+                    </td>
+                </tr>
 
+
+            </table>
         </div>
+
     </div>
 </div>
 
