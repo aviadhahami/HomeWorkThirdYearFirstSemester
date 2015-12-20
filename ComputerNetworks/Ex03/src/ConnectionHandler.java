@@ -121,7 +121,7 @@ public class ConnectionHandler extends Thread {
 				// Send header to client
 				out.write(res.headerToString().getBytes());
 				byte[] resBody = res.getBody();
-				int bufferSize = 1024*20;
+				int bufferSize = 1024*2;
 				
 				
 				// index for body
@@ -144,9 +144,10 @@ public class ConnectionHandler extends Thread {
 					
 					// Update index
 					bodyIndex += bb.length;
+					Console.log(bb.length + " length");
 					
 					// Out the size
-					out.write(Integer.valueOf(String.valueOf(bb.length), 16));
+					out.write(Integer.toHexString(bb.length).getBytes());
 					// Down a line
 					out.write("\r\n".getBytes());
 					// Out the bytes
@@ -156,14 +157,12 @@ public class ConnectionHandler extends Thread {
 					// Clear a line
 					out.write("\r\n".getBytes());
 				}
-				out.write(Integer.valueOf(String.valueOf(0), 16));
+				out.write("0".getBytes());
 				// Down a line
 				out.write("\r\n".getBytes());
 				// Out the bytes
-				out.write(new byte[0]);
-				// Down a line
-				out.write("\r\n".getBytes());
-				// Clear a line
+//				out.write("".getBytes());
+//				// Down a line
 				out.write("\r\n".getBytes());
 
 			} else {
