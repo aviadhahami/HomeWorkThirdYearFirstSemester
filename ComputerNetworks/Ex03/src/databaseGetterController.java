@@ -55,7 +55,6 @@ public class databaseGetterController implements RouteController {
 
 	@Override
 	public byte[] POST(String body) {
-		// TODO Auto-generated method stub
 		return new byte[0];
 	}
 

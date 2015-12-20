@@ -3,7 +3,6 @@ public class databaseSetterController implements RouteController {
 
 	@Override
 	public byte[] GET(String query) {
-		// TODO Auto-generated method stub
 		return new byte[0];
 	}
 
@@ -30,7 +29,6 @@ public class databaseSetterController implements RouteController {
 
 	@Override
 	public byte[] UPDATE(String body) {
-		// TODO Auto-generated method stub
 		return new byte[0];
 	}
 

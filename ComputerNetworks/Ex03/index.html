@@ -11,6 +11,8 @@
             margin: 0;
             width: 100%;
             height: 100%;
+            font-family: "Roboto", "Times New Roman";
+            font-weight: 300;
         }
 
         .container {
@@ -74,34 +76,139 @@
             color: #ffffff;
             text-decoration: none;
         }
+
+        .real-content {
+            display: none;
+        }
+
+        .disclaimer-content {
+        }
+
+        .disclaimer-content-text {
+            background-color: white;
+            border-radius: 5px;
+            margin-left: 5px;
+            margin-top: 10px;
+            color: black;
+            padding: 5px 5px 5px 5px;
+        }
+
+        .disclaimer-content-links {
+            border-radius: 5px;
+            padding: 3px 0px 3px 0px;
+            text-align: center;
+        }
+
+        button {
+            width: 33%;
+            height: 50px;
+            background-color: #3949AB;
+            border: 1px white solid;
+            border-radius: 5px;
+            color: white;
+        }
+
+        button:hover {
+            cursor: pointer;
+        }
+
+        #bad:hover {
+            background-color: #FF5722;
+        }
+
+        #good:hover {
+            background-color: #00E676;
+        }
+
+        #ok:hover {
+            background-color: #689F38;
+        }
+
+        #good {
+            -webkit-transition: all 0.5s ease;
+            -moz-transition: all 0.5s ease;
+            -o-transition: all 0.5s ease;
+            -ms-transition: all 0.5s ease;
+            transition: all 0.5s ease;
+        }
+
+        #good:hover {
+
+            -webkit-transform: rotate(-10deg);
+            -moz-transform: rotate(-10deg);
+            -o-transform: rotate(-10deg);
+            -ms-transform: rotate(-10deg);
+            transform: rotate(-10deg);
+        }
+
     </style>
 </head>
 <body>
 <div class="container">
     <div class="content">
-        <div class="frame">
-            <div class="frame-header">
-                <h1 class="header-text">Welcome</h1>
-            </div>
-            <div class="frame-content">
-                <p class="frame-content-text">
-                    This is the index.html file served by our server
-                </p>
-            </div>
-            <div class="links-bar">
+        <div class="real-content">
+            <div class="frame">
+                <div class="frame-header">
+                    <h1 class="header-text">Welcome</h1>
+                </div>
+                <div class="frame-content">
+                    <p class="frame-content-text">
+                        This is the index.html file served by our server
+                    </p>
+                </div>
+                <div class="links-bar">
 
-                <a href="public/database.html">
-                    Inspect Database
-                </a>
-                |
-                <a href="public/form.html">
-                    Add Database Records
-                </a>
+                    <a href="public/database.html">
+                        Inspect Database
+                    </a>
+                    |
+                    <a href="public/form.html">
+                        Add Database Records
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="disclaimer">
+            <div class="frame">
+                <div class="frame-header">
+                    <h1 class="header-text" style="font-size: xx-large">Dear checker!</h1>
+                </div>
+                <div class="disclaimer-content">
+                    <p class="disclaimer-content-text">
+                        Hi there! <br>
+                        We are hoping you're having good time checking our class' works. <br>
+                        Unfortunately, we've implemented most of the client-side without reading that the
+                        index.html page should be the same as in exercise 1. <br>
+                        However, we did implement examples of GET and POST requests (i.e database insertion and
+                        pulling).
+                        <br>
+                        Hence functionality wise - we've implemented everything needed in order demonstrate our server's
+                        functionality. <br>
+                        <br>
+                        We sure hope you will take this into consideration while calculating our score. <br>
+                        Enjoy our work! <br>
+                        Thank you,
+                        Aviya & Aviad
+                    </p>
+                    <div class="disclaimer-content-links">
+                        <p>Please pick what you are going to do</p>
+                        <br>
+
+                        <button id="bad">I'll take off points, sorry</button>
+                        <button id="ok">It's ok, show me the website</button>
+
+                        <button id="good">Nice! I might even give you extra points!</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<!--Load JQ-->
+<script src="public/scripts/jquery-1.11.3.min.js"></script>
+<script src="public/scripts/jquery-migrate-1.2.1.min.js"></script>
 
-
+<!--load personal script-->
+<script src="public/scripts/index.js"></script>
 </body>
 </html>

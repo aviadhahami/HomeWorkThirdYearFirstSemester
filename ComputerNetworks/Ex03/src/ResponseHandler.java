@@ -42,9 +42,6 @@ public class ResponseHandler {
 		HTTPcodesHash.put(501, "HTTP/1.1 501 Not Implemented");
 	}
 
-	// Public getter
-
-	// FIXME: Verify this
 	public static String getResponseHeaderByCode(int code) {
 
 		String header = HTTPcodesHash.get(code);

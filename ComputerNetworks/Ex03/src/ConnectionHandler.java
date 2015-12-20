@@ -125,7 +125,7 @@ public class ConnectionHandler extends Thread {
 	private void updateClient(String UA, String cookie) {
 		this.client.UA = UA;
 
-		// FIXME: implement better security methodology
+		// TODO: implement better security methodology
 
 		// Search the "level" cookie to extract user permission level
 		String userLevel;
