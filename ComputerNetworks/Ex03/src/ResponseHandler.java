@@ -77,7 +77,7 @@ public class ResponseHandler {
 				if (controller != null) {
 					content = controller.GET(requestedResource.getQuery());
 				} else {
-					content = Files.readAllBytes(Paths.get(requestedResource.getPath()));
+					content = Files.readAllBytes(Paths.get(Routes.getRoot() + requestedResource.getPath()));
 				}
 				String ext = requestedResource.getPath().replaceAll("^.*\\.(.*)$", "$1");
 				res.setStatus(getResponseHeaderByCode(200));

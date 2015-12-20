@@ -107,7 +107,7 @@ public class ConnectionHandler extends Thread {
 
 			res = ResponseHandler.buildResponse(req, client);
 		} catch (Exception e) {
-			res = ResponseHandler.buildResponseByCode(500);
+			res = "HTTP/1.1 500 Internal Server Error".getBytes();
 			Console.logErr(e.getMessage());
 			e.printStackTrace();
 		}
