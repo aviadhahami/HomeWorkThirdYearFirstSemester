@@ -125,44 +125,11 @@ public class ConnectionHandler extends Thread {
 				
 				Console.log(res.headerToString());
 
-				int bufferSize = 10;
+				int bufferSize = 1024;
 				// Chunk
 				byte[] bb;
 				// Loop over chunks
-				int remain;
-				int i = 0;
-				int j = 0;
-				remain = Math.min(res.getBodySize() - i, bufferSize);
-				bb = new byte[remain];
-				while (i < res.getBodySize()) {
-					if (j == bb.length - 1) {
-						// dump
-						out.write(Integer.valueOf(String.valueOf(bb.length), 16));
-						out.write("\r\n".getBytes());
-						out.write(bb);
-						out.write("\r\n".getBytes());
-						Console.log("chunk size" + Integer.valueOf(String.valueOf(bb.length), 16));
-						Console.log(bb.length);
-						
-						
-						
-						// init all
-						j=0;
-						remain = Math.min(res.getBodySize() - i, bufferSize);
-						bb = new byte[remain];
-					}else{
-						bb[j] = res.getBody()[i];
-						j++;
-						i++;
-					}
-				}
-				out.write(Integer.toHexString(bb.length).getBytes());
-				out.write('\n');
 
-				// Puke all
-				// out.write(Integer.toHexString(bb.length).getBytes());
-				// out.write(bb);
-				// out.write("\n".getBytes());
 
 			} else {
 				// Write as chunks
