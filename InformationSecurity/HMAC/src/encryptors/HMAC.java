@@ -1,5 +1,7 @@
 package encryptors;
 
+import org.apache.commons.codec.binary.Hex;
+
 import IOHandlers.FileWriter;
 import IOHandlers.FilesContentHolder;
 
@@ -21,57 +23,48 @@ public class HMAC {
 		StringBuilder sb;
 
 		String key = FilesContentHolder.getKeyFileContent();
+		byte[] paddedKey = new byte[BLOCKSIZE];
 		int keyLength = key.length();
 
 		if (keyLength > BLOCKSIZE) {
 			// keys longer than 64byte are shortened
-			key = SHA1.encode(key);
-
+			paddedKey = SHA1.encode(key).getBytes();
 		}
+
 		if (keyLength < BLOCKSIZE) {
 			// Keys shorter than BLOCKSIZE are zero-padded from the right to fit
 			// the BLOCKSIZE
 			sb = new StringBuilder();
-			sb.append(key);
+			sb.append(Hex.encodeHexString(key.getBytes()));
 			for (int i = 0; i < BLOCKSIZE - keyLength; i++) {
-				sb.append("0");
+				sb.append(0);
 			}
-			key = sb.toString();
+			paddedKey = sb.toString().getBytes();
 		}
-		StringBuilder o_key_pad = new StringBuilder();
-		for (byte b : key.getBytes()) {
-			o_key_pad.append(Integer.toHexString(xor(0x5c, b)));
-		}
-		// o_key_pad = [0x5c * blocksize] ⊕ key // Where blocksize is that of
-		// the
-		// underlying hash function
 
-		StringBuilder i_key_pad = new StringBuilder();
-		for (byte b : key.getBytes()) {
-			i_key_pad.append(Integer.toHexString(xor(0x36, b)));
+		// o_key_pad = [0x5c * blocksize] ⊕ key // Where blocksize is that of
+		// the underlying hash function
+		byte[] o_key_pad = new byte[BLOCKSIZE];
+		for (int i = 0; i < BLOCKSIZE; i++) {
+			o_key_pad[i] = (byte) (paddedKey[i] ^ 0x5c);
 		}
 
 		// i_key_pad = [0x36 * blocksize] ⊕ key // Where ⊕ is exclusive or (XOR)
+		byte[] i_key_pad = new byte[BLOCKSIZE];
+		for (int i = 0; i < BLOCKSIZE; i++) {
+			i_key_pad[i] = (byte) (paddedKey[i] ^ 0x36);
+		}
+		String message = FilesContentHolder.getInputFileContent();
+		System.out.println("m=" + message + ";");
+		System.out.println("key=" + FilesContentHolder.getKeyFileContent() + ";");
+		
+		
+		return SHA1.encode(new String(o_key_pad)
+				.concat(SHA1.encode(new String(i_key_pad).concat(message))));
 
 		// return hash(o_key_pad ∥ hash(i_key_pad ∥ message)) // Where ∥ is
 		// concatenation
 		// end function
-
-		return SHA1.encode(o_key_pad.toString()
-				.concat(SHA1.encode(i_key_pad.toString().concat(FilesContentHolder.getInputFileContent()))));
-	}
-
-	/**
-	 * Very not special bitwise XOR
-	 * 
-	 * @param i
-	 *            - first number to XOR
-	 * @param b
-	 *            - second number to XOR
-	 * @return byte value of XOR operation
-	 */
-	private static byte xor(int i, byte b) {
-		return (byte) (i ^ b);
 	}
 
 }

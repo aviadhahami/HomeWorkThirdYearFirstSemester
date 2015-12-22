@@ -25,9 +25,6 @@ public class SHA1 {
 		return (num << cnt) | (num >>> (32 - cnt));
 	}
 
-	/*
-	 * Take a string and return the base64 representation of its SHA-1.
-	 */
 	public static String encode(String str) {
 
 		// Convert a string to a sequence of 16-word blocks, stored as an array.
@@ -56,11 +53,11 @@ public class SHA1 {
 		int h4 = -1009589776;
 
 		for (i = 0; i < blks.length; i += 16) {
-			int olda = h0;
-			int oldb = h1;
-			int oldc = h2;
-			int oldd = h3;
-			int olde = h4;
+			int oldh0 = h0;
+			int oldh1 = h1;
+			int oldh2 = h2;
+			int oldh3 = h3;
+			int oldh4 = h4;
 
 			for (int j = 0; j < 80; j++) {
 				w[j] = (j < 16) ? blks[i + j] : (rol(w[j - 3] ^ w[j - 8] ^ w[j - 14] ^ w[j - 16], 1));
@@ -77,11 +74,11 @@ public class SHA1 {
 				h0 = t;
 			}
 
-			h0 = h0 + olda;
-			h1 = h1 + oldb;
-			h2 = h2 + oldc;
-			h3 = h3 + oldd;
-			h4 = h4 + olde;
+			h0 = h0 + oldh0;
+			h1 = h1 + oldh1;
+			h2 = h2 + oldh2;
+			h3 = h3 + oldh3;
+			h4 = h4 + oldh4;
 		}
 		StringBuilder sb = new StringBuilder();
 		sb.append(Integer.toHexString(h0));
