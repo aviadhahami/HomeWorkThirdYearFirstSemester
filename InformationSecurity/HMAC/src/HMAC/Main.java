@@ -18,12 +18,12 @@ public class Main {
 
 	public static void main(String[] args) {
 		Parser.parseInput(args);
-		new FilesContentHolder(InputWrapper.getInputFile(), InputWrapper.getDigestFile(),
-				InputWrapper.getKeyFile());
+		new FilesContentHolder(InputWrapper.getInputFile(), InputWrapper.getDigestFile(), InputWrapper.getKeyFile());
 		if (InputWrapper.getFunctionOption().toLowerCase().equals("verify")) {
-			System.out.println("verify");
+			HMAC.verify();
 		} else if (InputWrapper.getFunctionOption().toLowerCase().equals("compute")) {
 			System.out.println("compute");
+			HMAC.compute();
 		} else {
 			System.err.println("Not valid option!");
 			System.exit(1);
