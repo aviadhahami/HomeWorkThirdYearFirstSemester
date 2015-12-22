@@ -44,23 +44,24 @@ public class HMAC {
 
 		// o_key_pad = [0x5c * blocksize] ⊕ key // Where blocksize is that of
 		// the underlying hash function
-		byte[] o_key_pad = new byte[BLOCKSIZE];
+		StringBuilder o_key_pad = new StringBuilder();
 		for (int i = 0; i < BLOCKSIZE; i++) {
-			o_key_pad[i] = (byte) (paddedKey[i] ^ 0x5c);
+			o_key_pad.append(Integer.toHexString((byte) (paddedKey[i] ^ 0x5c)));
 		}
 
 		// i_key_pad = [0x36 * blocksize] ⊕ key // Where ⊕ is exclusive or (XOR)
-		byte[] i_key_pad = new byte[BLOCKSIZE];
+		StringBuilder i_key_pad = new StringBuilder();
 		for (int i = 0; i < BLOCKSIZE; i++) {
-			i_key_pad[i] = (byte) (paddedKey[i] ^ 0x36);
+			i_key_pad.append(Integer.toHexString((byte) (paddedKey[i] ^ 0x36)));
 		}
 		String message = FilesContentHolder.getInputFileContent();
+
 		System.out.println("m=" + message + ";");
 		System.out.println("key=" + FilesContentHolder.getKeyFileContent() + ";");
-		
-		
-		return SHA1.encode(new String(o_key_pad)
-				.concat(SHA1.encode(new String(i_key_pad).concat(message))));
+
+		System.out.println(o_key_pad.toString());
+		System.out.println(i_key_pad.toString());
+		return SHA1.encode(o_key_pad.toString().concat(SHA1.encode(i_key_pad.toString().concat(message))));
 
 		// return hash(o_key_pad ∥ hash(i_key_pad ∥ message)) // Where ∥ is
 		// concatenation

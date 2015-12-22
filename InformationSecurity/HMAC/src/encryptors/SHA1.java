@@ -86,7 +86,6 @@ public class SHA1 {
 		sb.append(Integer.toHexString(h2));
 		sb.append(Integer.toHexString(h3));
 		sb.append(Integer.toHexString(h4));
-
 		return sb.toString();
 	}
 }
