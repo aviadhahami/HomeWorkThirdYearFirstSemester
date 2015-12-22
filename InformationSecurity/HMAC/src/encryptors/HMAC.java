@@ -1,5 +1,7 @@
 package encryptors;
 
+import java.util.Arrays;
+
 import org.apache.commons.codec.binary.Hex;
 
 import IOHandlers.FileWriter;
@@ -20,49 +22,41 @@ public class HMAC {
 	}
 
 	private static String computeHmac(String string) {
-		StringBuilder sb;
 
-		String key = FilesContentHolder.getKeyFileContent();
+		byte[] key = FilesContentHolder.getKeyFileContent().getBytes();
 		byte[] paddedKey = new byte[BLOCKSIZE];
-		int keyLength = key.length();
 
-		if (keyLength > BLOCKSIZE) {
+		if (key.length > BLOCKSIZE) {
 			// keys longer than 64byte are shortened
-			paddedKey = SHA1.encode(key).getBytes();
-		}
-
-		if (keyLength < BLOCKSIZE) {
+			paddedKey = SHA1.encode(new String(key)).getBytes();
+		} else if (key.length < BLOCKSIZE) {
 			// Keys shorter than BLOCKSIZE are zero-padded from the right to fit
 			// the BLOCKSIZE
-			sb = new StringBuilder();
-			sb.append(Hex.encodeHexString(key.getBytes()));
-			for (int i = 0; i < BLOCKSIZE - keyLength; i++) {
-				sb.append(0);
+			paddedKey = new byte[BLOCKSIZE];
+			Arrays.fill(paddedKey, (byte) 0x00);
+			for (int i = 0; i < key.length; i++) {
+				paddedKey[i] = key[i];
 			}
-			paddedKey = sb.toString().getBytes();
 		}
 
 		// o_key_pad = [0x5c * blocksize] ⊕ key // Where blocksize is that of
 		// the underlying hash function
-		StringBuilder o_key_pad = new StringBuilder();
-		for (int i = 0; i < BLOCKSIZE; i++) {
-			o_key_pad.append(Integer.toHexString((byte) (paddedKey[i] ^ 0x5c)));
+		// i_key_pad = [0x36 * blocksize] ⊕ key // Where ⊕ is exclusive or (XOR)
+		byte[] opad = Arrays.copyOf(paddedKey, BLOCKSIZE);
+		byte[] ipad = Arrays.copyOf(paddedKey, BLOCKSIZE);
+		for (int i = 0; i < opad.length; i++) {
+			opad[i] = (byte) (opad[i] ^ 0x5c);
+			ipad[i] = (byte) (ipad[i] ^ 0x36);
 		}
 
-		// i_key_pad = [0x36 * blocksize] ⊕ key // Where ⊕ is exclusive or (XOR)
-		StringBuilder i_key_pad = new StringBuilder();
-		for (int i = 0; i < BLOCKSIZE; i++) {
-			i_key_pad.append(Integer.toHexString((byte) (paddedKey[i] ^ 0x36)));
-		}
 		String message = FilesContentHolder.getInputFileContent();
 
 		System.out.println("m=" + message + ";");
 		System.out.println("key=" + FilesContentHolder.getKeyFileContent() + ";");
 
-		System.out.println(o_key_pad.toString());
-		System.out.println(i_key_pad.toString());
-		return SHA1.encode(o_key_pad.toString().concat(SHA1.encode(i_key_pad.toString().concat(message))));
-
+		System.out.println(Hex.encodeHexString(opad));
+		System.out.println(Hex.encodeHexString(ipad));
+		return SHA1.encode(new String(opad).concat(SHA1.encode(new String(ipad).concat(message))));
 		// return hash(o_key_pad ∥ hash(i_key_pad ∥ message)) // Where ∥ is
 		// concatenation
 		// end function
