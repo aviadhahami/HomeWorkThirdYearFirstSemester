@@ -19,7 +19,6 @@ public class Routes {
 	private static void populateRouteControllers() {
 		controllerMap.put("api/getDB", new databaseGetterController());
 		controllerMap.put("api/insertDB", new databaseSetterController());
-
 	}
 
 	/*
