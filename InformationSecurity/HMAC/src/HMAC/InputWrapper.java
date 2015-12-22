@@ -4,15 +4,15 @@ import java.io.File;
 
 /**
  * InputWrapper supplies easy access to all input files required to run the
- * program.
- * The wrapper will auto-use defaults in case of empty strings / null inputs
+ * program. The wrapper will auto-use defaults in case of empty strings / null
+ * inputs
  *
  */
 public class InputWrapper {
-	private static String HMAC = "HMAC";
-	private static String _inputFile = HMAC + File.pathSeparator + "input.txt";
-	private static String _digestFile = HMAC + File.pathSeparator + "digest.txt";
-	private static String _keyFile = HMAC + File.pathSeparator + "key.txt";
+	private static String HMAC = System.getProperty("user.dir") + File.separatorChar + "HMAC";
+	private static String _inputFile = HMAC + File.separator + "input.txt";
+	private static String _digestFile = HMAC + File.separator + "digest.txt";
+	private static String _keyFile = HMAC + File.separator + "key.txt";
 	private static String _functionOption = "compute";
 
 	private static String inputFile = "";
@@ -41,7 +41,7 @@ public class InputWrapper {
 	}
 
 	public static void setKeyFile(String keyFile) {
-		InputWrapper.keyFile = keyFile == null || digestFile.equals("") ? _keyFile : keyFile;
+		InputWrapper.keyFile = keyFile == null || keyFile.equals("") ? _keyFile : keyFile;
 	}
 
 	public static String getFunctionOption() {
