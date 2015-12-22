@@ -1,6 +1,8 @@
-package HMAC;
+package parsers;
 
 import java.io.File;
+
+import IOHandlers.InputWrapper;
 
 public class Parser {
 

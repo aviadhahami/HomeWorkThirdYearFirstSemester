@@ -1,5 +1,10 @@
 package HMAC;
 
+import IOHandlers.FilesContentHolder;
+import IOHandlers.InputWrapper;
+import encryptors.HMAC;
+import parsers.Parser;
+
 /**
  * Main class to run the HMAC. <br/>
  * The program receives the following (via CLI, in this order):
@@ -22,7 +27,6 @@ public class Main {
 		if (InputWrapper.getFunctionOption().toLowerCase().equals("verify")) {
 			HMAC.verify();
 		} else if (InputWrapper.getFunctionOption().toLowerCase().equals("compute")) {
-			System.out.println("compute");
 			HMAC.compute();
 		} else {
 			System.err.println("Not valid option!");

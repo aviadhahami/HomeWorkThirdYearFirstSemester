@@ -1,16 +1,16 @@
-package HMAC;
+package IOHandlers;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class FilesContentHolder {
-	private String inputFileContent;
-	private String digestFileContent;
-	private String KeyFileContent;
+	private static String inputFileContent;
+	private static String digestFileContent;
+	private static String KeyFileContent;
 
 	public FilesContentHolder(String inputFile, String digestFile, String keyFile) {
 		try {
-			System.out.println( );
+			System.out.println();
 			this.setInputFileContent(new String(Files.readAllBytes(Paths.get(inputFile))));
 			this.setDigestFileContent(new String(Files.readAllBytes(Paths.get(digestFile))));
 			this.setKeyFileContent(new String(Files.readAllBytes(Paths.get(keyFile))));
@@ -22,7 +22,7 @@ public class FilesContentHolder {
 		}
 	}
 
-	public String getKeyFileContent() {
+	public static String getKeyFileContent() {
 		return KeyFileContent;
 	}
 
@@ -30,20 +30,20 @@ public class FilesContentHolder {
 		KeyFileContent = keyFileContent;
 	}
 
-	public String getDigestFileContent() {
+	public static String getDigestFileContent() {
 		return digestFileContent;
 	}
 
 	public void setDigestFileContent(String digestFileContent) {
-		this.digestFileContent = digestFileContent;
+		FilesContentHolder.digestFileContent = digestFileContent;
 	}
 
-	public String getInputFileContent() {
+	public static String getInputFileContent() {
 		return inputFileContent;
 	}
 
 	public void setInputFileContent(String inputFileContent) {
-		this.inputFileContent = inputFileContent;
+		FilesContentHolder.inputFileContent = inputFileContent;
 	}
 
 }
