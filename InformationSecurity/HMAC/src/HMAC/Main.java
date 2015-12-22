@@ -17,9 +17,9 @@ package HMAC;
 public class Main {
 
 	public static void main(String[] args) {
-		InputWrapper parsedInput = Parser.parseInput(args);
-		FilesContentHolder fp = new FilesContentHolder(parsedInput.getInputFile(), parsedInput.getDigestFile(),
-				parsedInput.getKeyFile());
+		Parser.parseInput(args);
+		new FilesContentHolder(InputWrapper.getInputFile(), InputWrapper.getDigestFile(),
+				InputWrapper.getKeyFile());
 		if (InputWrapper.getFunctionOption().toLowerCase().equals("verify")) {
 			System.out.println("verify");
 		} else if (InputWrapper.getFunctionOption().toLowerCase().equals("compute")) {
