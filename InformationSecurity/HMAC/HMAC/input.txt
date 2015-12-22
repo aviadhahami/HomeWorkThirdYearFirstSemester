@@ -1,1 +1,1 @@
-a message to test sha1
+test
