@@ -1,39 +1,56 @@
 package HMAC;
 
+import java.io.File;
+
+/**
+ * InputWrapper supplies easy access to all input files required to run the
+ * program.
+ * The wrapper will auto-use defaults in case of empty strings / null inputs
+ *
+ */
 public class InputWrapper {
-	private static String _inputFile = "";
-	private static String _digestFile = "";
-	private static String _keyFile = "";
-	private static String _functionOption = "";
-	
+	private static String HMAC = "HMAC";
+	private static String _inputFile = HMAC + File.pathSeparator + "input.txt";
+	private static String _digestFile = HMAC + File.pathSeparator + "digest.txt";
+	private static String _keyFile = HMAC + File.pathSeparator + "key.txt";
+	private static String _functionOption = "compute";
+
 	private static String inputFile = "";
 	private static String digestFile = "";
 	private static String keyFile = "";
 	private static String functionOption = "";
-	
+
 	public static String getInputFile() {
 		return inputFile;
 	}
+
 	public static void setInputFile(String inputFile) {
-		InputWrapper.inputFile = inputFile;
+		InputWrapper.inputFile = inputFile == null || inputFile.equals("") ? _inputFile : inputFile;
 	}
+
 	public static String getDigestFile() {
 		return digestFile;
 	}
+
 	public static void setDigestFile(String digestFile) {
-		InputWrapper.digestFile = digestFile;
+		InputWrapper.digestFile = digestFile == null || digestFile.equals("") ? _digestFile : digestFile;
 	}
+
 	public static String getKeyFile() {
 		return keyFile;
 	}
+
 	public static void setKeyFile(String keyFile) {
-		InputWrapper.keyFile = keyFile;
+		InputWrapper.keyFile = keyFile == null || digestFile.equals("") ? _keyFile : keyFile;
 	}
+
 	public static String getFunctionOption() {
 		return functionOption;
 	}
+
 	public static void setFunctionOption(String functionOption) {
-		InputWrapper.functionOption = functionOption;
+		InputWrapper.functionOption = functionOption == null || functionOption.equals("") ? _functionOption
+				: functionOption;
 	}
 
 }
