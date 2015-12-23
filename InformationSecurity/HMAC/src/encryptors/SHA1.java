@@ -18,13 +18,6 @@ public class SHA1 {
 	 * @return SHA1 encoded string
 	 */
 
-	/*
-	 * Bitwise rotate a 32-bit number to the left
-	 */
-	private static int rol(int num, int cnt) {
-		return (num << cnt) | (num >>> (32 - cnt));
-	}
-
 	public static byte[] encode(byte[] str) {
 
 		// Convert a string to a sequence of 16-word blocks, stored as an array.
@@ -81,20 +74,20 @@ public class SHA1 {
 			h4 = h4 + oldh4;
 		}
 
-		int[] holder = new int[] { h0, h1, h2, h3, h4 };
-		for (int j : holder) {
-			
-			
-		}
-		
-		// FIXME: Add left-padding before Hi
-		StringBuilder sb = new StringBuilder();
-		sb.append(Integer.toHexString(h0) + ",");
-		sb.append(Integer.toHexString(h1) + ",");
-		sb.append(Integer.toHexString(h2) + ",");
-		sb.append(Integer.toHexString(h3) + ",");
-		sb.append(Integer.toHexString(h4) + ",");
-		System.out.println(sb.toString());
-		return sb.toString().getBytes();
+		byte[] res = new byte[5];
+		res[0] = (byte) h0;
+		res[1] = (byte) h1;
+		res[2] = (byte) h2;
+		res[3] = (byte) h3;
+		res[4] = (byte) h4;
+
+		return res;
+	}
+
+	/**
+	 * Bitwise rotate a 32-bit number to the left
+	 */
+	private static int rol(int num, int cnt) {
+		return (num << cnt) | (num >>> (32 - cnt));
 	}
 }

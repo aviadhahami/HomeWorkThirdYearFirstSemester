@@ -25,8 +25,10 @@ public class Main {
 		Parser.parseInput(args);
 		new FilesContentHolder(InputWrapper.getInputFile(), InputWrapper.getDigestFile(), InputWrapper.getKeyFile());
 		if (InputWrapper.getFunctionOption().toLowerCase().equals("verify")) {
+			System.err.println("VERIFY");
 			HMAC.verify();
 		} else if (InputWrapper.getFunctionOption().toLowerCase().equals("compute")) {
+			System.err.println("COMPUTE");
 			HMAC.compute();
 		} else {
 			System.err.println("Not valid option!");
