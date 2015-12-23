@@ -51,15 +51,30 @@ public class HMAC {
 
 		String message = FilesContentHolder.getInputFileContent();
 
-		System.out.println("m=" + message + ";");
-		System.out.println("key=" + FilesContentHolder.getKeyFileContent() + ";");
-
 		System.out.println(Hex.encodeHexString(opad));
 		System.out.println(Hex.encodeHexString(ipad));
-		return SHA1.encode(new String(opad).concat(SHA1.encode(new String(ipad).concat(message))));
+
+		byte[] context = new byte[ipad.length + message.getBytes().length];
+
+		for (int i = 0; i < context.length / 2; i++) {
+			context[i] = ipad[i];// ipad
+		}
+		for (int i = 64; i < context.length; i++) {
+			context[i] = message.getBytes()[i];
+		}
+
+		byte[] sha = SHA1.encode(new String(context)).getBytes();
+
+		context = new byte[BLOCKSIZE + sha.length];
+		System.arraycopy(opad, 0, context, 0, opad.length);
+		System.arraycopy(sha, 0, context, 64, sha.length);
+
+		sha = SHA1.encode(new String(context)).getBytes();
+
 		// return hash(o_key_pad ∥ hash(i_key_pad ∥ message)) // Where ∥ is
 		// concatenation
 		// end function
+		return new String(sha);
 	}
 
 }
