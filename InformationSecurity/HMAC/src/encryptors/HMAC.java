@@ -6,6 +6,7 @@ import org.apache.commons.codec.binary.Hex;
 
 import IOHandlers.FileWriter;
 import IOHandlers.FilesContentHolder;
+import parsers.Utils;
 
 public class HMAC {
 	private static final int BLOCKSIZE = 64;
@@ -23,12 +24,16 @@ public class HMAC {
 
 	private static String computeHmac(String string) {
 
-		byte[] key = FilesContentHolder.getKeyFileContent().getBytes();
+		byte[] key = Utils.ASCIItoActualBytes(FilesContentHolder.getKeyFileContent());
 		byte[] paddedKey = new byte[BLOCKSIZE];
 
 		if (key.length > BLOCKSIZE) {
 			// keys longer than 64byte are shortened
+			// TODO: convert ASCII bytes to actual bytes (0x39, 0x59, ...)
+
 			paddedKey = SHA1.encode(new String(key)).getBytes();
+			// TODO: paddedKey is 20 bytes, should be 64
+
 		} else if (key.length < BLOCKSIZE) {
 			// Keys shorter than BLOCKSIZE are zero-padded from the right to fit
 			// the BLOCKSIZE

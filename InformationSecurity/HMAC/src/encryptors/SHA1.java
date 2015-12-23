@@ -80,6 +80,8 @@ public class SHA1 {
 			h3 = h3 + oldh3;
 			h4 = h4 + oldh4;
 		}
+		
+		// Add left-padding before Hi
 		StringBuilder sb = new StringBuilder();
 		sb.append(Integer.toHexString(h0));
 		sb.append(Integer.toHexString(h1));
