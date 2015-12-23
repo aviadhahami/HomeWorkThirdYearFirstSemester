@@ -25,12 +25,12 @@ public class SHA1 {
 		return (num << cnt) | (num >>> (32 - cnt));
 	}
 
-	public static String encode(String str) {
+	public static byte[] encode(byte[] str) {
 
 		// Convert a string to a sequence of 16-word blocks, stored as an array.
 		// Append padding bits and the length, as described in the SHA1 standard
 
-		byte[] x = str.getBytes();
+		byte[] x = str;
 		int[] blks = new int[(((x.length + 8) >> 6) + 1) * 16];
 		int i;
 
@@ -80,14 +80,21 @@ public class SHA1 {
 			h3 = h3 + oldh3;
 			h4 = h4 + oldh4;
 		}
+
+		int[] holder = new int[] { h0, h1, h2, h3, h4 };
+		for (int j : holder) {
+			
+			
+		}
 		
-		// Add left-padding before Hi
+		// FIXME: Add left-padding before Hi
 		StringBuilder sb = new StringBuilder();
-		sb.append(Integer.toHexString(h0));
-		sb.append(Integer.toHexString(h1));
-		sb.append(Integer.toHexString(h2));
-		sb.append(Integer.toHexString(h3));
-		sb.append(Integer.toHexString(h4));
-		return sb.toString();
+		sb.append(Integer.toHexString(h0) + ",");
+		sb.append(Integer.toHexString(h1) + ",");
+		sb.append(Integer.toHexString(h2) + ",");
+		sb.append(Integer.toHexString(h3) + ",");
+		sb.append(Integer.toHexString(h4) + ",");
+		System.out.println(sb.toString());
+		return sb.toString().getBytes();
 	}
 }

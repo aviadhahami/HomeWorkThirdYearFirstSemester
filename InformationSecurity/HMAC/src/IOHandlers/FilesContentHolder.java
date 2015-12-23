@@ -5,16 +5,16 @@ import java.nio.file.Paths;
 import org.apache.commons.codec.binary.Base64;
 
 public class FilesContentHolder {
-	private static String inputFileContent;
-	private static String digestFileContent;
-	private static String KeyFileContent;
+	private static byte[] inputFileContent;
+	private static byte[] digestFileContent;
+	private static byte[] KeyFileContent;
 
 	public FilesContentHolder(String inputFile, String digestFile, String keyFile) {
 		try {
 			System.out.println();
-			this.setInputFileContent(new String(Files.readAllBytes(Paths.get(inputFile))));
-			this.setDigestFileContent(new String(Files.readAllBytes(Paths.get(digestFile))));
-			this.setKeyFileContent(new String(Base64.decodeBase64((Files.readAllBytes(Paths.get(keyFile))))));
+			this.setInputFileContent(Files.readAllBytes(Paths.get(inputFile)));
+			this.setDigestFileContent(Files.readAllBytes(Paths.get(digestFile)));
+			this.setKeyFileContent(Base64.decodeBase64((Files.readAllBytes(Paths.get(keyFile)))));
 
 		} catch (Exception e) {
 			System.err.println("We hit exception while reading one of the files. \n Expection: " + e.getMessage());
@@ -23,27 +23,27 @@ public class FilesContentHolder {
 		}
 	}
 
-	public static String getKeyFileContent() {
+	public static byte[] getKeyFileContent() {
 		return KeyFileContent;
 	}
 
-	public void setKeyFileContent(String keyFileContent) {
+	public void setKeyFileContent(byte[] keyFileContent) {
 		KeyFileContent = keyFileContent;
 	}
 
-	public static String getDigestFileContent() {
+	public static byte[] getDigestFileContent() {
 		return digestFileContent;
 	}
 
-	public void setDigestFileContent(String digestFileContent) {
+	public void setDigestFileContent(byte[] digestFileContent) {
 		FilesContentHolder.digestFileContent = digestFileContent;
 	}
 
-	public static String getInputFileContent() {
+	public static byte[] getInputFileContent() {
 		return inputFileContent;
 	}
 
-	public void setInputFileContent(String inputFileContent) {
+	public void setInputFileContent(byte[] inputFileContent) {
 		FilesContentHolder.inputFileContent = inputFileContent;
 	}
 
