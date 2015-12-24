@@ -2,6 +2,9 @@ package encryptors;
 
 import java.util.Arrays;
 
+import com.sun.corba.se.impl.javax.rmi.CORBA.Util;
+import com.sun.openpisces.TransformingPathConsumer2D.FilterSet;
+
 import IOHandlers.FileWriter;
 import IOHandlers.FilesContentHolder;
 import parsers.Utils;
@@ -22,8 +25,6 @@ public class HMAC {
 		// function hmac (key, message)
 		byte[] msg = FilesContentHolder.getInputFileContent();
 		byte[] key = FilesContentHolder.getKeyFileContent();
-		
-		
 
 		// if (length(key) > blocksize) then
 		// key = hash(key) // keys longer than blocksize are shortened
@@ -64,14 +65,12 @@ public class HMAC {
 			context[i] = ipad[i];
 		}
 		for (int i = 0; i < msg.length; i++) {
-			context[i+ipad.length] = msg[i];
+			context[i + ipad.length] = msg[i];
 		}
-
+		// FIXME: contact is wrong
 		byte[] firstSha = SHA1.encode(context);
-		
+		System.out.println(Utils.bytesToHex(firstSha));
 
-		
-		
 		context = new byte[opad.length + firstSha.length];
 		System.arraycopy(opad, 0, context, 0, opad.length);
 		System.arraycopy(firstSha, 0, context, opad.length, firstSha.length);

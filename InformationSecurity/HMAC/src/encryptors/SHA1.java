@@ -1,8 +1,5 @@
 package encryptors;
 
-import com.sun.corba.se.impl.javax.rmi.CORBA.Util;
-import com.sun.org.apache.bcel.internal.generic.ANEWARRAY;
-
 import parsers.Utils;
 
 public class SHA1 {
@@ -17,12 +14,12 @@ public class SHA1 {
 	/*
 	 * Take a string and return the base64 representation of its SHA-1.
 	 */
-	public static byte[] encode(byte[] context) {
+	public static byte[] encode(byte[] in) {
 
 		// Convert a string to a sequence of 16-word blocks, stored as an array.
 		// Append padding bits and the length, as described in the SHA1 standard
 
-		byte[] x = context;
+		byte[] x = in;
 		int[] blks = new int[(((x.length + 8) >> 6) + 1) * 16];
 		int i;
 
