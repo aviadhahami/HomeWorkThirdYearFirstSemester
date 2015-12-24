@@ -2,15 +2,17 @@ package encryptors;
 
 import java.util.Arrays;
 
+import org.apache.commons.codec.binary.Base64;
+
 import IOHandlers.FileWriter;
 import IOHandlers.FilesContentHolder;
-import parsers.Utils;
 
 public class HMAC {
 	private static final int BLOCKSIZE = 64;
 
 	public static void verify() {
-		// TODO: implement this
+		System.out.println(Base64.encodeBase64String(computeHmac()));
+		System.out.println(FilesContentHolder.getDigestFileContent());
 	}
 
 	public static void compute() {
@@ -18,7 +20,7 @@ public class HMAC {
 		System.out.println("Done");
 	}
 
-	private static String computeHmac() {
+	private static byte[] computeHmac() {
 		// function hmac (key, message)
 		byte[] msg = FilesContentHolder.getInputFileContent();
 		byte[] key = FilesContentHolder.getKeyFileContent();
@@ -65,17 +67,16 @@ public class HMAC {
 		}
 
 		byte[] firstSha = SHA1.digestIt(context);
-		System.out.println(Utils.bytesToHex(firstSha));
 
 		context = new byte[opad.length + firstSha.length];
 		System.arraycopy(opad, 0, context, 0, opad.length);
 		System.arraycopy(firstSha, 0, context, opad.length, firstSha.length);
 		byte[] scndSha = SHA1.digestIt(context);
-		System.out.println(Utils.bytesToHex(scndSha));
 		// return hash(o_key_pad ∥ hash(i_key_pad ∥ message)) // Where ∥ is
 		// concatenation
 		// end function
-		return Utils.bytesToHex(scndSha);
+		System.out.println(Base64.encodeBase64String(scndSha));
+		return scndSha;
 	}
 
 }
