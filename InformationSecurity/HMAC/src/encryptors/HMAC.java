@@ -11,8 +11,12 @@ public class HMAC {
 	private static final int BLOCKSIZE = 64;
 
 	public static void verify() {
-		System.out.println(Base64.encodeBase64String(computeHmac()));
-		System.out.println(FilesContentHolder.getDigestFileContent());
+		if (Base64.encodeBase64String(computeHmac()).equals(new String(FilesContentHolder.getDigestFileContent()))) {
+			System.out.println("Accept");
+		} else {
+			System.out.println("Reject");
+		}
+
 	}
 
 	public static void compute() {
@@ -75,7 +79,6 @@ public class HMAC {
 		// return hash(o_key_pad ∥ hash(i_key_pad ∥ message)) // Where ∥ is
 		// concatenation
 		// end function
-		System.out.println(Base64.encodeBase64String(scndSha));
 		return scndSha;
 	}
 
