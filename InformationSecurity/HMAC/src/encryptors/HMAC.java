@@ -1,9 +1,8 @@
 package encryptors;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.Arrays;
-
-import com.sun.corba.se.impl.javax.rmi.CORBA.Util;
-import com.sun.openpisces.TransformingPathConsumer2D.FilterSet;
 
 import IOHandlers.FileWriter;
 import IOHandlers.FilesContentHolder;
@@ -67,7 +66,19 @@ public class HMAC {
 		for (int i = 0; i < msg.length; i++) {
 			context[i + ipad.length] = msg[i];
 		}
-		// FIXME: contact is wrong
+		// FIXME: Hashing the concat returns wrong val
+		System.out.println(Utils.bytesToHex(context));
+
+		FileOutputStream fos;
+		try {
+			fos = new FileOutputStream("/home/aviadh/Desktop/dump");
+			fos.write(context);
+			fos.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		byte[] firstSha = SHA1.encode(context);
 		System.out.println(Utils.bytesToHex(firstSha));
 
