@@ -26,7 +26,7 @@ public class HMAC {
 		// if (length(key) > blocksize) then
 		// key = hash(key) // keys longer than blocksize are shortened
 		// end if
-		if (key.length > 64) {
+		if (key.length > BLOCKSIZE) {
 			byte[] tmpKey = SHA1.digestIt(key);
 			key = new byte[20];
 			key = tmpKey;
@@ -35,11 +35,11 @@ public class HMAC {
 		// key = key ∥ [0x00 * (blocksize - length(key))] // keys shorter than
 		// blocksize are zero-padded (where ∥ is concatenation)
 		// end if
-		if (key.length < 64) {
-			byte[] tmpKey = new byte[64];
+		if (key.length < BLOCKSIZE) {
+			byte[] tmpKey = new byte[BLOCKSIZE];
 			Arrays.fill(tmpKey, (byte) 0);
 			System.arraycopy(key, 0, tmpKey, 0, key.length);
-			key = new byte[64];
+			key = new byte[BLOCKSIZE];
 			key = tmpKey;
 		}
 
@@ -47,11 +47,11 @@ public class HMAC {
 		// the underlying hash function
 		// i_key_pad = [0x36 * blocksize] ⊕ key // Where ⊕ is exclusive or (XOR)
 		//
-		byte[] opad = new byte[64];
+		byte[] opad = new byte[BLOCKSIZE];
 		for (int j = 0; j < opad.length; j++) {
 			opad[j] = (byte) (((int) key[j]) ^ ((int) 0x5c));
 		}
-		byte[] ipad = new byte[64];
+		byte[] ipad = new byte[BLOCKSIZE];
 		for (int j = 0; j < ipad.length; j++) {
 			ipad[j] = (byte) (((int) key[j]) ^ ((int) 0x36));
 		}
@@ -63,7 +63,6 @@ public class HMAC {
 		for (int i = 0; i < msg.length; i++) {
 			context[i + ipad.length] = msg[i];
 		}
-		
 
 		byte[] firstSha = SHA1.digestIt(context);
 		System.out.println(Utils.bytesToHex(firstSha));

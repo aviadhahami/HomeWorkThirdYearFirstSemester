@@ -2,7 +2,11 @@ package encryptors;
 
 import parsers.Utils;
 
-//TODO: edit
+/**
+ * SHA-1 implementation as described in Wikipedia's psuedo-code
+ * @author aviadh
+ *
+ */
 public class SHA1 {
 
 	static int j, temp;
@@ -34,7 +38,6 @@ public class SHA1 {
 		byte[] h4 = Utils.intToByteArray(H[4]);
 		return Utils.concat(h0, h1, h2, h3, h4);
 	}
-	// -------------------------------------------//
 
 	private static byte[] padTheMessage(byte[] data) {
 		int origLength = data.length;
@@ -62,7 +65,6 @@ public class SHA1 {
 		return output;
 
 	}
-	// -------------------------------------------//
 
 	private static void processTheBlock(byte[] work, int H[], int K[]) {
 
@@ -136,8 +138,6 @@ public class SHA1 {
 		H[2] += C;
 		H[3] += D;
 		H[4] += E;
-
-		int n;
 	}
 
 	final static int rotateLeft(int value, int bits) {
