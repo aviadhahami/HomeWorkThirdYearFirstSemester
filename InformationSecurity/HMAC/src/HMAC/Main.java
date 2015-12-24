@@ -1,7 +1,5 @@
 package HMAC;
 
-import java.io.File;
-
 import IOHandlers.FilesContentHolder;
 import IOHandlers.InputWrapper;
 import encryptors.HMAC;

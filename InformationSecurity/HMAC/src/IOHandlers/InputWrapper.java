@@ -9,11 +9,11 @@ import java.io.File;
  *
  */
 public class InputWrapper {
-	private static String HMAC = System.getProperty("user.dir") + File.separatorChar + "HMAC";
+	private static String HMAC = System.getProperty("user.dir");
 	private static String _inputFile = HMAC + File.separator + "input.txt";
 	private static String _digestFile = HMAC + File.separator + "digest.txt";
 	private static String _keyFile = HMAC + File.separator + "key.txt";
-	private static String _functionOption = "verify";
+	private static String _functionOption = "compute";
 
 	private static String inputFile = "";
 	private static String digestFile = "";
