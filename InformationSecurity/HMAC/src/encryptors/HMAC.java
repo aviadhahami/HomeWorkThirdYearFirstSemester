@@ -4,6 +4,7 @@ import java.sql.Blob;
 import java.util.Arrays;
 import java.util.Iterator;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
 
 import IOHandlers.FileWriter;
@@ -48,13 +49,17 @@ public class HMAC {
 
 		byte[] opad = new byte[BLOCKSIZE];
 		byte[] ipad = new byte[BLOCKSIZE];
-		Arrays.fill(opad, (byte) 0x5c);
-		Arrays.fill(ipad, (byte) 0x36);
-		for (int i = 0; i < BLOCKSIZE; i++) {
-			opad[i] = (byte) (opad[i] ^ paddedKey[i]);
-			ipad[i] = (byte) (ipad[i] ^ paddedKey[i]);
+		// Arrays.fill(opad, 0x5c);
+		// Arrays.fill(ipad, 0x36);
+		int i = 0;
+		for (byte b : paddedKey) {
+			opad[i] = (byte) (b ^ 0x5c);
+			ipad[i] = (byte) (b ^ 0x36);
+			i++;
 		}
+
 		byte[] message = FilesContentHolder.getInputFileContent();
+
 		// o_key_pad = [0x5c * blocksize] ⊕ key // Where blocksize is that of
 		// the underlying hash function
 		// i_key_pad = [0x36 * blocksize] ⊕ key // Where ⊕ is exclusive or (XOR)
@@ -69,8 +74,9 @@ public class HMAC {
 		// return hash(o_key_pad ∥ hash(i_key_pad ∥ message)) // Where ∥ is
 		// concatenation
 		// end function
+		System.out.println(new String(Base64.encodeBase64(secondSha)));
 		for (byte b : SHA1.encode(secondSha)) {
-			System.out.print(Integer.toHexString(b));
+			System.out.print((int)b);
 			System.out.print("_");
 		}
 

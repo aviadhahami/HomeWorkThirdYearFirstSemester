@@ -11,8 +11,7 @@ public class FilesContentHolder {
 
 	public FilesContentHolder(String inputFile, String digestFile, String keyFile) {
 		try {
-			System.out.println();
-			this.setInputFileContent(Files.readAllBytes(Paths.get(inputFile)));
+			this.setInputFileContent(Base64.decodeBase64(Files.readAllBytes(Paths.get(inputFile))));
 			this.setDigestFileContent(Files.readAllBytes(Paths.get(digestFile)));
 			this.setKeyFileContent(Base64.decodeBase64((Files.readAllBytes(Paths.get(keyFile)))));
 
