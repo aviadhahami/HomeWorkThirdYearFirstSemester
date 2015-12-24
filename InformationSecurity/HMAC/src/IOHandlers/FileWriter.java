@@ -7,10 +7,9 @@ import org.apache.commons.codec.binary.Base64;
 
 public class FileWriter {
 
-	public static void write(String input) {
-	System.out.println("before base64 : " + input);
+	public static void write(byte[] bs) {
 		try (PrintStream out = new PrintStream(new FileOutputStream(InputWrapper.getDigestFile()))) {
-			out.print(new String(Base64.encodeBase64(input.getBytes())));
+			out.print(Base64.encodeBase64String(bs));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
