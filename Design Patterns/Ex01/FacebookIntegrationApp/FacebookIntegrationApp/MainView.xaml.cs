@@ -15,6 +15,7 @@ using FacebookWrapper.ObjectModel;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Net;
+using System.Threading;
 
 namespace FacebookIntegrationApp
 {
@@ -36,27 +37,41 @@ namespace FacebookIntegrationApp
         // Populate fields around the app
         private void init()
         {
-            // Fetch photo
-            ProfilePic.Source = new BitmapImage(new Uri(m_loggedInUser.PictureNormalURL));
+            new Thread(fetchName).Start();
+            new Thread(setNameForTitle).Start();
+        }
 
-            // Fetch name for title
-            UserName.Text = m_loggedInUser.FirstName;
+        private void fetchName()
+        {
+            Application.Current.Dispatcher.BeginInvoke(new Action(() => UserName.Text = m_loggedInUser.FirstName));
+        }
+
+        private void setNameForTitle()
+        {
+            Application.Current.Dispatcher.BeginInvoke(new Action(() => ProfilePic.Source = new BitmapImage(new Uri(m_loggedInUser.PictureNormalURL))));
         }
 
         private void PostStatus(object sender, RoutedEventArgs e)
         {
-            String statusText = StatusText.Text;
+            new Thread(sendStatus).Start();
+
+        }
+
+        private void sendStatus()
+        {
+            
             try
             {
-                Status postedStatus = m_loggedInUser.PostStatus(statusText);
-                MessageBox.Show("Posted! id: " + postedStatus.Id);
+                Status postedStatus;
+                Application.Current.Dispatcher.BeginInvoke(new Action(() => postedStatus = m_loggedInUser.PostStatus(StatusText.Text)));
+                MessageBox.Show("Posted!");
             }
             catch (Exception exeption)
             {
                 MessageBox.Show("something went wrong!" + Environment.NewLine + exeption.Message);
             }
-
         }
+
         private void LuckFunction(object sender, RoutedEventArgs e)
         {
 
@@ -71,5 +86,6 @@ namespace FacebookIntegrationApp
         }
 
     }
+
 
 }

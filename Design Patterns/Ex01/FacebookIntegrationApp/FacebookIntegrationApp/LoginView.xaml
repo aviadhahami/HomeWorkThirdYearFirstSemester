@@ -25,6 +25,7 @@
                 </StackPanel>
             </Button.Content>
         </Button>
+        <CheckBox Name="checkAutoLogIn" IsChecked="True" Content="Remember name and password?" Margin="98,222,-98,-221.5"></CheckBox>
     </Grid>
 </Window>
 

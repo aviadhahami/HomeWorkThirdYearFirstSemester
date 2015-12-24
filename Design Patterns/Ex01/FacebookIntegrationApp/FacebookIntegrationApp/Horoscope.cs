@@ -63,7 +63,7 @@ namespace FacebookIntegrationApp
             int[] dayToReduceFromEachMonth = { 1, 2, 0, 1, 0, 0, -2, -2, -2, -2, -1, -1 };
             for (int i = 1; i < 13; i++)
             {
-                bool dayBiggerThanMiddle = day < (midleOfMonth - dayToReduceFromEachMonth[i]);
+                bool dayBiggerThanMiddle = day < (midleOfMonth - dayToReduceFromEachMonth[i - 1]);
                 bool ifLuckyMonth = month == i;
                 bool iflastMonth = i == 12;
                 if (ifLuckyMonth)
