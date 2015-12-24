@@ -7,9 +7,22 @@ import org.apache.commons.codec.binary.Base64;
 import IOHandlers.FileWriter;
 import IOHandlers.FilesContentHolder;
 
+/**
+ * HMAC class. <br/>
+ * This class consists mainly of 2 methods: HMAC verification & calculation.
+ * <br/>
+ * 
+ * @author aviadh & Aviyas
+ *
+ */
 public class HMAC {
 	private static final int BLOCKSIZE = 64;
 
+	/**
+	 * Verification method invoked according to user pick. <br />
+	 * The function calculates HMAC for a given key & message then checks the
+	 * hashed result (BASE64 formatted) against the given digest file
+	 */
 	public static void verify() {
 		if (Base64.encodeBase64String(computeHmac()).equals(new String(FilesContentHolder.getDigestFileContent()))) {
 			System.out.println("Accept");
@@ -19,11 +32,21 @@ public class HMAC {
 
 	}
 
+	/**
+	 * compute function invokes the <i>computeHamc()</i> function and writes the
+	 * data as Base64 string into the digest file
+	 */
 	public static void compute() {
 		FileWriter.write(computeHmac());
 		System.out.println("Done");
 	}
 
+	/**
+	 * Computes HMAC-SHA1 value of the input file & key. Input file is ASCII
+	 * encoded Key is BASE64 encoded
+	 * 
+	 * @return
+	 */
 	private static byte[] computeHmac() {
 		// function hmac (key, message)
 		byte[] msg = FilesContentHolder.getInputFileContent();

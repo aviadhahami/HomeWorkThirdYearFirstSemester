@@ -1,5 +1,7 @@
 package HMAC;
 
+import java.io.File;
+
 import IOHandlers.FilesContentHolder;
 import IOHandlers.InputWrapper;
 import encryptors.HMAC;
@@ -20,7 +22,17 @@ import parsers.Parser;
  *
  */
 public class Main {
-
+	/**
+	 * Intro point for the app. The app receives 4 CLI arguments :
+	 * <ol>
+	 * <li>Path to input file (The message to encode)</li>
+	 * <li>Path to digest file (The "dump" for the hash)</li>
+	 * <li>Path to key file (The encryption key)</li>
+	 * <li>Functionality pick ("compute" or "verify")</li>
+	 * </ol>
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		Parser.parseInput(args);
 		new FilesContentHolder(InputWrapper.getInputFile(), InputWrapper.getDigestFile(), InputWrapper.getKeyFile());

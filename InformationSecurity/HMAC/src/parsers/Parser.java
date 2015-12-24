@@ -15,9 +15,9 @@ public class Parser {
 		if (args.length == 4) {
 
 			// Parse from args
-			inputFile = args[0].replace("/", File.pathSeparator).replace("\\", File.pathSeparator);
-			digestFile = args[1].replace("/", File.pathSeparator).replace("\\", File.pathSeparator);
-			keyFile = args[2].replace("/", File.pathSeparator).replace("\\", File.pathSeparator);
+			inputFile = args[0].replace("/", File.separator).replace("\\", File.separator);
+			digestFile = args[1].replace("/", File.separator).replace("\\", File.separator);
+			keyFile = args[2].replace("/", File.separator).replace("\\", File.separator);
 			functionOption = args[3];
 		}
 
