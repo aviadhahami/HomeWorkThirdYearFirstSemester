@@ -1,14 +1,10 @@
 package encryptors;
 
-import java.sql.Blob;
 import java.util.Arrays;
-import java.util.Iterator;
-
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.codec.binary.Hex;
 
 import IOHandlers.FileWriter;
 import IOHandlers.FilesContentHolder;
+import parsers.Utils;
 
 public class HMAC {
 	private static final int BLOCKSIZE = 64;
@@ -18,69 +14,73 @@ public class HMAC {
 	}
 
 	public static void compute() {
-		FileWriter.write(computeHmac(SHA1.encode(FilesContentHolder.getInputFileContent())));
+		FileWriter.write(computeHmac());
 		System.out.println("Done");
 	}
 
-	private static String computeHmac(byte[] bs) {
-
+	private static String computeHmac() {
+		// function hmac (key, message)
+		byte[] msg = FilesContentHolder.getInputFileContent();
 		byte[] key = FilesContentHolder.getKeyFileContent();
-		byte[] paddedKey = new byte[BLOCKSIZE];
+		
+		
 
-		// keys longer than 64byte are shortened
-		// FIXME: convert ASCII bytes to actual bytes (0x39, 0x59, ...)
-
-		if (key.length > BLOCKSIZE) {
-			byte[] hashedKey = SHA1.encode(key);
-			Arrays.fill(paddedKey, (byte) 0x00);
-			for (int i = 0; i < hashedKey.length; i++) {
-				paddedKey[i] = hashedKey[i];
-			}
-			// Keys shorter than BLOCKSIZE are zero-padded from the right to fit
-			// the BLOCKSIZE
-		} else if (key.length < BLOCKSIZE) {
-			Arrays.fill(paddedKey, (byte) 0x00);
-			for (int i = 0; i < key.length; i++) {
-				paddedKey[i] = key[i];
-			}
-		} else if (key.length == BLOCKSIZE) {
-			paddedKey = key;
+		// if (length(key) > blocksize) then
+		// key = hash(key) // keys longer than blocksize are shortened
+		// end if
+		if (key.length > 64) {
+			byte[] tmpKey = SHA1.encode(key);
+			key = new byte[20];
+			key = tmpKey;
 		}
-
-		byte[] opad = new byte[BLOCKSIZE];
-		byte[] ipad = new byte[BLOCKSIZE];
-		// Arrays.fill(opad, 0x5c);
-		// Arrays.fill(ipad, 0x36);
-		int i = 0;
-		for (byte b : paddedKey) {
-			opad[i] = (byte) (b ^ 0x5c);
-			ipad[i] = (byte) (b ^ 0x36);
-			i++;
+		// if (length(key) < blocksize) then
+		// key = key ∥ [0x00 * (blocksize - length(key))] // keys shorter than
+		// blocksize are zero-padded (where ∥ is concatenation)
+		// end if
+		if (key.length < 64) {
+			byte[] tmpKey = new byte[64];
+			Arrays.fill(tmpKey, (byte) 0);
+			System.arraycopy(key, 0, tmpKey, 0, key.length);
+			key = new byte[64];
+			key = tmpKey;
 		}
-
-		byte[] message = FilesContentHolder.getInputFileContent();
 
 		// o_key_pad = [0x5c * blocksize] ⊕ key // Where blocksize is that of
 		// the underlying hash function
 		// i_key_pad = [0x36 * blocksize] ⊕ key // Where ⊕ is exclusive or (XOR)
-		byte[] context = new byte[ipad.length + message.length];
-		System.arraycopy(ipad, 0, context, 0, ipad.length);
-		System.arraycopy(message, 0, context, ipad.length, message.length);
-		byte[] firstSha1 = SHA1.encode(context);
+		//
+		byte[] opad = new byte[64];
+		for (int j = 0; j < opad.length; j++) {
+			opad[j] = (byte) (((int) key[j]) ^ ((int) 0x5c));
+		}
+		byte[] ipad = new byte[64];
+		for (int j = 0; j < ipad.length; j++) {
+			ipad[j] = (byte) (((int) key[j]) ^ ((int) 0x36));
+		}
 
-		byte[] secondSha = new byte[firstSha1.length + opad.length];
-		System.arraycopy(opad, 0, secondSha, 0, opad.length);
-		System.arraycopy(firstSha1, 0, secondSha, opad.length, firstSha1.length);
+		// FIXME : wrong cntx
+		byte[] context = new byte[ipad.length + msg.length];
+		for (int i = 0; i < ipad.length; i++) {
+			context[i] = ipad[i];
+		}
+		for (int i = 0; i < msg.length; i++) {
+			context[i+ipad.length] = msg[i];
+		}
+
+		byte[] firstSha = SHA1.encode(context);
+		
+
+		
+		
+		context = new byte[opad.length + firstSha.length];
+		System.arraycopy(opad, 0, context, 0, opad.length);
+		System.arraycopy(firstSha, 0, context, opad.length, firstSha.length);
+		byte[] scndSha = SHA1.encode(context);
+		System.out.println(Utils.bytesToHex(scndSha));
 		// return hash(o_key_pad ∥ hash(i_key_pad ∥ message)) // Where ∥ is
 		// concatenation
 		// end function
-		System.out.println(new String(Base64.encodeBase64(secondSha)));
-		for (byte b : SHA1.encode(secondSha)) {
-			System.out.print((int)b);
-			System.out.print("_");
-		}
-
-		return new String(SHA1.encode(secondSha));
+		return Utils.bytesToHex(scndSha);
 	}
 
 }
