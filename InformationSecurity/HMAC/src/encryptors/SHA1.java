@@ -1,14 +1,8 @@
 package encryptors;
-/*
- * 
- * SHA1.java
- * The implementation of SHA-1 in Java
- * Copyright (C) 2005 Roy Abu Bakar
- * 
- */
 
 import parsers.Utils;
 
+//TODO: edit
 public class SHA1 {
 
 	static int j, temp;
@@ -95,7 +89,7 @@ public class SHA1 {
 			F = (B & C) | ((~B) & D);
 			// K = 0x5A827999;
 			temp = rotateLeft(A, 5) + F + E + K[0] + W[j];
-//			System.out.println(Integer.toHexString(K[0]));
+			// System.out.println(Integer.toHexString(K[0]));
 			E = D;
 			D = C;
 			C = rotateLeft(B, 30);
@@ -107,7 +101,7 @@ public class SHA1 {
 			F = B ^ C ^ D;
 			// K = 0x6ED9EBA1;
 			temp = rotateLeft(A, 5) + F + E + K[1] + W[j];
-//			System.out.println(Integer.toHexString(K[1]));
+			// System.out.println(Integer.toHexString(K[1]));
 			E = D;
 			D = C;
 			C = rotateLeft(B, 30);

@@ -42,7 +42,7 @@ public class HMAC {
 			key = new byte[64];
 			key = tmpKey;
 		}
-
+	
 		// o_key_pad = [0x5c * blocksize] ⊕ key // Where blocksize is that of
 		// the underlying hash function
 		// i_key_pad = [0x36 * blocksize] ⊕ key // Where ⊕ is exclusive or (XOR)
@@ -55,28 +55,18 @@ public class HMAC {
 		for (int j = 0; j < ipad.length; j++) {
 			ipad[j] = (byte) (((int) key[j]) ^ ((int) 0x36));
 		}
-
-		// FIXME : wrong cntx
-		byte[] context = new byte[ipad.length + msg.length];
-		for (int i = 0; i < ipad.length; i++) {
-			context[i] = ipad[i];
-		}
-		for (int i = 0; i < msg.length; i++) {
-			context[i + ipad.length] = msg[i];
-		}
+		System.out.println(Utils.bytesToHex(ipad));
 		
-		// FIXME: Hashing the concat returns wrong val
-		System.out.println(Utils.bytesToHex(context));
-
+		byte[] context = new byte[ipad.length + msg.length];
+		System.arraycopy(ipad, 0, context, 0, ipad.length);
+		System.arraycopy(msg, 0, context, ipad.length, msg.length);
 
 		byte[] firstSha = SHA1.digestIt(context);
-		System.out.println(Utils.bytesToHex(firstSha));
 
 		context = new byte[opad.length + firstSha.length];
 		System.arraycopy(opad, 0, context, 0, opad.length);
 		System.arraycopy(firstSha, 0, context, opad.length, firstSha.length);
 		byte[] scndSha = SHA1.digestIt(context);
-		System.out.println(Utils.bytesToHex(scndSha));
 		// return hash(o_key_pad ∥ hash(i_key_pad ∥ message)) // Where ∥ is
 		// concatenation
 		// end function
