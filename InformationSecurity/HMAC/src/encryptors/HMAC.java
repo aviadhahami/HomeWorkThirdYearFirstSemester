@@ -1,7 +1,5 @@
 package encryptors;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.util.Arrays;
 
 import IOHandlers.FileWriter;
@@ -29,7 +27,7 @@ public class HMAC {
 		// key = hash(key) // keys longer than blocksize are shortened
 		// end if
 		if (key.length > 64) {
-			byte[] tmpKey = SHA1.encode(key);
+			byte[] tmpKey = SHA1.digestIt(key);
 			key = new byte[20];
 			key = tmpKey;
 		}
@@ -66,26 +64,18 @@ public class HMAC {
 		for (int i = 0; i < msg.length; i++) {
 			context[i + ipad.length] = msg[i];
 		}
+		
 		// FIXME: Hashing the concat returns wrong val
 		System.out.println(Utils.bytesToHex(context));
 
-		FileOutputStream fos;
-		try {
-			fos = new FileOutputStream("/home/aviadh/Desktop/dump");
-			fos.write(context);
-			fos.close();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
-		byte[] firstSha = SHA1.encode(context);
+		byte[] firstSha = SHA1.digestIt(context);
 		System.out.println(Utils.bytesToHex(firstSha));
 
 		context = new byte[opad.length + firstSha.length];
 		System.arraycopy(opad, 0, context, 0, opad.length);
 		System.arraycopy(firstSha, 0, context, opad.length, firstSha.length);
-		byte[] scndSha = SHA1.encode(context);
+		byte[] scndSha = SHA1.digestIt(context);
 		System.out.println(Utils.bytesToHex(scndSha));
 		// return hash(o_key_pad ∥ hash(i_key_pad ∥ message)) // Where ∥ is
 		// concatenation

@@ -1,82 +1,154 @@
 package encryptors;
+/*
+ * 
+ * SHA1.java
+ * The implementation of SHA-1 in Java
+ * Copyright (C) 2005 Roy Abu Bakar
+ * 
+ */
 
 import parsers.Utils;
 
 public class SHA1 {
 
-	/*
-	 * Bitwise rotate a 32-bit number to the left
-	 */
-	private static int rol(int num, int cnt) {
-		return (num << cnt) | (num >>> (32 - cnt));
-	}
+	static int j, temp;
+	static int A, B, C, D, E;
+	static int[] H = { 0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476, 0xC3D2E1F0 };
+	static int F;
 
-	/*
-	 * Take a string and return the base64 representation of its SHA-1.
-	 */
-	public static byte[] encode(byte[] in) {
+	public static byte[] digestIt(byte[] dataIn) {
+		byte[] paddedData = padTheMessage(dataIn);
+		int[] H = { 0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476, 0xC3D2E1F0 };
+		int[] K = { 0x5A827999, 0x6ED9EBA1, 0x8F1BBCDC, 0xCA62C1D6 };
 
-		// Convert a string to a sequence of 16-word blocks, stored as an array.
-		// Append padding bits and the length, as described in the SHA1 standard
-
-		byte[] x = in;
-		int[] blks = new int[(((x.length + 8) >> 6) + 1) * 16];
-		int i;
-
-		for (i = 0; i < x.length; i++) {
-			blks[i >> 2] |= x[i] << (24 - (i % 4) * 8);
+		if (paddedData.length % 64 != 0) {
+			System.out.println("Invalid padded data length.");
+			System.exit(0);
 		}
 
-		blks[i >> 2] |= 0x80 << (24 - (i % 4) * 8);
-		blks[blks.length - 1] = x.length * 8;
+		int passesReq = paddedData.length / 64;
+		byte[] work = new byte[64];
 
-		// calculate 160 bit SHA1 hash of the sequence of blocks
+		for (int passCntr = 0; passCntr < passesReq; passCntr++) {
+			System.arraycopy(paddedData, 64 * passCntr, work, 0, 64);
+			processTheBlock(work, H, K);
+		}
+		byte[] h0 = Utils.intToByteArray(H[0]);
+		byte[] h1 = Utils.intToByteArray(H[1]);
+		byte[] h2 = Utils.intToByteArray(H[2]);
+		byte[] h3 = Utils.intToByteArray(H[3]);
+		byte[] h4 = Utils.intToByteArray(H[4]);
+		return Utils.concat(h0, h1, h2, h3, h4);
+	}
+	// -------------------------------------------//
 
-		int[] w = new int[80];
+	private static byte[] padTheMessage(byte[] data) {
+		int origLength = data.length;
+		int tailLength = origLength % 64;
+		int padLength = 0;
+		if ((64 - tailLength >= 9)) {
+			padLength = 64 - tailLength;
+		} else {
+			padLength = 128 - tailLength;
+		}
 
-		int a = 1732584193;
-		int b = -271733879;
-		int c = -1732584194;
-		int d = 271733878;
-		int e = -1009589776;
+		byte[] thePad = new byte[padLength];
+		thePad[0] = (byte) 0x80;
+		long lengthInBits = origLength * 8;
 
-		for (i = 0; i < blks.length; i += 16) {
-			int olda = a;
-			int oldb = b;
-			int oldc = c;
-			int oldd = d;
-			int olde = e;
+		for (int cnt = 0; cnt < 8; cnt++) {
+			thePad[thePad.length - 1 - cnt] = (byte) ((lengthInBits >> (8 * cnt)) & 0x00000000000000FF);
+		}
 
-			for (int j = 0; j < 80; j++) {
-				w[j] = (j < 16) ? blks[i + j] : (rol(w[j - 3] ^ w[j - 8] ^ w[j - 14] ^ w[j - 16], 1));
+		byte[] output = new byte[origLength + padLength];
 
-				int t = rol(a, 5) + e + w[j]
-						+ ((j < 20) ? 1518500249 + ((b & c) | ((~b) & d))
-								: (j < 40) ? 1859775393 + (b ^ c ^ d)
-										: (j < 60) ? -1894007588 + ((b & c) | (b & d) | (c & d))
-												: -899497514 + (b ^ c ^ d));
-				e = d;
-				d = c;
-				c = rol(b, 30);
-				b = a;
-				a = t;
+		System.arraycopy(data, 0, output, 0, origLength);
+		System.arraycopy(thePad, 0, output, origLength, thePad.length);
+
+		return output;
+
+	}
+	// -------------------------------------------//
+
+	private static void processTheBlock(byte[] work, int H[], int K[]) {
+
+		int[] W = new int[80];
+		for (int outer = 0; outer < 16; outer++) {
+			int temp = 0;
+			for (int inner = 0; inner < 4; inner++) {
+				temp = (work[outer * 4 + inner] & 0x000000FF) << (24 - inner * 8);
+				W[outer] = W[outer] | temp;
 			}
-
-			a = a + olda;
-			b = b + oldb;
-			c = c + oldc;
-			d = d + oldd;
-			e = e + olde;
 		}
-		// Each int is 32 bits. Need to break it into 4 bytes
 
-		return Utils.concat(intToByteArray(a), intToByteArray(b), intToByteArray(c), intToByteArray(d),
-				intToByteArray(e));
+		for (int j = 16; j < 80; j++) {
+			W[j] = rotateLeft(W[j - 3] ^ W[j - 8] ^ W[j - 14] ^ W[j - 16], 1);
+		}
 
+		A = H[0];
+		B = H[1];
+		C = H[2];
+		D = H[3];
+		E = H[4];
+
+		for (int j = 0; j < 20; j++) {
+			F = (B & C) | ((~B) & D);
+			// K = 0x5A827999;
+			temp = rotateLeft(A, 5) + F + E + K[0] + W[j];
+//			System.out.println(Integer.toHexString(K[0]));
+			E = D;
+			D = C;
+			C = rotateLeft(B, 30);
+			B = A;
+			A = temp;
+		}
+
+		for (int j = 20; j < 40; j++) {
+			F = B ^ C ^ D;
+			// K = 0x6ED9EBA1;
+			temp = rotateLeft(A, 5) + F + E + K[1] + W[j];
+//			System.out.println(Integer.toHexString(K[1]));
+			E = D;
+			D = C;
+			C = rotateLeft(B, 30);
+			B = A;
+			A = temp;
+		}
+
+		for (int j = 40; j < 60; j++) {
+			F = (B & C) | (B & D) | (C & D);
+			// K = 0x8F1BBCDC;
+			temp = rotateLeft(A, 5) + F + E + K[2] + W[j];
+			E = D;
+			D = C;
+			C = rotateLeft(B, 30);
+			B = A;
+			A = temp;
+		}
+
+		for (int j = 60; j < 80; j++) {
+			F = B ^ C ^ D;
+			// K = 0xCA62C1D6;
+			temp = rotateLeft(A, 5) + F + E + K[3] + W[j];
+			E = D;
+			D = C;
+			C = rotateLeft(B, 30);
+			B = A;
+			A = temp;
+		}
+
+		H[0] += A;
+		H[1] += B;
+		H[2] += C;
+		H[3] += D;
+		H[4] += E;
+
+		int n;
 	}
 
-	private static final byte[] intToByteArray(int value) {
-		return new byte[] { (byte) (value >>> 24), (byte) (value >>> 16), (byte) (value >>> 8), (byte) value };
+	final static int rotateLeft(int value, int bits) {
+		int q = (value << bits) | (value >>> (32 - bits));
+		return q;
 	}
 
 }
