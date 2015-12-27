@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Database demo</title>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            color: white;
+            font-family: "Roboto", "Times New Roman";
+        }
+
+        .container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: #78909C;
+        }
+
+        .content {
+            margin-top: 5%;
+            text-align: center;
+        }
+
+        .page-title {
+            color: white;
+            font-family: "Roboto", "Times New Roman";
+            text-align: center;
+        }
+
+        .page-title h1 {
+            font-family: "Pacifico", "Times New Roman";
+            font-weight: 400;
+        }
+
+        .page-title small {
+            font-weight: 300;
+        }
+
+        .database-container {
+            margin-top: 2%;
+        }
+
+        button {
+            background-color: transparent;
+            border: solid white 1px;
+            border-radius: 5px;
+            color: white;
+            font-family: "Roboto", "Times New Roman";
+            padding: 5px;
+        }
+
+        input {
+            background-color: transparent;
+            border: solid white 1px;
+            border-radius: 5px;
+            color: white;
+            font-family: "Roboto", "Times New Roman";
+            padding: 5px;
+        }
+
+        ::-webkit-input-placeholder {
+            color: rgba(255, 255, 255, 0.5);
+            font-family: "Roboto", "Times New Roman";
+        }
+
+        #result {
+
+        }
+
+        .href-icon {
+            width: 35px;
+        }
+
+        #results-frame {
+            max-height: 200px;
+            width: 60%;
+            border: 1px white solid;
+            border-radius: 3px;
+            margin: 0 auto;
+            overflow-y: scroll;
+        }
+
+        table {
+            background-color: white;
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        thead {
+            font-family: "Roboto", "Times New Roman";
+            font-weight: 300;
+            font-size: 15px;
+            color: rgba(0, 0, 0, 0.45) !important;
+        }
+
+        tbody tr:hover {
+            background-color: #F5F5F5;
+        }
+
+        tr {
+            border-bottom: 1px solid #ccc;
+        }
+
+        tbody td {
+            color: #000;
+            font-family: "Roboto", "Times New Roman";
+            font-weight: 300;
+            border: none;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            border-radius: 5px;
+            background-color: white;
+        }
+        .navbar a{
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="content">
+        <div class="navbar">
+            <a href="../index.html">
+                <img class="href-icon" title="home" src="img/home.png" alt="back home">
+            </a>
+            <a href="form.html">
+                <img class="href-icon" title="Add records" src="img/database-plus.png" alt="back home">
+            </a>
+        </div>
+
+        <div class="page-title">
+            <h1>Database Demo</h1>
+            <small>
+                In this part one may want to type a name and wait for auto-complete from server <br>
+                or click on the button and show all records
+            </small>
+        </div>
+        <div class="database-container">
+
+            <div class="search-box">
+                <input id="search-box" type="text" placeholder="Search name(i.e Davie Jones)"/>
+                OR
+                <button id="showAll">
+                    show all records
+                </button>
+            </div>
+            <br><br>
+            <div class="table-box">
+                <hr>
+                <h5>Results - showing <i id="resultCount">0</i> records</h5>
+                <div id="results-frame">
+                    <table id="result">
+                        <thead>
+                        <tr>
+                            <td>Index</td>
+                            <td>Name</td>
+                            <td>Age</td>
+                        </tr>
+                        </thead>
+                        <tbody id="tbody">
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--Load JQ-->
+<script src="scripts/jquery-1.11.3.min.js"></script>
+<script src="scripts/jquery-migrate-1.2.1.min.js"></script>
+<!--load private js file-->
+<script src="scripts/getFromDB.js"></script>
+</body>
+</html>
