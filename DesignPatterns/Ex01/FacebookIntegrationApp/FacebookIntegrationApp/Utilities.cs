@@ -37,5 +37,11 @@ namespace FacebookIntegrationApp
             }
             return maxIndex;
         }
+        internal static string FirstLetterToUpperCase(string io_word)
+        {
+
+            return io_word == null ? "" : char.ToUpper(io_word[0]) + io_word.Substring(1);
+
+        }
     }
 }
