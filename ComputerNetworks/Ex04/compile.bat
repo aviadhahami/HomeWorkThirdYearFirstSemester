@@ -1,5 +1,6 @@
 #!/bin/bash
+@echo off
 
 echo "Starting compilation"
-javac Main.java
+cd src && javac Main.java && cd ..
 echo "Done compiling"

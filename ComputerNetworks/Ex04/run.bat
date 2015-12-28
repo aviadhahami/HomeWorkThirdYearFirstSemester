@@ -1,3 +1,3 @@
 #!/bin/bash
 
-java Main
+cd src && java Main %1 && cd ..
