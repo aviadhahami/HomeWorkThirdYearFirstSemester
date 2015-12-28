@@ -36,10 +36,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Facebook">
-      <HintPath>..\..\..\..\..\..\..\..\..\01_FB01_BasicFacebookFeatures.V6.8.0.13\FBApi\Facebook.dll</HintPath>
+      <HintPath>..\FBApi\Facebook.dll</HintPath>
     </Reference>
     <Reference Include="FbGraphApiWrapper">
-      <HintPath>..\..\..\..\..\..\..\..\..\01_FB01_BasicFacebookFeatures.V6.8.0.13\FBApi\FbGraphApiWrapper.dll</HintPath>
+      <HintPath>..\FBApi\FbGraphApiWrapper.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
     <Reference Include="System" />
@@ -63,6 +63,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ApplicationSettings.cs" />
     <Compile Include="Horoscope.cs" />
     <Compile Include="FBHandler.cs" />
     <Compile Include="HoroscopeView.xaml.cs">
@@ -127,10 +128,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="img\facebook-icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Facebook.dll" />
-    <Content Include="FbGraphApiWrapper.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

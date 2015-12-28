@@ -11,7 +11,16 @@ namespace FacebookIntegrationApp
         // Convert hour string in 24 hrs format to 12 hrs format
         public static string HoursToAmPm(int hour)
         {
-            return DateTime.ParseExact(hour.ToString(), "HH", CultureInfo.CurrentCulture).ToString("hh:mm tt");
+            string parsedHour;
+            if (hour < 12)
+            {
+                parsedHour = hour.ToString() + " AM";
+            }
+            else
+            {
+                parsedHour = (hour - 12).ToString() + " PM";
+            }
+            return parsedHour;
         }
 
         internal static int FindIndexOfMaxValueInArray(int[] i_Array)

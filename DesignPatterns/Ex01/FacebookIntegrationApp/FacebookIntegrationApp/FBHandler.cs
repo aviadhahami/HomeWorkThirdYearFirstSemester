@@ -31,7 +31,7 @@ namespace FacebookIntegrationApp
                     DateTime time = Convert.ToDateTime(status.CreatedTime);
                     days[(int)time.DayOfWeek] += status.LikedBy.Count;
                     hours[time.Hour] += status.LikedBy.Count;
-                    months[time.Month] += status.LikedBy.Count;
+                    months[time.Month-1] += status.LikedBy.Count;
                 }
 
                 m_preferredDay = s_WeekDayStringArray[Utilities.FindIndexOfMaxValueInArray(days)];
