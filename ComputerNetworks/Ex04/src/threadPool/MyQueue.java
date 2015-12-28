@@ -1,7 +1,10 @@
+package threadPool;
 
 
 import java.util.LinkedList;
 import java.util.Queue;
+
+import interfaces.CustomQueue;
 
 public class MyQueue<E> implements CustomQueue<E> {
 

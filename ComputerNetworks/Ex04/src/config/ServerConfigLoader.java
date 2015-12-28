@@ -1,8 +1,11 @@
+package config;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
+import console.Console;
 
 public class ServerConfigLoader {
 	private final static String[] configKeys = { "port", "maxThreads", "defaultPage", "root", "socketTimeout" };

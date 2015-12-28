@@ -1,6 +1,10 @@
+package utils;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+
+import console.Console;
+import routes.Routes;
 
 public class PathUtils {
 

@@ -1,5 +1,12 @@
+package routes;
 
 import java.util.HashMap;
+
+import console.Console;
+import controllers.databaseGetterController;
+import controllers.databaseSetterController;
+import interfaces.RouteController;
+import utils.PathUtils;
 
 public class Routes {
 
