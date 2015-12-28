@@ -2,24 +2,28 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="FacebookIntegrationApp.MainView"
-        Title="Design Patterns App" Height="262" Width="547" Background="#03A9F4">
-    <Grid>
+        Title="Design Patterns App" Height="262" Width="547" Background="{x:Null}">
+    <Grid Background="#FFF7F7F7">
         <GroupBox Header="Special functions!" HorizontalAlignment="Left" Margin="10,115.52,0,0" VerticalAlignment="Top" Width="519" Height="96.48" Foreground="White">
         </GroupBox>
 
         <Border
-			BorderThickness="2"
-			BorderBrush="White"
+			BorderThickness="0"
+			BorderBrush="Black"
 			HorizontalAlignment="Left"
 			Height="80"
 			Margin="7,8,0,0"
 			VerticalAlignment="Top"
-			Width="80" >
+			Width="80" CornerRadius="40" >
             <Image x:Name="ProfilePic" Stretch="Fill" ToolTip="Your photo"/>
         </Border>
-        <TextBox Margin="107,55,112,144" x:Name="StatusText" FontFamily="Roboto" Text="Post status here"/>
-        <Button Focusable="False" BorderBrush="Transparent" BorderThickness="0" Click="PostStatus" Content="Post" HorizontalAlignment="Left" Margin="432,55,0,0" VerticalAlignment="Top" Width="97" Height="33" FontFamily="Roboto" FontSize="20" Foreground="White" Background="#FF0277BD"/>
-        <TextBlock HorizontalAlignment="Left" Margin="107,19,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="26" Width="105" FontFamily="Roboto" FontSize="24" Foreground="White"><Run Text="W"/><Run Text="elcome,"/></TextBlock>
+        <TextBox Margin="107,55,112,145.596" x:Name="StatusText" FontFamily="Roboto" Text="What's on your mind?" Background="{x:Null}" BorderBrush="#FF8B9DC3" BorderThickness="0,0,0,2" FontSize="21.333"/>
+
+
+        <Button Focusable="False" BorderBrush="Transparent" BorderThickness="0" Click="PostStatus" Content="Post" HorizontalAlignment="Left" Margin="432,55,0,0" VerticalAlignment="Top" Width="97" Height="33" FontFamily="Roboto" FontSize="20" Foreground="White" Background="#FF3B5998" />
+
+
+        <TextBlock HorizontalAlignment="Left" Margin="107,19,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="26" Width="105" FontFamily="Roboto" FontSize="24" Foreground="Black"><Run Text="W"/><Run Text="elcome,"/></TextBlock>
         <Button 
 			Focusable="False"
 			BorderBrush="Transparent"
@@ -36,7 +40,7 @@
 			Click="PostStatistics" HorizontalAlignment="Center" Margin="352,148,24,31.5" VerticalAlignment="Center" Width="166" Height="55" FontFamily="Roboto" FontSize="18" Background="#FF0277BD">
             <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="White"><Run Text="When should I"/><LineBreak/><Run Text="post new status?"/></TextBlock>
         </Button>
-        <TextBlock x:Name="UserName" HorizontalAlignment="Left" Margin="214,19,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="26" Width="105" FontFamily="Roboto" FontSize="24" Foreground="White"/>
+        <TextBlock x:Name="UserName" HorizontalAlignment="Left" Margin="214,19,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="26" Width="105" FontFamily="Roboto" FontSize="24" Foreground="Black"/>
 
     </Grid>
 </Window>
