@@ -144,7 +144,16 @@
             -ms-transform: rotate(-10deg);
             transform: rotate(-10deg);
         }
-
+        .thumbnail{
+            position: absolute;
+            width: 46px;
+            z-index: -1;
+            margin-left: 85px;
+            margin-top: -37px;
+        }
+        .new-item{
+            transform: rotate(20deg);
+        }
     </style>
 </head>
 <body>
@@ -179,6 +188,11 @@
                     |
                     <a href="public/chunked.html">
                         Demonstrate chunky loading
+                    </a>
+                    |
+                    <a href="public/crawlers.html">
+                        <img class="thumbnail new-item" src="public/img/new-icon.png" alt="" />
+                        Web crawlers
                     </a>
                 </div>
             </div>
