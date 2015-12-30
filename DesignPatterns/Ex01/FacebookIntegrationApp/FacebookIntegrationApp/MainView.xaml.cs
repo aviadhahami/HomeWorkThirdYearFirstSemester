@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -53,18 +53,22 @@ namespace FacebookIntegrationApp
 
         private void PostStatus(object sender, RoutedEventArgs e)
         {
-            new Thread(sendStatus).Start();
+            sendStatus();
 
         }
 
         private void sendStatus()
         {
-            
+
             try
             {
-                Status postedStatus;
-                Application.Current.Dispatcher.BeginInvoke(new Action(() => postedStatus = m_loggedInUser.PostStatus(StatusText.Text)));
+                m_loggedInUser.PostStatus(StatusText.Text);
                 MessageBox.Show("Posted!");
+
+            }
+            catch (FacebookApiException e)
+            {
+                MessageBox.Show("something went wrong!" + Environment.NewLine + e.Message);
             }
             catch (Exception exeption)
             {
@@ -81,12 +85,10 @@ namespace FacebookIntegrationApp
 
         private void PostStatistics(object sender, RoutedEventArgs e)
         {
+
             StatisticsView statisticsView = new StatisticsView(m_loggedInUser.Statuses);
             statisticsView.Show();
-
         }
 
     }
-
-
 }

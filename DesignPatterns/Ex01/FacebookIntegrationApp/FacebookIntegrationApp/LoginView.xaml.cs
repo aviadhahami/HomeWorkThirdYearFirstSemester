@@ -29,22 +29,8 @@ namespace FacebookIntegrationApp
 
         public LoginView ()
 		{
-            Loaded += Window_Loaded;
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            this.RenderSize = ApplicationSettings.Instance.LastWindowSize;
-            this.WindowState = ApplicationSettings.Instance.LastWindowState;
-            this.Left = ApplicationSettings.Instance.LastWindowLocation.X;
-            this.Top = ApplicationSettings.Instance.LastWindowLocation.Y;
-            this.checkAutoLogIn.IsChecked = ApplicationSettings.Instance.AutoLogin;
-
-            if (ApplicationSettings.Instance.AutoLogin)
-            {
-                new Thread(autoLogin).Start();
-            }
-        }
 
         private void autoLogin()
         {
@@ -68,7 +54,24 @@ namespace FacebookIntegrationApp
             }
         }
 
-    
+        private void onLoginClicked()
+        {
+
+            if (this.checkAutoLogIn.IsChecked.Value)
+            {
+                new Thread(autoLogin).Start();
+            } else
+            {
+                LoginResult result = ApplicationSettings.Instance.loginResult;
+                if (result.AccessToken == null)
+                {
+                    return;
+                }
+                else {
+                    logAndGoToMainView(result);
+                }
+            }
+        }
 
         private void logAndGoToMainView(LoginResult result)
         {
@@ -78,44 +81,10 @@ namespace FacebookIntegrationApp
             this.Close();
         }
 
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            base.OnClosing(e);
-            ApplicationSettings.Instance.LastWindowState = this.WindowState;
-            ApplicationSettings.Instance.LastWindowSize = this.RenderSize;
-            ApplicationSettings.Instance.LastWindowLocation = new Point(this.Left, this.Top); 
-            ApplicationSettings.Instance.AutoLogin = this.checkAutoLogIn.IsChecked.Value;
-            ApplicationSettings.Instance.Save();
-        }
-
 
         private void Login (object sender, RoutedEventArgs e)
 		{
             onLoginClicked();
-		}
-        private void onLoginClicked()
-        {
-            string appId = "1056989264331616";
-            LoginResult result = FacebookWrapper.FacebookService.Login(appId,
-                                     "user_about_me",
-                                     "user_friends",
-                                     "publish_actions",
-                                     "user_events",
-                                     "user_posts",
-                                     "user_photos",
-                                     "user_status",
-                                     "user_birthday");
-            if (!string.IsNullOrEmpty(result.AccessToken))
-            {
-
-                // If we're good with the data, we pass it to the next view
-                ApplicationSettings.Instance.AccessToken = result.AccessToken;
-                logAndGoToMainView(result);
-            }
-            else
-            {
-                MessageBox.Show(result.ErrorMessage);
-            }
         }
     }
 }

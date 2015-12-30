@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using FacebookWrapper;
+using System.Drawing;
 using System.IO;
 using System.Windows;
 using System.Xml.Serialization;
@@ -75,6 +76,37 @@ namespace BasicFacebookFeatures.WithSingltonAppSettings
             }
 
             return loadedThis;
+        }
+
+        private LoginResult LoginDialog()
+        {
+            string appId = "1056989264331616";
+            LoginResult result = FacebookWrapper.FacebookService.Login(appId,
+                                     "user_about_me",
+                                     "user_friends",
+                                     "publish_actions",
+                                     "user_events",
+                                     "user_posts",
+                                     "user_photos",
+                                     "user_status",
+                                     "user_birthday");
+            if (!string.IsNullOrEmpty(result.AccessToken))
+            {
+
+                // If we're good with the data, we pass it to the next view
+                ApplicationSettings.Instance.AccessToken = result.AccessToken;
+            }
+            else
+            {
+                MessageBox.Show(result.ErrorMessage);
+            }
+            return result;
+        }
+        public LoginResult loginResult {
+            get
+            {
+                return LoginDialog();
+            }
         }
     }
 }
