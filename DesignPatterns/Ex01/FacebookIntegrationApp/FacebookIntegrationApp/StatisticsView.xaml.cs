@@ -24,10 +24,17 @@ namespace FacebookIntegrationApp
         public StatisticsView(FacebookObjectCollection<Status> statuses)
         {
             InitializeComponent();
-            //this.statuses = statuses;
-            StatisticsData = FBHandler.PostStatistics(statuses);
+            this.statisticsDataTextBox.Text = "Please wait while we calculate your statistics....";
+            Application.Current.Dispatcher.BeginInvoke(new Action(() => getStatistics(statuses)));
+
+        }
+
+        private void getStatistics(FacebookObjectCollection<Status> i_statuses)
+        {
+            StatisticsData = FBHandler.PostStatistics(i_statuses);
             this.statisticsDataTextBox.Text = StatisticsData;
         }
+
         public string StatisticsData { get; set; }
     }
 }
