@@ -12,10 +12,10 @@
 
 
         <TextBlock HorizontalAlignment="Left" Margin="107,19,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="26" Width="105" FontFamily="Roboto" FontSize="24" Foreground="Black"><Run Text="W" /><Run Text="elcome," /></TextBlock>
-        <Button Focusable="False" BorderBrush="Transparent" BorderThickness="0" Foreground="White" Click="LuckFunction" Width="196.62" FontFamily="Roboto" FontSize="18" Background="#FF3B5998" Margin="0,146.95,40.75,253.65" HorizontalAlignment="Right">
+        <Button Focusable="False" BorderBrush="{x:Null}" BorderThickness="0" Foreground="White" Click="LuckFunction" Width="196" FontFamily="Roboto" FontSize="18" Background="#FF3B5998" Margin="0,147,40.8,253" HorizontalAlignment="Right">
             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"><Run Text="    Daily " /><LineBreak /><Run Text="Horoscope" /></TextBlock>
         </Button>
-        <Button x:Name="StatusStatistics" Focusable="False" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Click="PostStatistics" Margin="46,146.95,0,0" FontFamily="Roboto" FontSize="18" Background="#FF3B5998" HorizontalAlignment="Left" Width="196.62" Height="55.6" VerticalAlignment="Top">
+        <Button x:Name="StatusStatistics" Focusable="False" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Click="PostStatistics" Margin="47,147,0,253" FontFamily="Roboto" FontSize="18" Background="#FF3B5998" HorizontalAlignment="Left" Width="196" Height="55.6" BorderBrush="{x:Null}">
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Margin="5"><Run Text="When should I" /><LineBreak /><Run Text="post new status?" /></TextBlock>
         </Button>
         <TextBlock x:Name="UserName" HorizontalAlignment="Left" Margin="214,19,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="26" Width="105" FontFamily="Roboto" FontSize="24" Foreground="Black" />
