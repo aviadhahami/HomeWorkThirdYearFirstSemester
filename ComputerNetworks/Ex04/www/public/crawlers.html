@@ -54,32 +54,58 @@
         .page-title small {
             font-weight: 300;
         }
+        #d3{
+            text-align: center;
+        }
+        .crawler-form{
+            display: block;
+        }
+        .crawler-data{
+            display: none;
+            width:100%;
+        }
+        .navbar a{
+            text-decoration: none;
+        }
+        .navbar{
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="content">
+        <div class="navbar">
+            <a href="../index.html">
+                <img class="href-icon" title="home" src="img/home.png" alt="back home">
+            </a>
+        </div>
         <div class="page-title">
             <h1>
                 Crawlers
             </h1>
+            <p>Creepy crawlers</p>
         </div>
-        <div class="crawler-form">
 
-        </div>
-        <div class="crawler-data">
+        <div class="crawler-form" id="crawler-form">
+         </div>
+
+        <div class="crawler-data" id="crawler-data">
             <div id="d3"></div>
         </div>
+        <button id="toggle">Toggle sections</button>
 
     </div>
 </div>
 <!--Load JQ-->
 <script src="scripts/jquery-1.11.3.min.js"></script>
 <script src="scripts/jquery-migrate-1.2.1.min.js"></script>
+<!--Load D3-->
 <script src="scripts/d3.min.js"></script>
 
 <!--load personal script-->
+<script src="scripts/crawlers.js"></script>
 <script src="scripts/crawlers-d3.js"></script>
 </body>
 </html>
