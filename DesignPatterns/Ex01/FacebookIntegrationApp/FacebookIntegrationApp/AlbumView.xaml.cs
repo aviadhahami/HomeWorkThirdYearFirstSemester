@@ -27,5 +27,15 @@ namespace FacebookIntegrationApp
             this.m_selectedAlbum = m_selectedAlbum;
 
         }
+
+        private void LeftArrowClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void RightArrowClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

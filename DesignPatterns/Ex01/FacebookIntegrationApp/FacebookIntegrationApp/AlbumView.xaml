@@ -1,12 +1,11 @@
-﻿<Window x:Class="FacebookIntegrationApp.AlbumView"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:FacebookIntegrationApp"
-        mc:Ignorable="d"
-        Title="AlbumView" Height="300" Width="300">
-    <Grid>
-        
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:FacebookIntegrationApp" xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" x:Class="FacebookIntegrationApp.AlbumView" mc:Ignorable="d" Title="AlbumView" Height="300" Width="300">
+    <Grid Background="#FFF7F7F7">
+        <Image x:Name="image" Margin="0,0,0,91.004" />
+        <ed:BlockArrow x:Name="ArrowLeft" ed:GeometryEffect.GeometryEffect="Sketch" HorizontalAlignment="Left" Margin="10,0,0,91.004" Orientation="Left" Stroke="White" Width="48" Height="23.849" VerticalAlignment="Bottom" MouseDown="LeftArrowClick" />
+        <ed:BlockArrow x:Name="ArrowRight" ed:GeometryEffect.GeometryEffect="Sketch" Height="23.849" Margin="0,0,10,91.004" Orientation="Right" Stroke="White" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="48" MouseDown="RightArrowClick" />
+        <Image x:Name="img_Facebook_like_thumb_png" Margin="141.4,155.547,127.864,91.004" Source="img/Facebook_like_thumb.png" Stretch="Fill" />
+        <TextBox x:Name="photoCommentTextBox" Height="37.4" Margin="10,0,10,41.267" TextWrapping="Wrap" Text="Comment goes here..." VerticalAlignment="Bottom" FontFamily="Roboto" Background="#FFF7F7F7" Foreground="#FF828282" BorderBrush="Gray" BorderThickness="0.2" />
+        <Button x:Name="button" Content="Comment on photo" Margin="10,0,10,10" VerticalAlignment="Bottom" BorderBrush="{x:Null}" BorderThickness="0" Background="#FF3B5998" Foreground="White" FontFamily="Roboto" />
+
     </Grid>
 </Window>
