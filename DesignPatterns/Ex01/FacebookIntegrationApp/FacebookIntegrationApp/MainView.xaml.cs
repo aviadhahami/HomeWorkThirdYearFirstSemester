@@ -107,7 +107,8 @@ namespace FacebookIntegrationApp
         {
             if (m_selectedAlbum != null)
             {
-                m_selectedAlbum.Like();
+                Application.Current.Dispatcher.BeginInvoke(new Action(() => m_selectedAlbum.Like()));
+               
             }
         }
 
