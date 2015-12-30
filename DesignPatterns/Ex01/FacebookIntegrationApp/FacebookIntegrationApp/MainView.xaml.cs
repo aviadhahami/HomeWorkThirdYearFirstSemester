@@ -81,8 +81,8 @@ namespace FacebookIntegrationApp
 
         private void PostStatistics(object sender, RoutedEventArgs e)
         {
-
-            MessageBox.Show(FBHandler.PostStatistics(m_loggedInUser.Statuses));
+            StatisticsView statisticsView = new StatisticsView(m_loggedInUser.Statuses);
+            //MessageBox.Show(FBHandler.PostStatistics(m_loggedInUser.Statuses));
         }
 
     }
