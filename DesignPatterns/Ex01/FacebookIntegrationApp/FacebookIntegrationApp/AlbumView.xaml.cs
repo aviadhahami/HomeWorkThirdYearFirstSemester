@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using FacebookWrapper.ObjectModel;
 
 namespace FacebookIntegrationApp
 {
@@ -18,9 +19,13 @@ namespace FacebookIntegrationApp
     /// </summary>
     public partial class AlbumView : Window
     {
-        public AlbumView()
+        private Album m_selectedAlbum;
+
+        public AlbumView(Album m_selectedAlbum)
         {
             InitializeComponent();
+            this.m_selectedAlbum = m_selectedAlbum;
+
         }
     }
 }

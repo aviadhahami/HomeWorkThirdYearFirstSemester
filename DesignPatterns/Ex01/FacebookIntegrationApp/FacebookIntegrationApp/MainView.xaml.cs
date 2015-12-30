@@ -124,9 +124,8 @@ namespace FacebookIntegrationApp
         private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 
-
-            StatisticsView statisticsView = new StatisticsView(m_loggedInUser.Statuses);
-            statisticsView.Show();
+            AlbumView albumView = new AlbumView(m_selectedAlbum);
+            albumView.Show();
         }
     }
 }
