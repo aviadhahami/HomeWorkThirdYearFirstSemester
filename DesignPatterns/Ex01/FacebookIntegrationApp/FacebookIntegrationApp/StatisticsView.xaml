@@ -1,8 +1,8 @@
-﻿<Window x:Class="FacebookIntegrationApp.StatisticsView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:FacebookIntegrationApp" mc:Ignorable="d" Title="StatisticsView" d:DesignWidth="825.6" d:DesignHeight="602.2" Background="#FFF7F7F7">
+﻿<Window x:Class="FacebookIntegrationApp.StatisticsView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:FacebookIntegrationApp" mc:Ignorable="d" Title="StatisticsView" Background="#FFF7F7F7" Height="303" Width="665.6" HorizontalAlignment="Center" VerticalAlignment="Top">
 
-    <Grid HorizontalAlignment="Right" Margin="0,0,3.6,0">
-        <TextBlock x:Name="statisticsTitle" Margin="148.66,56.797,131.54,0" TextWrapping="Wrap" Height="72" Foreground="#FF3B5998" FontSize="46.667" TextAlignment="Center" Text="Facebook Post Statistics" VerticalAlignment="Top" FontFamily="Roboto" FontWeight="Bold" />
-        <TextBlock x:Name="statisticsDataTextBox" Margin="83.86,133.797,61.94,43.003" TextWrapping="Wrap" Foreground="#FF3B5998" FontSize="13.333" TextAlignment="Center" Text="Facebook Post Statistics" FontFamily="Roboto" />
+    <Grid HorizontalAlignment="Center" Margin="0,0,3.6,0" Width="722.8" d:LayoutOverrides="LeftMargin, RightMargin" Height="259" VerticalAlignment="Top">
+        <TextBlock x:Name="statisticsTitle" Margin="10,56.797,10,0" TextWrapping="Wrap" Height="72" Foreground="#FF3B5998" FontSize="46.667" TextAlignment="Center" Text="Facebook Post Statistics" VerticalAlignment="Top" FontFamily="Roboto" FontWeight="Bold" HorizontalAlignment="Center" />
+        <TextBlock x:Name="statisticsDataTextBox" Margin="100.13,0,100.13,23.601" TextWrapping="Wrap" Foreground="#FF3B5998" FontSize="13.333" TextAlignment="Center" FontFamily="Roboto" VerticalAlignment="Bottom" Height="101.602"><Run Text="Lorem iposum doloremLorem iposum dolorem" /><LineBreak /><Run Text=" Lorem iposum dolor" /></TextBlock>
     </Grid>
 
 
