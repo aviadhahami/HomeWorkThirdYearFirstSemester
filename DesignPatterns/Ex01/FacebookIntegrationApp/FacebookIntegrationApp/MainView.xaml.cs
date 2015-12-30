@@ -108,7 +108,7 @@ namespace FacebookIntegrationApp
             if (m_selectedAlbum != null)
             {
                 Application.Current.Dispatcher.BeginInvoke(new Action(() => m_selectedAlbum.Like()));
-               
+
             }
         }
 
@@ -120,7 +120,10 @@ namespace FacebookIntegrationApp
                 Application.Current.Dispatcher.BeginInvoke(new Action(() => m_selectedAlbum.Comment(albumCommentTextBox.Text)));
 
             }
-
+        }
+        private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("A ListViewItem was double clicked!");
         }
     }
 }
