@@ -53,7 +53,7 @@ namespace FacebookIntegrationApp
 
         private void PostStatus(object sender, RoutedEventArgs e)
         {
-            new Thread(sendStatus).Start();
+            sendStatus();
 
         }
 
@@ -62,9 +62,13 @@ namespace FacebookIntegrationApp
             
             try
             {
-                Status postedStatus;
-                Application.Current.Dispatcher.BeginInvoke(new Action(() => postedStatus = m_loggedInUser.PostStatus(StatusText.Text)));
+                m_loggedInUser.PostStatus(StatusText.Text);
                 MessageBox.Show("Posted!");
+                
+            }
+            catch (FacebookApiException e)
+            {
+                MessageBox.Show("something went wrong!" + Environment.NewLine + e.Message);
             }
             catch (Exception exeption)
             {
