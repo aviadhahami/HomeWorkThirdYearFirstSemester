@@ -109,5 +109,10 @@ namespace FacebookIntegrationApp
                 m_selectedAlbum.Like();
             }
         }
+
+        private void AddAlbumCommentClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
