@@ -83,7 +83,7 @@ namespace FacebookIntegrationApp
         {
             StatisticsView statisticsView = new StatisticsView(m_loggedInUser.Statuses);
             statisticsView.Show();
-            //MessageBox.Show(FBHandler.PostStatistics(m_loggedInUser.Statuses));
+
         }
 
     }
