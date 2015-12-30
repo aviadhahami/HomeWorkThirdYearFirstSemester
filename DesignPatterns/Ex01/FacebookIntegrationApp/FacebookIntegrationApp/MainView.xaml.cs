@@ -96,5 +96,9 @@ namespace FacebookIntegrationApp
             statisticsView.Show();
         }
 
+        private void AlbumSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+        }
     }
 }
