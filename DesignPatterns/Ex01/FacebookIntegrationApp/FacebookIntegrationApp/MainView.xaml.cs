@@ -123,7 +123,10 @@ namespace FacebookIntegrationApp
         }
         private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("A ListViewItem was double clicked!");
+
+
+            StatisticsView statisticsView = new StatisticsView(m_loggedInUser.Statuses);
+            statisticsView.Show();
         }
     }
 }
