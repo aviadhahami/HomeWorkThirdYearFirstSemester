@@ -26,6 +26,7 @@ namespace FacebookIntegrationApp
             InitializeComponent();
             //this.statuses = statuses;
             StatisticsData = FBHandler.PostStatistics(statuses);
+            this.statisticsDataTextBox.Text = StatisticsData;
         }
         public string StatisticsData { get; set; }
     }
