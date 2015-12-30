@@ -19,13 +19,18 @@ namespace FacebookIntegrationApp
     /// </summary>
     public partial class AlbumView : Window
     {
-        private Album m_selectedAlbum;
+        private Album m_album;
 
         public AlbumView(Album m_selectedAlbum)
         {
             InitializeComponent();
-            this.m_selectedAlbum = m_selectedAlbum;
+            this.m_album = m_selectedAlbum;
+            setImage(m_album.Photos[0]);
+        }
 
+        private void setImage(Photo photo)
+        {
+            currentImageImageBox.Source = new BitmapImage(new Uri(photo.PictureNormalURL));// photo.PictureNormalURL;//new BitmapImage(new Uri(photo.URL));
         }
 
         private void LeftArrowClick(object sender, MouseButtonEventArgs e)
