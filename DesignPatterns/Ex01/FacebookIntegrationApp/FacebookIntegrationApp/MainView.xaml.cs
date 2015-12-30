@@ -100,11 +100,12 @@ namespace FacebookIntegrationApp
         private void AlbumSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             m_selectedAlbum = ((sender as ListBox).SelectedItem as Album);
+            albumCommentTextBox.Text = "Add album comment";
         }
 
         private void LikeAlbumButtonClick(object sender, RoutedEventArgs e)
         {
-            if(m_selectedAlbum != null)
+            if (m_selectedAlbum != null)
             {
                 m_selectedAlbum.Like();
             }
@@ -112,6 +113,12 @@ namespace FacebookIntegrationApp
 
         private void AddAlbumCommentClick(object sender, RoutedEventArgs e)
         {
+
+            if (albumCommentTextBox.Text != "" && m_selectedAlbum != null)
+            {
+                Application.Current.Dispatcher.BeginInvoke(new Action(() => m_selectedAlbum.Comment(albumCommentTextBox.Text)));
+
+            }
 
         }
     }

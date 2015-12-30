@@ -41,7 +41,7 @@
             </Grid>
 
         </Button>
-        <TextBox x:Name="textBox" Height="70.2" Margin="10,0,221.6,10" TextWrapping="Wrap" Text="Comment on album" VerticalAlignment="Bottom" Background="{x:Null}" FontFamily="Roboto" Foreground="#FF7F7F7F" />
+        <TextBox x:Name="albumCommentTextBox" Height="70.2" Margin="10,0,221.6,10" TextWrapping="Wrap" Text="Comment on album" VerticalAlignment="Bottom" Background="{x:Null}" FontFamily="Roboto" Foreground="#FF7F7F7F" />
         <Button x:Name="button" Content="Add album comment" HorizontalAlignment="Right" Margin="0,0,11.6,10" VerticalAlignment="Bottom" Width="175.067" Height="25.467" Background="#FF8B9DC3" BorderBrush="{x:Null}" BorderThickness="0" Foreground="White" FontFamily="Roboto" Click="AddAlbumCommentClick" />
 
     </Grid>
