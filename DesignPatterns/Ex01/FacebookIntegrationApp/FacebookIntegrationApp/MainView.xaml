@@ -19,7 +19,7 @@
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Margin="5"><Run Text="When should I" /><LineBreak /><Run Text="post new status?" /></TextBlock>
         </Button>
         <TextBlock x:Name="UserName" HorizontalAlignment="Left" Margin="214,19,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="26" Width="105" FontFamily="Roboto" FontSize="24" Foreground="Black" />
-        <GroupBox x:Name="groupBox" Header="Photo albums" Margin="10,0,253.8,31" VerticalAlignment="Bottom" Height="180">
+        <GroupBox x:Name="groupBox" Header="Photo albums" Margin="10,0,11.6,80.2" VerticalAlignment="Bottom" Height="130.8">
             <ListBox x:Name="albumListListView" HorizontalContentAlignment="Stretch" Margin="0,3,-3,-0.2" BorderBrush="Black" Background="#FFF7F7F7" SelectionChanged="AlbumSelectionChanged">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -31,6 +31,12 @@
             </ListBox>
 
         </GroupBox>
+        <Label x:Name="AmoutOfPhotosConstantLabel" Content="Amout of photos:" HorizontalAlignment="Left" Margin="22.6,0,0,53.2" VerticalAlignment="Bottom" />
+        <Label x:Name="AmoutOfPhotosData" Content="0" HorizontalAlignment="Left" Margin="153.28,0,0,53.2" VerticalAlignment="Bottom" />
+        <Button x:Name="LikeAlbum" Focusable="False" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Click="PostStatistics" Margin="0,0,11.6,42" FontFamily="Roboto" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" BorderThickness="0" Height="22.133" VerticalAlignment="Bottom" Width="32.133">
+            <Image x:Name="img_Facebook_like_thumb_png" Margin="0" Source="img/Facebook_like_thumb.png" Stretch="Fill" Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" d:LayoutOverrides="Width" />
+
+        </Button>
 
     </Grid>
 </Window>
