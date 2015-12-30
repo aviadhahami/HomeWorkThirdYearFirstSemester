@@ -25,6 +25,7 @@ namespace FacebookIntegrationApp
     public partial class MainView : Window
     {
         private User m_loggedInUser;
+        private Album m_selectedAlbum;
 
         public MainView(User LoggedInUser)
         {
@@ -98,7 +99,15 @@ namespace FacebookIntegrationApp
 
         private void AlbumSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            AmoutOfPhotosData.Content = ((sender as ListBox).SelectedItem as Album).Count;
+            m_selectedAlbum = ((sender as ListBox).SelectedItem as Album);
+        }
+
+        private void LikeAlbumButtonClick(object sender, RoutedEventArgs e)
+        {
+            if(m_selectedAlbum != null)
+            {
+                m_selectedAlbum.Like();
+            }
         }
     }
 }
