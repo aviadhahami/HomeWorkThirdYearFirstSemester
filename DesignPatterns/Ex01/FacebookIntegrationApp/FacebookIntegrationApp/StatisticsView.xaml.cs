@@ -19,16 +19,14 @@ namespace FacebookIntegrationApp
     /// </summary>
     public partial class StatisticsView : Window
     {
-        private FacebookObjectCollection<Status> statuses;
-
-        public StatisticsView()
-        {
-            InitializeComponent();
-        }
+        //private FacebookObjectCollection<Status> statuses;
 
         public StatisticsView(FacebookObjectCollection<Status> statuses)
         {
-            this.statuses = statuses;
+            InitializeComponent();
+            //this.statuses = statuses;
+            StatisticsData = FBHandler.PostStatistics(statuses);
         }
+        public string StatisticsData { get; set; }
     }
 }
