@@ -20,17 +20,12 @@
         </Button>
         <TextBlock x:Name="UserName" HorizontalAlignment="Left" Margin="214,19,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="26" Width="105" FontFamily="Roboto" FontSize="24" Foreground="Black" />
         <GroupBox x:Name="groupBox" Header="Photo albums" Margin="10,0,11.6,30.8" VerticalAlignment="Bottom" Height="179.8">
-            <ListBox Name="albumList" HorizontalContentAlignment="Stretch" Margin="0,3,-3,-0.2" BorderBrush="Black" Background="#FFF7F7F7">
+            <ListBox x:Name="albumListListView" HorizontalContentAlignment="Stretch" Margin="0,3,-3,-0.2" BorderBrush="Black" Background="#FFF7F7F7">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Grid Margin="0,2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="100" />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Text="{Binding Title}" />
-                            <ProgressBar Grid.Column="1" Minimum="0" Maximum="100" Value="{Binding Completion}" />
-                        </Grid>
+                        <WrapPanel>
+                            <TextBlock Text="{Binding Name}" FontWeight="Bold" />
+                        </WrapPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>

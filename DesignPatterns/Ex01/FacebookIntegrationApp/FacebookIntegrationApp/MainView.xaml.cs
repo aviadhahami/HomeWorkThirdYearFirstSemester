@@ -39,6 +39,12 @@ namespace FacebookIntegrationApp
         {
             new Thread(fetchName).Start();
             new Thread(setNameForTitle).Start();
+            new Thread(fetchPhotoAlbums).Start();
+        }
+
+        private void fetchPhotoAlbums()
+        {
+            Application.Current.Dispatcher.BeginInvoke(new Action(() => albumListListView.ItemsSource = m_loggedInUser.Albums));
         }
 
         private void fetchName()
