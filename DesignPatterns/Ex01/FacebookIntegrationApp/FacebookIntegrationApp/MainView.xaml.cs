@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -59,12 +59,12 @@ namespace FacebookIntegrationApp
 
         private void sendStatus()
         {
-            
+
             try
             {
                 m_loggedInUser.PostStatus(StatusText.Text);
                 MessageBox.Show("Posted!");
-                
+
             }
             catch (FacebookApiException e)
             {
@@ -86,10 +86,9 @@ namespace FacebookIntegrationApp
         private void PostStatistics(object sender, RoutedEventArgs e)
         {
 
-            MessageBox.Show(FBHandler.PostStatistics(m_loggedInUser.Statuses));
+            StatisticsView statisticsView = new StatisticsView(m_loggedInUser.Statuses);
+            statisticsView.Show();
         }
 
     }
-
-
 }
