@@ -98,7 +98,7 @@ namespace FacebookIntegrationApp
 
         private void AlbumSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+            AmoutOfPhotosData.Content = ((sender as ListBox).SelectedItem as Album).Count;
         }
     }
 }
