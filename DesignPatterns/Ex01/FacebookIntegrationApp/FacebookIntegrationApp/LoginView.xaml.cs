@@ -56,8 +56,7 @@ namespace FacebookIntegrationApp
 
         private void onLoginClicked()
         {
-
-            if (this.checkAutoLogIn.IsChecked.Value)
+            if (this.checkAutoLogIn.IsChecked.Value && ApplicationSettings.Instance.AccessToken != null) 
             {
                 new Thread(autoLogin).Start();
             } else

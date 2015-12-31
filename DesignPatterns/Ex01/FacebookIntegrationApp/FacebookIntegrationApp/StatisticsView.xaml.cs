@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using FacebookWrapper.ObjectModel;
+using System.Threading;
 
 namespace FacebookIntegrationApp
 {
@@ -21,13 +22,29 @@ namespace FacebookIntegrationApp
     {
         //private FacebookObjectCollection<Status> statuses;
 
-        public StatisticsView(FacebookObjectCollection<Status> statuses)
+        //private string m_StatisticsData;
+
+        public StatisticsView(FacebookObjectCollection<Status> i_Statuses)
         {
             InitializeComponent();
-            //this.statuses = statuses;
-            StatisticsData = FBHandler.PostStatistics(statuses);
+            FBHandler.Instance.UserStatuses = i_Statuses;
+            new Thread(splitTasx).Start();    
+            StatisticsData = FBHandler.Instance.StatusStatistics;
             this.statisticsDataTextBox.Text = StatisticsData;
         }
+
+
+        private void splitTasx()
+        {
+            FBHandler.Instance.CalcStatistics();
+            while (FBHandler.Instance.Flag)
+            {
+                Thread.Sleep(1000);
+            }
+            StatisticsData = FBHandler.Instance.StatusStatistics;
+            Application.Current.Dispatcher.BeginInvoke(new Action(() => this.statisticsDataTextBox.Text = StatisticsData));
+        }
+
         public string StatisticsData { get; set; }
     }
 }
