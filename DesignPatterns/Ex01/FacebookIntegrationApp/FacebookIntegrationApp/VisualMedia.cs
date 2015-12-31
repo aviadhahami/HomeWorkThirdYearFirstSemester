@@ -40,5 +40,9 @@ namespace FacebookIntegrationApp
                 return new BitmapImage(new Uri(this.imageUri));
             }
         }
+        public abstract VisualMedia this[int index]
+        {
+            get;
+        }
     }
 }

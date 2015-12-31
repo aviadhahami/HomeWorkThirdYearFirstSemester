@@ -19,10 +19,11 @@ namespace FacebookIntegrationApp
     /// </summary>
     public partial class AlbumView : Window
     {
-        private Album m_album;
-        private int m_PhotoIndex;
 
-        public AlbumView(Album m_selectedAlbum)
+        private int m_PhotoIndex;
+        private PhotoAlbum m_album;
+
+        public AlbumView(PhotoAlbum m_selectedAlbum)
         {
             InitializeComponent();
             this.m_album = m_selectedAlbum;
@@ -32,7 +33,7 @@ namespace FacebookIntegrationApp
 
         private void updateImage()
         {
-            currentImageImageBox.Source = new BitmapImage(new Uri(m_album.Photos[m_PhotoIndex].PictureNormalURL));// photo.PictureNormalURL;//new BitmapImage(new Uri(photo.URL));
+            currentImageImageBox.Source = m_album[m_PhotoIndex].getBMP;// photo.PictureNormalURL;//new BitmapImage(new Uri(photo.URL));
         }
 
         //This part we go down in images count
@@ -46,7 +47,7 @@ namespace FacebookIntegrationApp
         //This part we go up in images count
         private void RightArrowClick(object sender, MouseButtonEventArgs e)
         {
-            m_PhotoIndex = m_PhotoIndex == m_album.Count - 1 ? m_PhotoIndex : m_PhotoIndex + 1;
+            m_PhotoIndex = m_PhotoIndex == m_album.Size() - 1 ? m_PhotoIndex : m_PhotoIndex + 1;
             updateImageAndIndexIndicator();
         }
 
@@ -58,14 +59,14 @@ namespace FacebookIntegrationApp
 
         private void updateIndexIndicator()
         {
-            amountIndicatorLabel.Content = (m_PhotoIndex + 1) + " / " + m_album.Count;
+            amountIndicatorLabel.Content = (m_PhotoIndex + 1) + " / " + m_album.Size();
         }
         private void photoCommentClicked(object sender, RoutedEventArgs e)
         {
             string commentInput = photoCommentTextBox.Text;
             if (commentInput.Length > 0)
             {
-                Application.Current.Dispatcher.BeginInvoke(new Action(() => m_album.Photos[m_PhotoIndex].Comment(commentInput)));
+                Application.Current.Dispatcher.BeginInvoke(new Action(() => m_album[m_PhotoIndex].Comment(commentInput)));
             }
             else
             {
@@ -75,7 +76,7 @@ namespace FacebookIntegrationApp
 
         private void photoLikeClicked(object sender, RoutedEventArgs e)
         {
-            Application.Current.Dispatcher.BeginInvoke(new Action(() => m_album.Photos[m_PhotoIndex].Like()));
+            Application.Current.Dispatcher.BeginInvoke(new Action(() => m_album[m_PhotoIndex].Like()));
         }
     }
 }

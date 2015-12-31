@@ -123,15 +123,23 @@ namespace FacebookIntegrationApp
         }
         private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            //if (m_selectedAlbum.Size ==1)
-            //{
-            //    AlbumView albumView = new AlbumView(m_selectedAlbum);
-            //    albumView.Show();
-            //}
-            //else
-            //{
-            //    MessageBox.Show("No photos to display");
-            //}
+            if (m_selectedAlbum.Size() > 0)
+            {
+                Album selectedAlbum = albumListListView.SelectedItem as Album;
+
+                // We now populate the album with photos from the facebook api album
+                foreach (FacebookWrapper.ObjectModel.Photo pic in selectedAlbum.Photos)
+                {
+                    m_selectedAlbum.Add(new Photo(pic.Name, pic.PictureNormalURL, pic.Comment, pic.Like));
+                }
+
+                AlbumView albumView = new AlbumView(m_selectedAlbum);
+                albumView.Show();
+            }
+            else
+            {
+                MessageBox.Show("No photos to display");
+            }
 
         }
     }

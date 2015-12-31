@@ -13,6 +13,15 @@ namespace FacebookIntegrationApp
         {
         }
 
+        public override VisualMedia this[int index]
+        {
+            // This is the leaf so we don't implement this
+            get
+            {
+                return null;
+            }
+        }
+
         public override void Add(VisualMedia i_media)
         {
             // We do not implement this as it's a leaf in the composite

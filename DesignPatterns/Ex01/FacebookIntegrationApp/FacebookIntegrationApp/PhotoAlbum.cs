@@ -15,6 +15,24 @@ namespace FacebookIntegrationApp
         {
         }
 
+        public override VisualMedia this[int index]
+        {
+            get
+            {
+                VisualMedia media = null;
+                int i = 0;
+                foreach (Photo pic in contentList)
+                {
+                    if (i == index)
+                    {
+                        media = pic;
+                    }
+                    i++;
+                }
+                return media;
+            }
+        }
+
         public override void Add(VisualMedia media)
         {
             this.contentList.Add(media as Photo);
@@ -38,5 +56,6 @@ namespace FacebookIntegrationApp
         {
             return this.contentList.Count;
         }
+
     }
 }
