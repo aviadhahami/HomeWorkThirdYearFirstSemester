@@ -126,7 +126,7 @@ namespace FacebookIntegrationApp
             Album selectedAlbum = albumListListView.SelectedItem as Album;
             if (selectedAlbum.Photos.Count > 0)
             {
-                // We now populate the album with photos from the facebook api album
+                // We now populate the album with photos from the real facebook api album
                 foreach (FacebookWrapper.ObjectModel.Photo pic in selectedAlbum.Photos)
                 {
                     m_selectedAlbum.Add(new Photo(pic.Name, pic.PictureNormalURL, pic.Comment, pic.Like));

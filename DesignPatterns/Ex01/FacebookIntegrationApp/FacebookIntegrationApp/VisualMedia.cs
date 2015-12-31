@@ -1,9 +1,7 @@
 ﻿using FacebookWrapper.ObjectModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Media.Imaging;
+using System.Windows;
 
 namespace FacebookIntegrationApp
 {
@@ -24,8 +22,20 @@ namespace FacebookIntegrationApp
         public abstract void Add(VisualMedia i_media);
         public abstract void Remove(VisualMedia i_media);
         public abstract int Size();
-        public abstract void Comment(string comment);
-        public abstract void Like();
+        public void Comment(string comment)
+        {
+            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                commentFunc(comment);
+            }));
+        }
+        public void Like()
+        {
+            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                likeFunc();
+            }));
+        }
         public string Name
         {
             get

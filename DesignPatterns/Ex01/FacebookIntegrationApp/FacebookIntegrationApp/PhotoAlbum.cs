@@ -38,16 +38,6 @@ namespace FacebookIntegrationApp
             this.contentList.Add(media as Photo);
         }
 
-        public override void Comment(string comment)
-        {
-            this.commentFunc(comment);
-        }
-
-        public override void Like()
-        {
-            this.likeFunc();
-        }
-
         public override void Remove(VisualMedia media)
         {
             this.contentList.Remove(media as Photo);
