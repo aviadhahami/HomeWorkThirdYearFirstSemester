@@ -22,7 +22,6 @@ namespace FacebookIntegrationApp
 
         private int m_PhotoIndex;
         private PhotoAlbum m_album;
-        private PhotoAlbum m_selectedAlbum;
 
         public AlbumView(PhotoAlbum m_selectedAlbum)
         {

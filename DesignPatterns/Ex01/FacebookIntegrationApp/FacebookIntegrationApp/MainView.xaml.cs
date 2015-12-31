@@ -123,10 +123,9 @@ namespace FacebookIntegrationApp
         }
         private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (m_selectedAlbum.Size() > 0)
+            Album selectedAlbum = albumListListView.SelectedItem as Album;
+            if (selectedAlbum.Photos.Count > 0)
             {
-                Album selectedAlbum = albumListListView.SelectedItem as Album;
-
                 // We now populate the album with photos from the facebook api album
                 foreach (FacebookWrapper.ObjectModel.Photo pic in selectedAlbum.Photos)
                 {
