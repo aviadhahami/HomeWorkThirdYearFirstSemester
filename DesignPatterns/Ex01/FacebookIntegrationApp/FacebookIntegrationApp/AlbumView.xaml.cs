@@ -20,27 +20,33 @@ namespace FacebookIntegrationApp
     public partial class AlbumView : Window
     {
         private Album m_album;
+        private int m_PhotoIndex;
 
         public AlbumView(Album m_selectedAlbum)
         {
             InitializeComponent();
             this.m_album = m_selectedAlbum;
-            setImage(m_album.Photos[0]);
+            m_PhotoIndex = 0;
+            updateImage();
         }
 
-        private void setImage(Photo photo)
+        private void updateImage()
         {
-            currentImageImageBox.Source = new BitmapImage(new Uri(photo.PictureNormalURL));// photo.PictureNormalURL;//new BitmapImage(new Uri(photo.URL));
+            currentImageImageBox.Source = new BitmapImage(new Uri(m_album.Photos[m_PhotoIndex].PictureNormalURL));// photo.PictureNormalURL;//new BitmapImage(new Uri(photo.URL));
         }
 
+        //This part we go down in images count
         private void LeftArrowClick(object sender, MouseButtonEventArgs e)
         {
-
+            m_PhotoIndex = m_PhotoIndex <= 0 ? 0 : m_PhotoIndex - 1;
+            updateImage();
         }
 
+        //This part we go up in images count
         private void RightArrowClick(object sender, MouseButtonEventArgs e)
         {
-
+            m_PhotoIndex = m_PhotoIndex == m_album.Count-1 ? m_PhotoIndex : m_PhotoIndex + 1;
+            updateImage();
         }
     }
 }

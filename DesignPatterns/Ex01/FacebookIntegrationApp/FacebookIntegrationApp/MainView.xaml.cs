@@ -123,9 +123,16 @@ namespace FacebookIntegrationApp
         }
         private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            if (m_selectedAlbum.Count > 0)
+            {
+                AlbumView albumView = new AlbumView(m_selectedAlbum);
+                albumView.Show();
+            }
+            else
+            {
+                MessageBox.Show("No photos to display");
+            }
 
-            AlbumView albumView = new AlbumView(m_selectedAlbum);
-            albumView.Show();
         }
     }
 }
