@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Media.Imaging;
 
 namespace FacebookIntegrationApp
 {
     class PhotoAlbum : VisualMedia
     {
         private List<VisualMedia> contentList = new List<VisualMedia>();
-        public PhotoAlbum(string name) : base(name)
+        public PhotoAlbum(string name, string coverPhotoUri) : base(name, coverPhotoUri)
         {
-            this.name = name;
         }
+
         public override void Add(VisualMedia media)
         {
             this.contentList.Add(media);
