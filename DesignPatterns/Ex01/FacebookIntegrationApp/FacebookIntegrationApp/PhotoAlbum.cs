@@ -17,7 +17,7 @@ namespace FacebookIntegrationApp
 
         public override void Add(VisualMedia media)
         {
-            this.contentList.Add(media);
+            this.contentList.Add(media as Photo);
         }
 
         public override void Comment(string comment)
@@ -32,7 +32,7 @@ namespace FacebookIntegrationApp
 
         public override void Remove(VisualMedia media)
         {
-            this.contentList.Remove(media);
+            this.contentList.Remove(media as Photo);
         }
         public override int Size()
         {
