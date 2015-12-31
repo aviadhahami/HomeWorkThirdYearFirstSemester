@@ -26,7 +26,6 @@ namespace FacebookIntegrationApp
     {
         private User m_loggedInUser;
         private Album m_selectedAlbum;
-
         public MainView(User LoggedInUser)
         {
             InitializeComponent();
@@ -34,7 +33,6 @@ namespace FacebookIntegrationApp
             init();
 
         }
-
         // Populate fields around the app
         private void init()
         {
@@ -42,7 +40,6 @@ namespace FacebookIntegrationApp
             new Thread(setNameForTitle).Start();
             new Thread(fetchPhotoAlbums).Start();
         }
-
         private void fetchPhotoAlbums()
         {
             Application.Current.Dispatcher.BeginInvoke(new Action(() => albumListListView.ItemsSource = m_loggedInUser.Albums));

@@ -29,11 +29,11 @@ namespace FacebookIntegrationApp
             InitializeComponent();
             FBHandler.Instance.UserStatuses = i_Statuses;
             this.statisticsDataTextBox.Text = "Please wait while we calculate your statistics....";
-            new Thread(splitTasx).Start();
+            new Thread(splitTasks).Start();
             StatisticsData = FBHandler.Instance.StatusStatistics;
         }
 
-        private void splitTasx()
+        private void splitTasks()
         {
             FBHandler.Instance.CalcStatistics();
             while (FBHandler.Instance.Flag)
