@@ -8,23 +8,33 @@ namespace FacebookIntegrationApp
 {
     class Photo : VisualMedia
     {
-        private string imageUri;
+        public Photo(string name, string imageUri, Action<string> commentFunc, Action likeFunc) : base(name, imageUri, commentFunc, likeFunc)
+        {
+        }
 
-        public Photo(string name, string imageUri) : base(name, imageUri)
+        public override void Add(VisualMedia i_media)
         {
+            // We do not implement this as it's a leaf in the composite
         }
-        public override void Add(VisualMedia media)
+
+        public override void Comment(string comment)
         {
-            //Should not implement this as this is the leaf
+            this.commentFunc(comment);
         }
-        public override void Remove(VisualMedia media)
+
+        public override void Like()
         {
-            //should not implement this as this is the leaf
+            this.likeFunc();
         }
+
+        public override void Remove(VisualMedia i_media)
+        {
+            // We do not implement this as it's a leaf in the composite
+        }
+
         public override int Size()
         {
-            // We return 1 here as we're on a leaf
-            return 1;
+            return 0;
         }
     }
 }

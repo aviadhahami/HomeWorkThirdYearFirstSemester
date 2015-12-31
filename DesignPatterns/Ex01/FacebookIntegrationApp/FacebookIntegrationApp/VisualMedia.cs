@@ -9,16 +9,22 @@ namespace FacebookIntegrationApp
     abstract class VisualMedia
     {
         protected string name;
-        private string imageUri;
+        protected string imageUri;
+        protected Action<string> commentFunc;
+        protected Action likeFunc;
 
-        public VisualMedia(string name, string imageUri)
+        public VisualMedia(string name, string imageUri, Action<string> commentFunc, Action likeFunc)
         {
             this.name = name;
             this.imageUri = imageUri;
+            this.commentFunc = commentFunc;
+            this.likeFunc = likeFunc;
         }
-        public abstract void Add(VisualMedia media);
-        public abstract void Remove(VisualMedia media);
+        public abstract void Add(VisualMedia i_media);
+        public abstract void Remove(VisualMedia i_media);
         public abstract int Size();
+        public abstract void Comment(string comment);
+        public abstract void Like();
         public string Name
         {
             get
