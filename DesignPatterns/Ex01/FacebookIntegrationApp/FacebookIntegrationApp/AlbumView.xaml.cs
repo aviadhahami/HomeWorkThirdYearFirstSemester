@@ -60,12 +60,6 @@ namespace FacebookIntegrationApp
         {
             amountIndicatorLabel.Content = (m_PhotoIndex + 1) + " / " + m_album.Count;
         }
-
-        private void photoLikeClicked(object sender, MouseButtonEventArgs e)
-        {
-            Application.Current.Dispatcher.BeginInvoke(new Action(() => m_album.Photos[m_PhotoIndex].Like()));
-        }
-
         private void photoCommentClicked(object sender, RoutedEventArgs e)
         {
             string commentInput = photoCommentTextBox.Text;
@@ -77,6 +71,11 @@ namespace FacebookIntegrationApp
             {
                 MessageBox.Show("No comment was submitted");
             }
+        }
+
+        private void photoLikeClicked(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Dispatcher.BeginInvoke(new Action(() => m_album.Photos[m_PhotoIndex].Like()));
         }
     }
 }
