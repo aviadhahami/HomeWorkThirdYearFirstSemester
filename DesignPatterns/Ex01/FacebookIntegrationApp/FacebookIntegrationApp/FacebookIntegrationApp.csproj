@@ -81,6 +81,7 @@
       <DependentUpon>StatisticsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utilities.cs" />
+    <Compile Include="VisualMedia.cs" />
     <Page Include="AlbumView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
