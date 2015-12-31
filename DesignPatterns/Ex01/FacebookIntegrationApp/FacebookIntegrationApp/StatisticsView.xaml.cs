@@ -43,8 +43,6 @@ namespace FacebookIntegrationApp
             StatisticsData = FBHandler.Instance.StatusStatistics;
             Application.Current.Dispatcher.BeginInvoke(new Action(() => this.statisticsDataTextBox.Text = StatisticsData));
         }
-
-
         public string StatisticsData { get; set; }
     }
 }
