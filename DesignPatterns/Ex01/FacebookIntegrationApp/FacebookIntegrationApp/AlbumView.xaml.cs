@@ -27,7 +27,7 @@ namespace FacebookIntegrationApp
             InitializeComponent();
             this.m_album = m_selectedAlbum;
             m_PhotoIndex = 0;
-            updateImage();
+            updateImageAndIndexIndicator();
         }
 
         private void updateImage()
@@ -39,14 +39,26 @@ namespace FacebookIntegrationApp
         private void LeftArrowClick(object sender, MouseButtonEventArgs e)
         {
             m_PhotoIndex = m_PhotoIndex <= 0 ? 0 : m_PhotoIndex - 1;
-            updateImage();
+            updateImageAndIndexIndicator();
+
         }
 
         //This part we go up in images count
         private void RightArrowClick(object sender, MouseButtonEventArgs e)
         {
-            m_PhotoIndex = m_PhotoIndex == m_album.Count-1 ? m_PhotoIndex : m_PhotoIndex + 1;
+            m_PhotoIndex = m_PhotoIndex == m_album.Count - 1 ? m_PhotoIndex : m_PhotoIndex + 1;
+            updateImageAndIndexIndicator();
+        }
+
+        private void updateImageAndIndexIndicator()
+        {
             updateImage();
+            updateIndexIndicator();
+        }
+
+        private void updateIndexIndicator()
+        {
+            amountIndicatorLabel.Content = (m_PhotoIndex+1) + " / " + m_album.Count;
         }
     }
 }

@@ -6,6 +6,6 @@
         <Image x:Name="img_Facebook_like_thumb_png" Margin="350.8,306.933,20.2,0" Source="img/Facebook_like_thumb.png" Stretch="Fill" Height="30" VerticalAlignment="Top" Width="30" />
         <TextBox x:Name="photoCommentTextBox" Height="37.4" Margin="10,0,68.4,41.267" TextWrapping="Wrap" Text="Comment goes here..." VerticalAlignment="Bottom" FontFamily="Roboto" Background="#FFF7F7F7" Foreground="#FF828282" BorderBrush="Gray" BorderThickness="0.2" />
         <Button x:Name="button" Content="Comment on photo" Margin="10,0,10,10" VerticalAlignment="Bottom" BorderBrush="{x:Null}" BorderThickness="0" Background="#FF3B5998" Foreground="White" FontFamily="Roboto" />
-
+        <Label x:Name="amountIndicatorLabel" Content="amount" Margin="180,0,163.6,106.204" FontFamily="Roboto" FontWeight="Bold" FontSize="14.667" Background="{x:Null}" Height="30.144" VerticalAlignment="Bottom" />
     </Grid>
 </Window>
