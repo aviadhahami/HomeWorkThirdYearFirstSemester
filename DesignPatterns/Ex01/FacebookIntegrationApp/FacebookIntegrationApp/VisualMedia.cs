@@ -7,7 +7,7 @@ using System.Windows.Media.Imaging;
 
 namespace FacebookIntegrationApp
 {
-    abstract class VisualMedia
+    public abstract class VisualMedia
     {
         protected string name;
         protected string imageUri;

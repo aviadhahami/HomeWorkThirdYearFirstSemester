@@ -17,11 +17,12 @@ namespace FacebookIntegrationApp
     /// <summary>
     /// Interaction logic for AlbumView.xaml
     /// </summary>
-    public partial class AlbumView : Window
+    partial class AlbumView : Window
     {
 
         private int m_PhotoIndex;
         private PhotoAlbum m_album;
+        private PhotoAlbum m_selectedAlbum;
 
         public AlbumView(PhotoAlbum m_selectedAlbum)
         {

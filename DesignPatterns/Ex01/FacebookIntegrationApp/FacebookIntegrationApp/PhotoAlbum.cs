@@ -7,7 +7,7 @@ using FacebookWrapper.ObjectModel;
 
 namespace FacebookIntegrationApp
 {
-    class PhotoAlbum : VisualMedia
+    public class PhotoAlbum : VisualMedia
     {
         private List<Photo> contentList = new List<Photo>();
 
