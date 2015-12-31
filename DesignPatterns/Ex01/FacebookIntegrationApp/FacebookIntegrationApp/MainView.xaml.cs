@@ -25,6 +25,8 @@ namespace FacebookIntegrationApp
     public partial class MainView : Window
     {
         private User m_loggedInUser;
+        private PhotoAlbum m_selectedAlbum;
+
 
         public MainView(User LoggedInUser)
         {
@@ -33,12 +35,16 @@ namespace FacebookIntegrationApp
             init();
 
         }
-
         // Populate fields around the app
         private void init()
         {
             new Thread(fetchName).Start();
             new Thread(setNameForTitle).Start();
+            new Thread(fetchPhotoAlbums).Start();
+        }
+        private void fetchPhotoAlbums()
+        {
+            Application.Current.Dispatcher.BeginInvoke(new Action(() => albumListListView.ItemsSource = m_loggedInUser.Albums));
         }
 
         private void fetchName()
@@ -90,5 +96,50 @@ namespace FacebookIntegrationApp
             statisticsView.Show();
         }
 
+        private void AlbumSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Album album = ((sender as ListBox).SelectedItem as Album);
+            m_selectedAlbum = new PhotoAlbum(album.Name, album.PictureSmallURL, album.Comment, album.Like);
+            albumCommentTextBox.Text = "Add album comment";
+        }
+
+        private void LikeAlbumButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (m_selectedAlbum != null)
+            {
+                Application.Current.Dispatcher.BeginInvoke(new Action(() => m_selectedAlbum.Like()));
+
+            }
+        }
+
+        private void AddAlbumCommentClick(object sender, RoutedEventArgs e)
+        {
+
+            if (albumCommentTextBox.Text != "" && m_selectedAlbum != null)
+            {
+                Application.Current.Dispatcher.BeginInvoke(new Action(() => m_selectedAlbum.Comment(albumCommentTextBox.Text)));
+
+            }
+        }
+        private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Album selectedAlbum = albumListListView.SelectedItem as Album;
+            if (selectedAlbum.Photos.Count > 0)
+            {
+                // We now populate the album with photos from the real facebook api album
+                foreach (FacebookWrapper.ObjectModel.Photo pic in selectedAlbum.Photos)
+                {
+                    m_selectedAlbum.Add(new Photo(pic.Name, pic.PictureNormalURL, pic.Comment, pic.Like));
+                }
+
+                AlbumView albumView = new AlbumView(m_selectedAlbum);
+                albumView.Show();
+            }
+            else
+            {
+                MessageBox.Show("No photos to display");
+            }
+
+        }
     }
 }

@@ -46,6 +46,7 @@ namespace FacebookIntegrationApp
 
         public void CalcStatistics()
         {
+            Flag = false;
             // Make sure we initiate this procedure only once
             if (m_preferredMonth == null || m_preferredHour == null || m_preferredDay == null)
             {
@@ -73,7 +74,7 @@ namespace FacebookIntegrationApp
                     "Time-wise, " + m_preferredHour + " is the best time" + Environment.NewLine +
                     "and " + m_preferredMonth + " is the best month.";
             StatusStatistics = finalStr;
-            Flag = true;
+            Flag = false;
         }
 
     }
