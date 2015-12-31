@@ -3,9 +3,13 @@
         <Image x:Name="currentImageImageBox" Margin="0,0,0,91.004" Stretch="Fill" />
         <ed:BlockArrow x:Name="ArrowLeft" ed:GeometryEffect.GeometryEffect="Sketch" HorizontalAlignment="Left" Margin="10,58.747,0,126.853" Orientation="Left" Width="48" MouseDown="LeftArrowClick" Fill="#FF3B5998" Height="200" Opacity="0.5" />
         <ed:BlockArrow x:Name="ArrowRight" ed:GeometryEffect.GeometryEffect="Sketch" Margin="0,58.747,10,128.604" Orientation="Right" HorizontalAlignment="Right" Width="48" MouseDown="RightArrowClick" Height="200" Fill="#FF3B5998" Opacity="0.5" />
-        <Image x:Name="img_Facebook_like_thumb_png" Margin="350.8,306.933,20.2,0" Source="img/Facebook_like_thumb.png" Stretch="Fill" Height="30" VerticalAlignment="Top" Width="30" MouseDown="photoLikeClicked" />
         <TextBox x:Name="photoCommentTextBox" Height="37.4" Margin="10,0,68.4,41.267" TextWrapping="Wrap" Text="Comment goes here..." VerticalAlignment="Bottom" FontFamily="Roboto" Background="#FFF7F7F7" Foreground="#FF828282" BorderBrush="Gray" BorderThickness="0.2" />
         <Button x:Name="button" Content="Comment on photo" Margin="10,0,10,10" VerticalAlignment="Bottom" BorderBrush="{x:Null}" BorderThickness="0" Background="#FF3B5998" Foreground="White" FontFamily="Roboto" Click="photoCommentClicked" />
         <Label x:Name="amountIndicatorLabel" Content="amount" Margin="181,0,162.8,90.6" FontFamily="Roboto" FontWeight="Bold" FontSize="14.667" Background="{x:Null}" Height="31" VerticalAlignment="Bottom" />
+
+        <Button x:Name="photoLikeButton" HorizontalAlignment="Right" Margin="0,0,10,41.267" VerticalAlignment="Bottom" Width="48" Height="43.293" d:LayoutOverrides="VerticalAlignment" Background="{x:Null}" BorderBrush="{x:Null}">
+            <Image x:Name="img_Facebook_like_thumb_png" Source="img/Facebook_like_thumb.png" Stretch="Fill" Height="30" VerticalAlignment="Center" Width="30" MouseDown="photoLikeClicked" HorizontalAlignment="Center" />
+
+        </Button>
     </Grid>
 </Window>
