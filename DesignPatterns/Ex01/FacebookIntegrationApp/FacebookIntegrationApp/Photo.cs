@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FacebookWrapper.ObjectModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace FacebookIntegrationApp
 {
     class Photo : VisualMedia
     {
-        public Photo(string name, string imageUri, Action<string> commentFunc, Action likeFunc) : base(name, imageUri, commentFunc, likeFunc)
+        public Photo(string name, string imageUri, Func<string, Comment> commentFunc, Func<bool> likeFunc) : base(name, imageUri, commentFunc, likeFunc)
         {
         }
 

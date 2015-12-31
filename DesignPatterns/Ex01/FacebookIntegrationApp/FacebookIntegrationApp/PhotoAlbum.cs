@@ -11,7 +11,7 @@ namespace FacebookIntegrationApp
     {
         private List<Photo> contentList = new List<Photo>();
 
-        public PhotoAlbum(string name, string coverPhotoUri, Action<string> commentFunc, Action likeFunc) : base(name, coverPhotoUri, commentFunc, likeFunc)
+        public PhotoAlbum(string name, string coverPhotoUri, Func<string, Comment> commentFunc, Func<bool> likeFunc) : base(name, coverPhotoUri, commentFunc, likeFunc)
         {
         }
 

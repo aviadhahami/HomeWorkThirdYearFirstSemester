@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FacebookWrapper.ObjectModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,10 +11,10 @@ namespace FacebookIntegrationApp
     {
         protected string name;
         protected string imageUri;
-        protected Action<string> commentFunc;
-        protected Action likeFunc;
+        protected Func<string, Comment> commentFunc;
+        protected Func<bool> likeFunc;
 
-        public VisualMedia(string name, string imageUri, Action<string> commentFunc, Action likeFunc)
+        public VisualMedia(string name, string imageUri, Func<string, Comment> commentFunc, Func<bool> likeFunc)
         {
             this.name = name;
             this.imageUri = imageUri;

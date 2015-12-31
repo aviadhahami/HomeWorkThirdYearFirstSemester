@@ -25,7 +25,9 @@ namespace FacebookIntegrationApp
     public partial class MainView : Window
     {
         private User m_loggedInUser;
-        private Album m_selectedAlbum;
+        private PhotoAlbum m_selectedAlbum;
+
+
         public MainView(User LoggedInUser)
         {
             InitializeComponent();
@@ -96,7 +98,8 @@ namespace FacebookIntegrationApp
 
         private void AlbumSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            m_selectedAlbum = ((sender as ListBox).SelectedItem as Album);
+            Album album = ((sender as ListBox).SelectedItem as Album);
+            m_selectedAlbum = new PhotoAlbum(album.Name, album.PictureSmallURL, album.Comment, album.Like);
             albumCommentTextBox.Text = "Add album comment";
         }
 
