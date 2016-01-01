@@ -26,8 +26,8 @@ namespace FacebookIntegrationApp
         // Populate fields around the app
         private void init()
         {
-            new Thread(fetchName).Start();
-            new Thread(setProfilePic).Start();
+            //new Thread(fetchName).Start();
+            //new Thread(setProfilePic).Start();
             new Thread(fetchPhotoAlbums).Start();
         }
         private void fetchPhotoAlbums()
