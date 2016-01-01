@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Media.Imaging;
 using FacebookWrapper.ObjectModel;
 
 namespace FacebookIntegrationApp
@@ -11,11 +8,11 @@ namespace FacebookIntegrationApp
     {
         private List<VisualMedia> contentList = new List<VisualMedia>();
 
-        public PhotoAlbum(string name, string coverPhotoUri, Func<string, Comment> commentFunc, Func<bool> likeFunc) : base(name, coverPhotoUri, commentFunc, likeFunc)
+        public PhotoAlbum(string io_name, string io_coverPhotoUri, Func<string, Comment> io_commentFunc, Func<bool> io_likeFunc) : base(io_name, io_coverPhotoUri, io_commentFunc, io_likeFunc)
         {
         }
 
-        public override VisualMedia this[int index]
+        public override VisualMedia this[int i_index]
         {
             get
             {
@@ -23,7 +20,7 @@ namespace FacebookIntegrationApp
                 int i = 0;
                 foreach (Photo pic in contentList)
                 {
-                    if (i == index)
+                    if (i == i_index)
                     {
                         media = pic;
                     }
@@ -33,14 +30,14 @@ namespace FacebookIntegrationApp
             }
         }
 
-        public override void Add(VisualMedia media)
+        public override void Add(VisualMedia i_media)
         {
-            this.contentList.Add(media as Photo);
+            this.contentList.Add(i_media as Photo);
         }
 
-        public override void Remove(VisualMedia media)
+        public override void Remove(VisualMedia i_media)
         {
-            this.contentList.Remove(media as Photo);
+            this.contentList.Remove(i_media as Photo);
         }
         public override int Size()
         {

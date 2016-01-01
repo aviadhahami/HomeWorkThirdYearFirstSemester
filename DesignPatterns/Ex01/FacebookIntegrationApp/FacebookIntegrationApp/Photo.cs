@@ -1,19 +1,15 @@
 ﻿using FacebookWrapper.ObjectModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Media.Imaging;
 
 namespace FacebookIntegrationApp
 {
     class Photo : VisualMedia
     {
-        public Photo(string name, string imageUri, Func<string, Comment> commentFunc, Func<bool> likeFunc) : base(name, imageUri, commentFunc, likeFunc)
+        public Photo(string io_name, string io_imageUri, Func<string, Comment> io_commentFunc, Func<bool> io_likeFunc) : base(io_name, io_imageUri, io_commentFunc, io_likeFunc)
         {
         }
 
-        public override VisualMedia this[int index]
+        public override VisualMedia this[int i_index]
         {
             // This is the leaf so we don't implement this
             get

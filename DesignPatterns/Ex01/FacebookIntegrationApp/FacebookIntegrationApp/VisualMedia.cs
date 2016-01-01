@@ -12,21 +12,21 @@ namespace FacebookIntegrationApp
         protected Func<string, Comment> commentFunc;
         protected Func<bool> likeFunc;
 
-        public VisualMedia(string name, string imageUri, Func<string, Comment> commentFunc, Func<bool> likeFunc)
+        public VisualMedia(string i_name, string i_imageUri, Func<string, Comment> i_commentFunc, Func<bool> i_likeFunc)
         {
-            this.name = name;
-            this.imageUri = imageUri;
-            this.commentFunc = commentFunc;
-            this.likeFunc = likeFunc;
+            this.name = i_name;
+            this.imageUri = i_imageUri;
+            this.commentFunc = i_commentFunc;
+            this.likeFunc = i_likeFunc;
         }
         public abstract void Add(VisualMedia i_media);
         public abstract void Remove(VisualMedia i_media);
         public abstract int Size();
-        public void Comment(string comment)
+        public void Comment(string io_comment)
         {
             Application.Current.Dispatcher.BeginInvoke(new Action(() =>
             {
-                commentFunc(comment);
+                commentFunc(io_comment);
             }));
         }
         public void Like()
@@ -50,7 +50,7 @@ namespace FacebookIntegrationApp
                 return new BitmapImage(new Uri(this.imageUri));
             }
         }
-        public abstract VisualMedia this[int index]
+        public abstract VisualMedia this[int i_index]
         {
             get;
         }
