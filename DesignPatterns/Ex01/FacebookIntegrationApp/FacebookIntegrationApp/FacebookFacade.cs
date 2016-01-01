@@ -1,7 +1,7 @@
 ﻿using FacebookWrapper.ObjectModel;
 using System.Collections.Generic;
 
-namespace FacebookIntegrationApp
+namespace FacebookSingletonFacade
 {
     class FacebookFacade
     {

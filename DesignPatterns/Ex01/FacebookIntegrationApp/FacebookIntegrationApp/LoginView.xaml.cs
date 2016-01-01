@@ -1,10 +1,10 @@
 ﻿using BasicFacebookFeatures.WithSingltonAppSettings;
+using FacebookSingletonFacade;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
 using System;
 using System.Threading;
 using System.Windows;
-
 namespace FacebookIntegrationApp
 {
     /// <summary>

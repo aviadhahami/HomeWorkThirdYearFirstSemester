@@ -6,6 +6,7 @@ using System.Windows.Media.Imaging;
 using Facebook;
 using FacebookWrapper.ObjectModel;
 using System.Threading;
+using FacebookSingletonFacade;
 
 namespace FacebookIntegrationApp
 {
