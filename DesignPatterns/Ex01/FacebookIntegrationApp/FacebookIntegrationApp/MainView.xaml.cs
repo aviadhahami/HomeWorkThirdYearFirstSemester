@@ -89,7 +89,7 @@ namespace FacebookIntegrationApp
             confirmationGrid.Visibility = Visibility.Visible;
         }
 
-        private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void ListViewMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Album selectedAlbum = albumListListView.SelectedItem as Album;
             if (selectedAlbum.Photos.Count > 0)
