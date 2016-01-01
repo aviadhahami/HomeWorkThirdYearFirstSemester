@@ -1,5 +1,4 @@
 ﻿using BasicFacebookFeatures.WithSingltonAppSettings;
-using FacebookSingletonFacade;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
 using System;
@@ -64,7 +63,8 @@ namespace FacebookIntegrationApp
         private void logAndGoToMainView(LoginResult result)
         {
             m_LoggedInUser = result.LoggedInUser;
-            new FacebookFacade(m_LoggedInUser);
+            new FacebookFacade();
+            FacebookFacade.init(m_LoggedInUser);
             m_MainView = new MainView();
             m_MainView.Show();
             this.Close();

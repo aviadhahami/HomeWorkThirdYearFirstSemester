@@ -1,13 +1,16 @@
 ﻿using FacebookWrapper.ObjectModel;
-using System.Collections.Generic;
 
-namespace FacebookSingletonFacade
+namespace FacebookIntegrationApp
 {
     class FacebookFacade
     {
         private static User m_LoggedInUser;
 
-        public FacebookFacade(User i_LoggedInUser)
+        public FacebookFacade()
+        {
+
+        }
+        public static void init(User i_LoggedInUser)
         {
             m_LoggedInUser = i_LoggedInUser;
         }
