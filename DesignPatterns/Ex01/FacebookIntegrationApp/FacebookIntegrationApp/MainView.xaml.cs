@@ -23,17 +23,6 @@ namespace FacebookIntegrationApp
             confirmationGrid.Visibility = Visibility.Hidden;
         }
 
-        internal FacebookSingleton FacebookFacade
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
-        }
 
         private void PostStatus(object sender, RoutedEventArgs e)
         {
