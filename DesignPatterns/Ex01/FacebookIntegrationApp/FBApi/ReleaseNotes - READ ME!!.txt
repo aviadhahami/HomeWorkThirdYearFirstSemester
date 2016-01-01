@@ -1,4 +1,13 @@
 ﻿/*
+ changes in 6.8.0.14:
+ * FacebookService::GetDynamicData returns dynamic object with the parsed JSON data
+ * FacebookService::GetObject returns dynamic object with the parsed JSON data
+ * Photo::FieldsToLoad now include 'tags' to load the tagged users
+ * LoginResult now contains FacebookOAuthResult
+ * OwnerObject::CreateEvent_DeprecatedSinceV2
+ */
+
+/*
  changes in 6.8.0.13:
  * All Profile Pictures handling now moved up to OwnerObject class (base class of User and Page)
  * - PictureXxxUrl properties and ImageXxx Properties are now available on Page objects too
