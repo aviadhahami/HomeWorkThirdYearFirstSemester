@@ -28,7 +28,6 @@ namespace FacebookIntegrationApp
             try
             {
                 FacebookFacade.PostStatus(StatusText.Text);
-                //MessageBox.Show("Posted!");
                 showConfirmationSequence();
             }
             catch (FacebookApiException e1)
@@ -67,7 +66,7 @@ namespace FacebookIntegrationApp
             if (m_selectedAlbum != null)
             {
                 Application.Current.Dispatcher.BeginInvoke(new Action(() => m_selectedAlbum.Like()));
-
+                showConfirmationSequence();
             }
         }
 
@@ -89,7 +88,6 @@ namespace FacebookIntegrationApp
         {
             confirmationGrid.Visibility = Visibility.Visible;
         }
-
 
         private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {

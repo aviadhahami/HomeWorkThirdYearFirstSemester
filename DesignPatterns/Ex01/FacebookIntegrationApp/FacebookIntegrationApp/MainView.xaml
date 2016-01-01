@@ -52,8 +52,8 @@
                 <Grid>
                     <Image x:Name="img_Facebook_like_thumb_png1" Margin="93.987,50,91.843,0" Source="img/Facebook_like_thumb.png" Stretch="Fill" VerticalAlignment="Top" d:LayoutOverrides="Width" Height="116.802" />
 
-                    <Label Content="Success!" Margin="68.8,0,63.14,55.244" FontFamily="Roboto" FontSize="40" FontWeight="Bold" Foreground="#FF3B5998" VerticalAlignment="Bottom" d:LayoutOverrides="Width" />
-                    <Label Content="Click anywhere to continue" Height="30.31" VerticalAlignment="Bottom" Margin="58.11,0,48.51,19.934" d:LayoutOverrides="Width" Background="#00000000" Foreground="#7F000000" />
+                    <Label Content="Success!" Margin="69,0,49,55.4" FontFamily="Roboto" FontSize="40" FontWeight="Bold" Foreground="#FF3B5998" VerticalAlignment="Bottom" />
+                    <Label Content="Click anywhere to continue" Height="30" VerticalAlignment="Bottom" Margin="32,0,29,20.4" Background="#00000000" Foreground="#7F000000" HorizontalAlignment="Center" />
                 </Grid>
             </Border>
         </Grid>
