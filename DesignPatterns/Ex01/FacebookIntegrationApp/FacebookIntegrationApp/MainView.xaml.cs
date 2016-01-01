@@ -2,9 +2,9 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
 using Facebook;
 using FacebookWrapper.ObjectModel;
+using System.Timers;
 using System.Threading;
 
 namespace FacebookIntegrationApp
@@ -14,58 +14,25 @@ namespace FacebookIntegrationApp
     /// </summary>
     public partial class MainView : Window
     {
-        private User m_loggedInUser;
         private PhotoAlbum m_selectedAlbum;
 
+        public MainView()
 
-        public MainView(User LoggedInUser)
         {
             InitializeComponent();
-            this.m_loggedInUser = LoggedInUser;
-            init();
-
-        }
-       
-        // Populate fields around the app
-        private void init()
-        {
-            new Thread(fetchName).Start();
-            new Thread(setNameForTitle).Start();
-            new Thread(fetchPhotoAlbums).Start();
-        }
-        private void fetchPhotoAlbums()
-        {
-            Application.Current.Dispatcher.BeginInvoke(new Action(() => albumListListView.ItemsSource = m_loggedInUser.Albums));
-        }
-
-        private void fetchName()
-        {
-            Application.Current.Dispatcher.BeginInvoke(new Action(() => UserName.Text = m_loggedInUser.FirstName));
-        }
-
-        private void setNameForTitle()
-        {
-            Application.Current.Dispatcher.BeginInvoke(new Action(() => ProfilePic.Source = new BitmapImage(new Uri(m_loggedInUser.PictureNormalURL))));
+            confirmationGrid.Visibility = Visibility.Hidden;
         }
 
         private void PostStatus(object sender, RoutedEventArgs e)
         {
-            sendStatus();
-
-        }
-
-        private void sendStatus()
-        {
-
             try
             {
-                m_loggedInUser.PostStatus(StatusText.Text);
-                MessageBox.Show("Posted!");
-
+                FacebookFacade.PostStatus(StatusText.Text);
+                showConfirmationSequence();
             }
-            catch (FacebookApiException e)
+            catch (FacebookApiException e1)
             {
-                MessageBox.Show("something went wrong!" + Environment.NewLine + e.Message);
+                MessageBox.Show("something went wrong!" + Environment.NewLine + e1.Message);
             }
             catch (Exception exeption)
             {
@@ -76,14 +43,14 @@ namespace FacebookIntegrationApp
         private void LuckFunction(object sender, RoutedEventArgs e)
         {
 
-            HoroscopeView horoscopeView = new HoroscopeView(m_loggedInUser.Birthday);
+            HoroscopeView horoscopeView = new HoroscopeView(FacebookFacade.Birthday);
             horoscopeView.Show();
         }
 
         private void PostStatistics(object sender, RoutedEventArgs e)
         {
 
-            StatisticsView statisticsView = new StatisticsView(m_loggedInUser.Statuses);
+            StatisticsView statisticsView = new StatisticsView(FacebookFacade.Statuses);
             statisticsView.Show();
         }
 
@@ -99,7 +66,7 @@ namespace FacebookIntegrationApp
             if (m_selectedAlbum != null)
             {
                 Application.Current.Dispatcher.BeginInvoke(new Action(() => m_selectedAlbum.Like()));
-
+                showConfirmationSequence();
             }
         }
 
@@ -108,10 +75,20 @@ namespace FacebookIntegrationApp
 
             if (albumCommentTextBox.Text != "" && m_selectedAlbum != null)
             {
-                Application.Current.Dispatcher.BeginInvoke(new Action(() => m_selectedAlbum.Comment(albumCommentTextBox.Text)));
+                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    m_selectedAlbum.Comment(albumCommentTextBox.Text);
+                    showConfirmationSequence();
+                }));
 
             }
         }
+
+        private void showConfirmationSequence()
+        {
+            confirmationGrid.Visibility = Visibility.Visible;
+        }
+
         private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Album selectedAlbum = albumListListView.SelectedItem as Album;
@@ -130,6 +107,12 @@ namespace FacebookIntegrationApp
             {
                 MessageBox.Show("No photos to display");
             }
+
+        }
+
+        private void ClearSucessNotification(object sender, MouseButtonEventArgs e)
+        {
+            confirmationGrid.Visibility = Visibility.Hidden;
 
         }
     }

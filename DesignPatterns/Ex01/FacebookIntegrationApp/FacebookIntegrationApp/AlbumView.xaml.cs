@@ -26,7 +26,7 @@ namespace FacebookIntegrationApp
         public AlbumView(PhotoAlbum m_selectedAlbum)
         {
             InitializeComponent();
-            this.m_album = m_selectedAlbum;
+            m_album = m_selectedAlbum;
             m_PhotoIndex = 0;
             updateImageAndIndexIndicator();
         }
