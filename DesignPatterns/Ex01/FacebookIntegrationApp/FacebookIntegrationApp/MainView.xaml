@@ -20,7 +20,7 @@
         </Button>
         <TextBlock x:Name="UserName" HorizontalAlignment="Left" Margin="214,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="37" Width="105" FontFamily="Roboto" FontSize="24" Foreground="Black" />
         <GroupBox x:Name="groupBox" Header="Photo albums" Margin="10,0,11.6,80.2" VerticalAlignment="Bottom" Height="130.8">
-            <ListBox x:Name="albumListListView" HorizontalContentAlignment="Stretch" Margin="0,3,-3,-0.2" BorderBrush="Black" Background="#FFF7F7F7" SelectionChanged="AlbumSelectionChanged" MouseDoubleClick="ListView_MouseDoubleClick">
+            <ListBox x:Name="albumListListView" HorizontalContentAlignment="Stretch" Margin="0,3,-3,-0.2" BorderBrush="Black" Background="#FFF7F7F7" SelectionChanged="AlbumSelectionChangeListener" MouseDoubleClick="ListView_MouseDoubleClick">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <WrapPanel>
@@ -34,7 +34,7 @@
             </ListBox>
 
         </GroupBox>
-        <Button x:Name="LikeAlbum" Focusable="False" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Click="LikeAlbumButtonClick" Margin="0,0,11.6,40.467" FontFamily="Roboto" FontSize="18" Background="#FF8B9DC3" BorderBrush="{x:Null}" RenderTransformOrigin="0.5,0.5" BorderThickness="1" Height="39.733" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="175.067">
+        <Button x:Name="LikeAlbum" Focusable="False" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Click="LikeAlbumButtonClickListener" Margin="0,0,11.6,40.467" FontFamily="Roboto" FontSize="18" Background="#FF8B9DC3" BorderBrush="{x:Null}" RenderTransformOrigin="0.5,0.5" BorderThickness="1" Height="39.733" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="175.067">
             <Grid Margin="0,0,0,-16.533" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Label x:Name="label" Content="Like selected album" Margin="-37.105,5.681,0,20.996" FontSize="13.333" d:LayoutOverrides="Height" HorizontalAlignment="Left" Foreground="White" />
                 <Image x:Name="img_Facebook_like_thumb_png" Margin="0,0,-30.994,26.463" Source="img/Facebook_like_thumb.png" Stretch="Fill" Width="20" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="20.789" />
@@ -42,7 +42,7 @@
 
         </Button>
         <TextBox x:Name="albumCommentTextBox" Height="70.2" Margin="10,0,221.6,10" TextWrapping="Wrap" Text="Comment on album" VerticalAlignment="Bottom" Background="{x:Null}" FontFamily="Roboto" Foreground="#FF7F7F7F" />
-        <Button x:Name="button" Content="Add album comment" HorizontalAlignment="Right" Margin="0,0,11.6,10" VerticalAlignment="Bottom" Width="175.067" Height="25.467" Background="#FF8B9DC3" BorderBrush="{x:Null}" BorderThickness="0" Foreground="White" FontFamily="Roboto" Click="AddAlbumCommentClick" />
+        <Button x:Name="button" Content="Add album comment" HorizontalAlignment="Right" Margin="0,0,11.6,10" VerticalAlignment="Bottom" Width="175.067" Height="25.467" Background="#FF8B9DC3" BorderBrush="{x:Null}" BorderThickness="0" Foreground="White" FontFamily="Roboto" Click="AddAlbumCommentClickListener" />
 
     </Grid>
 </Window>

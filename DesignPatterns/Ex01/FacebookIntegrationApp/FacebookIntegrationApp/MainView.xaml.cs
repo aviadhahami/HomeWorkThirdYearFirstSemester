@@ -35,6 +35,7 @@ namespace FacebookIntegrationApp
             init();
 
         }
+       
         // Populate fields around the app
         private void init()
         {
@@ -96,14 +97,14 @@ namespace FacebookIntegrationApp
             statisticsView.Show();
         }
 
-        private void AlbumSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void AlbumSelectionChangeListener(object sender, SelectionChangedEventArgs e)
         {
             Album album = ((sender as ListBox).SelectedItem as Album);
             m_selectedAlbum = new PhotoAlbum(album.Name, album.PictureSmallURL, album.Comment, album.Like);
             albumCommentTextBox.Text = "Add album comment";
         }
 
-        private void LikeAlbumButtonClick(object sender, RoutedEventArgs e)
+        private void LikeAlbumButtonClickListener(object sender, RoutedEventArgs e)
         {
             if (m_selectedAlbum != null)
             {
@@ -112,7 +113,7 @@ namespace FacebookIntegrationApp
             }
         }
 
-        private void AddAlbumCommentClick(object sender, RoutedEventArgs e)
+        private void AddAlbumCommentClickListener(object sender, RoutedEventArgs e)
         {
 
             if (albumCommentTextBox.Text != "" && m_selectedAlbum != null)
