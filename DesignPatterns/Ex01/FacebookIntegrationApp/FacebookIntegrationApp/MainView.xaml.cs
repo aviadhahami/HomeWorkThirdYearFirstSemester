@@ -23,11 +23,23 @@ namespace FacebookIntegrationApp
             confirmationGrid.Visibility = Visibility.Hidden;
         }
 
+        internal FacebookSingleton FacebookFacade
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
         private void PostStatus(object sender, RoutedEventArgs e)
         {
             try
             {
-                FacebookFacade.PostStatus(StatusText.Text);
+                FacebookSingleton.Instance.PostStatus(StatusText.Text);
                 showConfirmationSequence();
             }
             catch (FacebookApiException e1)
@@ -43,15 +55,13 @@ namespace FacebookIntegrationApp
         private void LuckFunction(object sender, RoutedEventArgs e)
         {
 
-            HoroscopeView horoscopeView = new HoroscopeView(FacebookFacade.Birthday);
-            horoscopeView.Show();
+            FacebookSingleton.Instance.GenerateHoroscope();
         }
 
         private void PostStatistics(object sender, RoutedEventArgs e)
         {
 
-            StatisticsView statisticsView = new StatisticsView(FacebookFacade.Statuses);
-            statisticsView.Show();
+            FacebookSingleton.Instance.Statistics();
         }
 
         private void AlbumSelectionChangeListener(object sender, SelectionChangedEventArgs e)

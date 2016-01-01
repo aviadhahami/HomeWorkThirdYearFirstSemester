@@ -3,7 +3,7 @@ using System;
 
 namespace FacebookIntegrationApp
 {
-    public class FBHandler
+    public static class FBHandler
     {
         private static string m_preferredMonth = null;
         private static string m_preferredDay = null;
@@ -12,34 +12,10 @@ namespace FacebookIntegrationApp
         private static string[] s_MonthNameStringArray = { "January", "February", "March", "April", "May", "June", 
                                                             "July","August","September","October","November","December"};
 
+        static FBHandler() { }
+        public static bool Flag { get; private set; }
 
-        private static volatile FBHandler instance;
-        private static object syncRoot = new Object();
-
-        private FBHandler() { }
-
-        public static FBHandler Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    lock (syncRoot)
-                    {
-                        if (instance == null)
-                            instance = new FBHandler();
-                    }
-                }
-
-                return instance;
-            }
-        }
-
-        public FacebookObjectCollection<Status> UserStatuses { get; set; }
-        public string StatusStatistics { get; set; }
-        public bool Flag { get; private set; }
-
-        public void CalcStatistics()
+        public static string CalcStatistics(FacebookObjectCollection<Status> i_UserStatuses)
         {
             Flag = false;
             // Make sure we initiate this procedure only once
@@ -50,7 +26,7 @@ namespace FacebookIntegrationApp
                 int[] hours = new int[24];
                 int[] days = new int[7];
                 int[] months = new int[12];
-                foreach (var status in UserStatuses)
+                foreach (var status in i_UserStatuses)
                 {
                     DateTime time = Convert.ToDateTime(status.CreatedTime);
                     days[(int)time.DayOfWeek] += status.LikedBy.Count;
@@ -68,8 +44,9 @@ namespace FacebookIntegrationApp
                     "Usualy on " + m_preferredDay + "s you get the most likes." + Environment.NewLine +
                     "Time-wise, " + m_preferredHour + " is the best time" + Environment.NewLine +
                     "and " + m_preferredMonth + " is the best month.";
-            StatusStatistics = finalStr;
             Flag = false;
+
+            return finalStr;
         }
 
     }

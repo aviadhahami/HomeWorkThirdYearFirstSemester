@@ -1,61 +1,38 @@
-﻿using System.Net;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
-using System.Web.Script.Serialization;
-
 
 namespace FacebookIntegrationApp
 {
-    class Horoscope
+    class GenerateLuckSign
     {
-
-        private string m_DailyHoroscopeContent;
-        private string m_DailyHoroscopeTitle;
+        private string m_Birthday;
         private string[] m_NamesOfLucksign = { "capricorn", "aquarius", "pisces", "aries", "taurus", "gemini", "cancer", "leo",
                                                 "virgo", "libra", "scorpio", "sargittarius"};
-        private string m_UrlOfAllLuckSign = "http://widgets.fabulously40.com/horoscope.json?sign=";
-        public Horoscope(string i_BirthDay)
+
+        public GenerateLuckSign(string i_Birthday)
         {
-            WebClient myWebClient = new WebClient();
-            GenerateHoroscope(myWebClient, i_BirthDay);
+            m_Birthday = i_Birthday;
         }
 
-        private void GenerateHoroscope(WebClient i_myWebClient, string i_BirthDay)
-        {
-            string luckSign = CalcLuckySign(i_BirthDay);
-            string json;
-            using (WebClient wc = new WebClient())
-            {
-                json = wc.DownloadString(m_UrlOfAllLuckSign + luckSign);
-            }
-
-            JavaScriptSerializer j = new JavaScriptSerializer();
-
-            horoscopeOutsideWrapper wrapper = j.Deserialize<horoscopeOutsideWrapper>(json);
-
-            m_DailyHoroscopeTitle = Utilities.FirstLetterToUpperCase(wrapper.horoscope.sign);
-            m_DailyHoroscopeContent = wrapper.horoscope.horoscope;
-
-        }
-
-
-        public string DailyHoroscopeContent
+        internal HoroscopeFacade HoroscopeFacade
         {
             get
             {
-                return m_DailyHoroscopeContent;
+                throw new System.NotImplementedException();
             }
-        }
-        public string DailyHoroscopeTitle {
-            get
+
+            set
             {
-                return m_DailyHoroscopeTitle;
             }
         }
 
-        private string CalcLuckySign(string i_birthday)
+        public string CalcLuckySign()
         {
             string[] splitBirthdayToDayMounthYear = new string[3];
-            splitBirthdayToDayMounthYear = Regex.Split(i_birthday, "/");
+            splitBirthdayToDayMounthYear = Regex.Split(m_Birthday, "/");
             int day = LoseTheStartZero(splitBirthdayToDayMounthYear[1]);
             int month = LoseTheStartZero(splitBirthdayToDayMounthYear[0]);
             int midleOfMonth = 20;
@@ -71,7 +48,8 @@ namespace FacebookIntegrationApp
                     if (iflastMonth)
                     {
                         symbleNumberOfLuck = (dayBiggerThanMiddle) ? m_NamesOfLucksign[i - 1] : m_NamesOfLucksign[0];
-                    } else
+                    }
+                    else
                     {
                         symbleNumberOfLuck = (dayBiggerThanMiddle) ? m_NamesOfLucksign[i - 1] : m_NamesOfLucksign[i];
                     }
@@ -96,4 +74,6 @@ namespace FacebookIntegrationApp
             return numberWithoutZero;
         }
     }
+
 }
+

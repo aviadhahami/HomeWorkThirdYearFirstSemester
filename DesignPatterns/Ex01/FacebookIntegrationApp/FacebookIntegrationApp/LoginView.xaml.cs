@@ -63,8 +63,7 @@ namespace FacebookIntegrationApp
         private void logAndGoToMainView(LoginResult result)
         {
             m_LoggedInUser = result.LoggedInUser;
-            new FacebookFacade();
-            FacebookFacade.init(m_LoggedInUser);
+            FacebookSingleton.Instance.LoginUser = m_LoggedInUser;
             m_MainView = new MainView();
             m_MainView.Show();
             this.Close();

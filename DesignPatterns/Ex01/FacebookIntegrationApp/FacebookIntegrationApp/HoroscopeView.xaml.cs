@@ -21,9 +21,9 @@ namespace FacebookIntegrationApp
         public HoroscopeView(string i_Birthday)
         {
             InitializeComponent();
-            Horoscope clientHoroscope = new Horoscope(i_Birthday);
-            HoroscopeContent.Text = clientHoroscope.DailyHoroscopeContent;
-            HoroscopeSign.Text = clientHoroscope.DailyHoroscopeTitle;
+            HoroscopeFacade clientHoroscope = new HoroscopeFacade(i_Birthday);
+            HoroscopeContent.Text = clientHoroscope.HoroscopeContent[1];
+            HoroscopeSign.Text = clientHoroscope.HoroscopeContent[0];
         }
     }
 }

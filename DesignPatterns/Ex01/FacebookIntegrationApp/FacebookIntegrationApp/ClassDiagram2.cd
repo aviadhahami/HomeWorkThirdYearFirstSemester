@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="FacebookIntegrationApp.HoroscopeFacade">
+    <Position X="6" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEABAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>HoroscopeFacade.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FacebookIntegrationApp.FacebookSingleton">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAEAAEAAAEAAUAAAAAAIAAABKAAAAQAAADAAABAE=</HashCode>
+      <FileName>FacebookSingleton.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="HoroscopeFacade" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="FacebookIntegrationApp.LuckInfo">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAJAAAAAAAAAQAAAAAAAAAAAAAEAAAAAAAAhAAABBg=</HashCode>
+      <FileName>LuckInfo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="HoroscopeFacade" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="FacebookIntegrationApp.GenerateLuckSign">
+    <Position X="9.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAABAAAAACAAAAAAAAAAABAAAAIA=</HashCode>
+      <FileName>GenerateLuckSign.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="HoroscopeFacade" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

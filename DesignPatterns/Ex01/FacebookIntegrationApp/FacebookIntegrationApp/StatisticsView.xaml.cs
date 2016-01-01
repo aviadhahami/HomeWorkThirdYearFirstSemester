@@ -14,22 +14,21 @@ namespace FacebookIntegrationApp
 
         //private string m_StatisticsData;
 
-        public StatisticsView(FacebookObjectCollection<Status> i_Statuses)
+        public StatisticsView()
         {
             InitializeComponent();
-            FBHandler.Instance.UserStatuses = i_Statuses;
             this.statisticsDataTextBox.Text = "Please wait while we calculate your statistics....";
             new Thread(splitTasks).Start();
+
         }
 
         private void splitTasks()
         {
-            FBHandler.Instance.CalcStatistics();
-            while (FBHandler.Instance.Flag)
+            while (FBHandler.Flag)
             {
-                Thread.Sleep(1000);
+                Thread.CurrentThread.Join();
             }
-            StatisticsData = FBHandler.Instance.StatusStatistics;
+            string StatisticsData = FBHandler.CalcStatistics(FacebookSingleton.Instance.Statuses);
             Application.Current.Dispatcher.BeginInvoke(new Action(() => this.statisticsDataTextBox.Text = StatisticsData));
         }
         public string StatisticsData { get; set; }
