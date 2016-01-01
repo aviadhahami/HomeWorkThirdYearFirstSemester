@@ -12,13 +12,48 @@ namespace FacebookIntegrationApp
             m_LoggedInUser = i_LoggedInUser;
         }
 
-        public static List<Album> Albums { get; set; }
-        public static string UserFirstName
+        public static FacebookObjectCollection<Album> Albums
+        {
+            get
+            {
+                return m_LoggedInUser.Albums;
+            }
+        }
+
+        public static string Birthday
+        {
+            get
+            {
+                return m_LoggedInUser.Birthday;
+            }
+        }
+
+        public static string FirstName
         {
             get
             {
                 return m_LoggedInUser.FirstName;
             }
+        }
+        public static string PictureNormalURL
+        {
+            get
+            {
+                return m_LoggedInUser.PictureNormalURL;
+            }
+        }
+
+        public static FacebookObjectCollection<Status> Statuses
+        {
+            get
+            {
+                return m_LoggedInUser.Statuses;
+            }
+        }
+
+        public static void PostStatus(string io_status)
+        {
+            m_LoggedInUser.PostStatus(io_status);
         }
     }
 }

@@ -32,17 +32,17 @@ namespace FacebookIntegrationApp
         }
         private void fetchPhotoAlbums()
         {
-            Application.Current.Dispatcher.BeginInvoke(new Action(() => albumListListView.ItemsSource = m_loggedInUser.Albums));
+            Application.Current.Dispatcher.BeginInvoke(new Action(() => albumListListView.ItemsSource = FacebookFacade.Albums));
         }
 
         private void fetchName()
         {
-            Application.Current.Dispatcher.BeginInvoke(new Action(() => UserName.Text = m_loggedInUser.FirstName));
+            Application.Current.Dispatcher.BeginInvoke(new Action(() => UserName.Text = FacebookFacade.FirstName));
         }
 
         private void setProfilePic()
         {
-            Application.Current.Dispatcher.BeginInvoke(new Action(() => ProfilePic.Source = new BitmapImage(new Uri(m_loggedInUser.PictureNormalURL))));
+            Application.Current.Dispatcher.BeginInvoke(new Action(() => ProfilePic.Source = new BitmapImage(new Uri(FacebookFacade.PictureNormalURL))));
         }
 
         private void PostStatus(object sender, RoutedEventArgs e)
@@ -56,7 +56,7 @@ namespace FacebookIntegrationApp
 
             try
             {
-                m_loggedInUser.PostStatus(StatusText.Text);
+                FacebookFacade.PostStatus(StatusText.Text);
                 MessageBox.Show("Posted!");
 
             }
@@ -73,14 +73,14 @@ namespace FacebookIntegrationApp
         private void LuckFunction(object sender, RoutedEventArgs e)
         {
 
-            HoroscopeView horoscopeView = new HoroscopeView(m_loggedInUser.Birthday);
+            HoroscopeView horoscopeView = new HoroscopeView(FacebookFacade.Birthday);
             horoscopeView.Show();
         }
 
         private void PostStatistics(object sender, RoutedEventArgs e)
         {
 
-            StatisticsView statisticsView = new StatisticsView(m_loggedInUser.Statuses);
+            StatisticsView statisticsView = new StatisticsView(FacebookFacade.Statuses);
             statisticsView.Show();
         }
 

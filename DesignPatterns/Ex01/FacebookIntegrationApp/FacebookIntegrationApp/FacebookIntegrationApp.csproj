@@ -70,6 +70,7 @@
       <DependentUpon>AlbumView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ApplicationSettings.cs" />
+    <Compile Include="FacebookFacade.cs" />
     <Compile Include="Horoscope.cs" />
     <Compile Include="FBHandler.cs" />
     <Compile Include="HoroscopeView.xaml.cs">
