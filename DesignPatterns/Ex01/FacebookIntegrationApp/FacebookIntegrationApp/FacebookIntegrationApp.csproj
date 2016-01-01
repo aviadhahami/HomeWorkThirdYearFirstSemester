@@ -70,13 +70,15 @@
       <DependentUpon>AlbumView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ApplicationSettings.cs" />
-    <Compile Include="FacebookFacade.cs" />
-    <Compile Include="Horoscope.cs" />
+    <Compile Include="FacebookSingleton.cs" />
+    <Compile Include="GenerateLuckSign.cs" />
     <Compile Include="FBHandler.cs" />
+    <Compile Include="HoroscopeFacade.cs" />
     <Compile Include="HoroscopeView.xaml.cs">
       <DependentUpon>HoroscopeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="HoroscopeWrappers.cs" />
+    <Compile Include="LuckInfo.cs" />
     <Compile Include="MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -134,7 +136,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

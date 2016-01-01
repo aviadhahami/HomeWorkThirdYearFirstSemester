@@ -11,7 +11,6 @@ namespace FacebookIntegrationApp
         private static volatile FacebookSingleton instance;
         private static object syncRoot = new Object();
 
-        private FacebookSingleton() { }
 
         public static FacebookSingleton Instance
         {
