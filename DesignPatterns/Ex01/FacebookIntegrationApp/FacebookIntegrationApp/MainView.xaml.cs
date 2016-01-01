@@ -28,7 +28,7 @@ namespace FacebookIntegrationApp
         {
             //new Thread(fetchName).Start();
             //new Thread(setProfilePic).Start();
-            new Thread(fetchPhotoAlbums).Start();
+            //new Thread(fetchPhotoAlbums).Start();
         }
         private void fetchPhotoAlbums()
         {

@@ -24,7 +24,7 @@
 
         <TextBlock Text="{Binding Path=FirstName, Source={StaticResource ResourceKey=FacebookFacade}}" x:Name="UserName" HorizontalAlignment="Left" Margin="214,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="37" Width="105" FontFamily="Roboto" FontSize="24" Foreground="Black" />
         <GroupBox x:Name="groupBox" Header="Photo albums" Margin="10,0,11.6,80.2" VerticalAlignment="Bottom" Height="130.8">
-            <ListBox x:Name="albumListListView" HorizontalContentAlignment="Stretch" Margin="0,3,-3,-0.2" BorderBrush="Black" Background="#FFF7F7F7" SelectionChanged="AlbumSelectionChangeListener" MouseDoubleClick="ListView_MouseDoubleClick">
+            <ListBox ItemsSource="{Binding Path=Albums, Source={StaticResource ResourceKey=FacebookFacade}}"  x:Name="albumListListView" HorizontalContentAlignment="Stretch" Margin="0,3,-3,-0.2" BorderBrush="Black" Background="#FFF7F7F7" SelectionChanged="AlbumSelectionChangeListener" MouseDoubleClick="ListView_MouseDoubleClick">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <WrapPanel>
