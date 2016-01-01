@@ -18,17 +18,17 @@ using System.Windows.Shapes;
 
 namespace FacebookIntegrationApp
 {
-	/// <summary>
-	/// Interaction logic for MainView.xaml
-	/// </summary>
-	public partial class LoginView : Window
-	{
+    /// <summary>
+    /// Interaction logic for MainView.xaml
+    /// </summary>
+    public partial class LoginView : Window
+    {
 
         private User m_LoggedInUser;
         private MainView m_MainView;
 
-        public LoginView ()
-		{
+        public LoginView()
+        {
         }
 
 
@@ -37,7 +37,7 @@ namespace FacebookIntegrationApp
             try
             {
                 LoginResult result = FacebookService.Connect(ApplicationSettings.Instance.AccessToken);
-                Application.Current.Dispatcher.BeginInvoke(new Action (() => logAndGoToMainView(result)));
+                Application.Current.Dispatcher.BeginInvoke(new Action(() => logAndGoToMainView(result)));
             }
             catch (Exception ex)
             {
@@ -56,10 +56,11 @@ namespace FacebookIntegrationApp
 
         private void onLoginClicked()
         {
-            if (this.checkAutoLogIn.IsChecked.Value && ApplicationSettings.Instance.AccessToken != null) 
+            if (this.checkAutoLogIn.IsChecked.Value && ApplicationSettings.Instance.AccessToken != null)
             {
                 new Thread(autoLogin).Start();
-            } else
+            }
+            else
             {
                 LoginResult result = ApplicationSettings.Instance.loginResult;
                 if (result.AccessToken == null)
@@ -75,14 +76,15 @@ namespace FacebookIntegrationApp
         private void logAndGoToMainView(LoginResult result)
         {
             m_LoggedInUser = result.LoggedInUser;
-            m_MainView = new MainView(m_LoggedInUser);
+            new FacebookFacade(m_LoggedInUser);
+            m_MainView = new MainView();
             m_MainView.Show();
             this.Close();
         }
 
 
-        private void Login (object sender, RoutedEventArgs e)
-		{
+        private void Login(object sender, RoutedEventArgs e)
+        {
             onLoginClicked();
         }
     }

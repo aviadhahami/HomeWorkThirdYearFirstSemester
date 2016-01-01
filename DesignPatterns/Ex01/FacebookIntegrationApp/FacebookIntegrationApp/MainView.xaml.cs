@@ -14,23 +14,20 @@ namespace FacebookIntegrationApp
     /// </summary>
     public partial class MainView : Window
     {
-        private User m_loggedInUser;
         private PhotoAlbum m_selectedAlbum;
 
+        public MainView()
 
-        public MainView(User LoggedInUser)
         {
             InitializeComponent();
-            this.m_loggedInUser = LoggedInUser;
             init();
-
         }
-       
+
         // Populate fields around the app
         private void init()
         {
             new Thread(fetchName).Start();
-            new Thread(setNameForTitle).Start();
+            new Thread(setProfilePic).Start();
             new Thread(fetchPhotoAlbums).Start();
         }
         private void fetchPhotoAlbums()
@@ -43,7 +40,7 @@ namespace FacebookIntegrationApp
             Application.Current.Dispatcher.BeginInvoke(new Action(() => UserName.Text = m_loggedInUser.FirstName));
         }
 
-        private void setNameForTitle()
+        private void setProfilePic()
         {
             Application.Current.Dispatcher.BeginInvoke(new Action(() => ProfilePic.Source = new BitmapImage(new Uri(m_loggedInUser.PictureNormalURL))));
         }
