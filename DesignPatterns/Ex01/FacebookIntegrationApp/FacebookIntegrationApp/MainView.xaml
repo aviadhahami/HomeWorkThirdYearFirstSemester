@@ -24,7 +24,7 @@
 
         <TextBlock Text="{Binding Path=FirstName, Source={StaticResource ResourceKey=FacebookFacade}}" x:Name="UserName" HorizontalAlignment="Left" Margin="214,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="37" Width="105" FontFamily="Roboto" FontSize="24" Foreground="Black" />
         <GroupBox x:Name="groupBox" Header="Photo albums" Margin="10,0,11.6,80.2" VerticalAlignment="Bottom" Height="130.8">
-            <ListBox ItemsSource="{Binding Path=Albums, Source={StaticResource ResourceKey=FacebookFacade}}"  x:Name="albumListListView" HorizontalContentAlignment="Stretch" Margin="0,3,-3,-0.2" BorderBrush="Black" Background="#FFF7F7F7" SelectionChanged="AlbumSelectionChangeListener" MouseDoubleClick="ListView_MouseDoubleClick">
+            <ListBox ItemsSource="{Binding Path=Albums, Source={StaticResource ResourceKey=FacebookFacade}}" x:Name="albumListListView" HorizontalContentAlignment="Stretch" Margin="0,3,-3,-0.2" BorderBrush="Black" Background="#FFF7F7F7" SelectionChanged="AlbumSelectionChangeListener" MouseDoubleClick="ListView_MouseDoubleClick">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <WrapPanel>
@@ -47,6 +47,16 @@
         </Button>
         <TextBox x:Name="albumCommentTextBox" Height="70.2" Margin="10,0,221.6,10" TextWrapping="Wrap" Text="Comment on album" VerticalAlignment="Bottom" Background="{x:Null}" FontFamily="Roboto" Foreground="#FF7F7F7F" />
         <Button x:Name="button" Content="Add album comment" HorizontalAlignment="Right" Margin="0,0,11.6,10" VerticalAlignment="Bottom" Width="175.067" Height="25.467" Background="#FF8B9DC3" BorderBrush="{x:Null}" BorderThickness="0" Foreground="White" FontFamily="Roboto" Click="AddAlbumCommentClickListener" />
+        <Grid x:Name="confirmationGrid" Background="#66000000" MouseDown="ClearSucessNotification">
+            <Border CornerRadius="50" Background="#FFF7F7F7" Margin="122.4,90,111.6,86.4" BorderThickness="1">
+                <Grid>
+                    <Image x:Name="img_Facebook_like_thumb_png1" Margin="93.987,50,91.843,0" Source="img/Facebook_like_thumb.png" Stretch="Fill" VerticalAlignment="Top" d:LayoutOverrides="Width" Height="116.802" />
+
+                    <Label Content="Success!" Margin="68.8,0,63.14,55.244" FontFamily="Roboto" FontSize="40" FontWeight="Bold" Foreground="#FF3B5998" VerticalAlignment="Bottom" d:LayoutOverrides="Width" />
+                    <Label Content="Click anywhere to continue" Height="30.31" VerticalAlignment="Bottom" Margin="58.11,0,48.51,19.934" d:LayoutOverrides="Width" Background="#00000000" Foreground="#7F000000" />
+                </Grid>
+            </Border>
+        </Grid>
 
     </Grid>
 </Window>

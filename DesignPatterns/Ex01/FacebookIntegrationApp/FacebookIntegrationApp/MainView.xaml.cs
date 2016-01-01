@@ -2,9 +2,9 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
 using Facebook;
 using FacebookWrapper.ObjectModel;
+using System.Timers;
 using System.Threading;
 
 namespace FacebookIntegrationApp
@@ -20,49 +20,20 @@ namespace FacebookIntegrationApp
 
         {
             InitializeComponent();
-            init();
-        }
-
-        // Populate fields around the app
-        private void init()
-        {
-            //new Thread(fetchName).Start();
-            //new Thread(setProfilePic).Start();
-            //new Thread(fetchPhotoAlbums).Start();
-        }
-        private void fetchPhotoAlbums()
-        {
-            Application.Current.Dispatcher.BeginInvoke(new Action(() => albumListListView.ItemsSource = FacebookFacade.Albums));
-        }
-
-        private void fetchName()
-        {
-            Application.Current.Dispatcher.BeginInvoke(new Action(() => UserName.Text = FacebookFacade.FirstName));
-        }
-
-        private void setProfilePic()
-        {
-            Application.Current.Dispatcher.BeginInvoke(new Action(() => ProfilePic.Source = new BitmapImage(new Uri(FacebookFacade.PictureNormalURL))));
+            confirmationGrid.Visibility = Visibility.Hidden;
         }
 
         private void PostStatus(object sender, RoutedEventArgs e)
         {
-            sendStatus();
-
-        }
-
-        private void sendStatus()
-        {
-
             try
             {
                 FacebookFacade.PostStatus(StatusText.Text);
-                MessageBox.Show("Posted!");
-
+                //MessageBox.Show("Posted!");
+                showConfirmationSequence();
             }
-            catch (FacebookApiException e)
+            catch (FacebookApiException e1)
             {
-                MessageBox.Show("something went wrong!" + Environment.NewLine + e.Message);
+                MessageBox.Show("something went wrong!" + Environment.NewLine + e1.Message);
             }
             catch (Exception exeption)
             {
@@ -105,10 +76,21 @@ namespace FacebookIntegrationApp
 
             if (albumCommentTextBox.Text != "" && m_selectedAlbum != null)
             {
-                Application.Current.Dispatcher.BeginInvoke(new Action(() => m_selectedAlbum.Comment(albumCommentTextBox.Text)));
+                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    m_selectedAlbum.Comment(albumCommentTextBox.Text);
+                    showConfirmationSequence();
+                }));
 
             }
         }
+
+        private void showConfirmationSequence()
+        {
+            confirmationGrid.Visibility = Visibility.Visible;
+        }
+
+
         private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Album selectedAlbum = albumListListView.SelectedItem as Album;
@@ -127,6 +109,12 @@ namespace FacebookIntegrationApp
             {
                 MessageBox.Show("No photos to display");
             }
+
+        }
+
+        private void ClearSucessNotification(object sender, MouseButtonEventArgs e)
+        {
+            confirmationGrid.Visibility = Visibility.Hidden;
 
         }
     }
