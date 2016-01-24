@@ -66,6 +66,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AlbumIterator.cs" />
     <Compile Include="AlbumView.xaml.cs">
       <DependentUpon>AlbumView.xaml</DependentUpon>
     </Compile>
@@ -78,6 +79,7 @@
       <DependentUpon>HoroscopeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="HoroscopeWrappers.cs" />
+    <Compile Include="IIterator.cs" />
     <Compile Include="LuckInfo.cs" />
     <Compile Include="MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>

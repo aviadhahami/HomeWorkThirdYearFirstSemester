@@ -19,27 +19,26 @@ namespace FacebookIntegrationApp
     /// </summary>
     partial class AlbumView : Window
     {
-
-        private int m_PhotoIndex;
+        private IIterator<VisualMedia> m_albumIterator;
         private PhotoAlbum m_album;
-
+       
         public AlbumView(PhotoAlbum m_selectedAlbum)
         {
             InitializeComponent();
             m_album = m_selectedAlbum;
-            m_PhotoIndex = 0;
+            m_albumIterator = m_selectedAlbum.Iterator;
             updateImageAndIndexIndicator();
         }
 
         private void updateImage()
         {
-            currentImageImageBox.Source = m_album[m_PhotoIndex].getBMP;// photo.PictureNormalURL;//new BitmapImage(new Uri(photo.URL));
+            currentImageImageBox.Source = m_albumIterator.Current.getBMP;
         }
 
         //This part we go down in images count
         private void LeftArrowClick(object sender, MouseButtonEventArgs e)
         {
-            m_PhotoIndex = m_PhotoIndex <= 0 ? 0 : m_PhotoIndex - 1;
+            m_albumIterator.Prev;
             updateImageAndIndexIndicator();
 
         }

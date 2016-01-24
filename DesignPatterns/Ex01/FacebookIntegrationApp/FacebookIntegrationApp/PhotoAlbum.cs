@@ -6,8 +6,10 @@ namespace FacebookIntegrationApp
 {
     public class PhotoAlbum : VisualMedia
     {
-        private List<VisualMedia> contentList = new List<VisualMedia>();
+        private List<VisualMedia> m_ContentList = new List<VisualMedia>();
+        private IIterator<VisualMedia> m_mediaIterator = null;
 
+        //TODO : Add the iterator thing
         public PhotoAlbum(string io_name, string io_coverPhotoUri, Func<string, Comment> io_commentFunc, Func<bool> io_likeFunc) : base(io_name, io_coverPhotoUri, io_commentFunc, io_likeFunc)
         {
         }
@@ -18,7 +20,7 @@ namespace FacebookIntegrationApp
             {
                 VisualMedia media = null;
                 int i = 0;
-                foreach (Photo pic in contentList)
+                foreach (Photo pic in m_ContentList)
                 {
                     if (i == i_index)
                     {
@@ -32,17 +34,30 @@ namespace FacebookIntegrationApp
 
         public override void Add(VisualMedia i_media)
         {
-            this.contentList.Add(i_media as Photo);
+            this.m_ContentList.Add(i_media as Photo);
         }
 
         public override void Remove(VisualMedia i_media)
         {
-            this.contentList.Remove(i_media as Photo);
+            this.m_ContentList.Remove(i_media as Photo);
         }
+
         public override int Size()
         {
-            return this.contentList.Count;
+            return this.m_ContentList.Count;
         }
+
+        public IIterator<VisualMedia> Iterator
+        {
+            get {
+                if (m_mediaIterator.Equals(null))
+                {
+                    m_mediaIterator = new AlbumIterator(m_ContentList);
+                }
+                return m_mediaIterator;
+            }
+        }
+
 
     }
 }
