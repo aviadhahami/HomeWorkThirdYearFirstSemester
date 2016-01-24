@@ -10,7 +10,7 @@ namespace FacebookIntegrationApp
 
         private static volatile FacebookSingleton instance;
         private static object syncRoot = new Object();
-
+        private ISortStrategy m_Sorter;
 
         public static FacebookSingleton Instance
         {
@@ -39,10 +39,15 @@ namespace FacebookIntegrationApp
 
         public FacebookObjectCollection<Album> Albums
         {
+
             get
             {
-             return m_LoggedInUser.Albums;
-         
+
+                if (SortBy != null)
+                {
+                    SortBy.Sort(m_LoggedInUser.Albums);
+                }
+                return m_LoggedInUser.Albums;
             }
         }
 

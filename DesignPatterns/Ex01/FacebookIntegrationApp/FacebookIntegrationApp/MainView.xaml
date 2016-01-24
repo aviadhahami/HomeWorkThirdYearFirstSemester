@@ -49,7 +49,7 @@
         <Button x:Name="button" Content="Add album comment" HorizontalAlignment="Right" Margin="0,0,11.6,10" VerticalAlignment="Bottom" Width="175.067" Height="25.467" Background="#FF8B9DC3" BorderBrush="{x:Null}" BorderThickness="0" Foreground="White" FontFamily="Roboto" Click="AddAlbumCommentClickListener" />
         <GroupBox x:Name="groupBox1" Header="Albums Sorting Options" Margin="10,250.2,11.6,216" BorderBrush="#FFD5DFE5">
             <Grid>
-                <Button x:Name="SortByAmountButton" Margin="0,0,252,10" Background="#FF3B5998" Content="Sort by amount of pictures" FontFamily="Roboto" Foreground="White" FontSize="17.333" BorderBrush="{x:Null}" Click="SortBuyAmountClicked"></Button>
+                <Button x:Name="SortByAmountButton" Margin="0,0,252,10" Background="#FF3B5998" Content="Sort by amount of pictures" FontFamily="Roboto" Foreground="White" FontSize="17.333" BorderBrush="{x:Null}" Click="SortByAmountClicked"></Button>
                 <Button x:Name="SortByCreationButton" HorizontalAlignment="Right" Width="247" Margin="0,0,0,10" Background="#FF3B5998" FontSize="17.333" FontFamily="Roboto" Content="Sort by creation date" Foreground="White" BorderBrush="{x:Null}" Click="SortByCreationClicked"></Button>
             </Grid>
         </GroupBox>

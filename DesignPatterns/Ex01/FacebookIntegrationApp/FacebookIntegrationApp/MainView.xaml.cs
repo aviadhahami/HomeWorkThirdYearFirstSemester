@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Facebook;
 using FacebookWrapper.ObjectModel;
+using System.Windows.Data;
 
 namespace FacebookIntegrationApp
 {
@@ -116,13 +117,15 @@ namespace FacebookIntegrationApp
         private void SortByCreationClicked(object sender, RoutedEventArgs e)
         {
             FacebookSingleton.Instance.SortBy = new SortByDate();
-            albumListListView.Items.Refresh();
+            albumListListView.ItemsSource = FacebookSingleton.Instance.Albums;
+
+
         }
 
-        private void SortBuyAmountClicked(object sender, RoutedEventArgs e)
+        private void SortByAmountClicked(object sender, RoutedEventArgs e)
         {
             FacebookSingleton.Instance.SortBy = new SortByAmount();
-             albumListListView.Items.Refresh();
+            albumListListView.ItemsSource = FacebookSingleton.Instance.Albums;
         }
     }
 }
