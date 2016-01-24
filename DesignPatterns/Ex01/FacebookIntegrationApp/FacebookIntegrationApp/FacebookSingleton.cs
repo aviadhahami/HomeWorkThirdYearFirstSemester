@@ -10,7 +10,6 @@ namespace FacebookIntegrationApp
 
         private static volatile FacebookSingleton instance;
         private static object syncRoot = new Object();
-        private ISortStrategy m_Sorter;
 
         public static FacebookSingleton Instance
         {
