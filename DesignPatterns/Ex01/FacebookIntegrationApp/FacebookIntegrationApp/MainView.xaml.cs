@@ -4,8 +4,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Facebook;
 using FacebookWrapper.ObjectModel;
-using System.Timers;
-using System.Threading;
 
 namespace FacebookIntegrationApp
 {
@@ -113,6 +111,18 @@ namespace FacebookIntegrationApp
         {
             confirmationGrid.Visibility = Visibility.Hidden;
 
+        }
+
+        private void SortByCreationClicked(object sender, RoutedEventArgs e)
+        {
+            FacebookSingleton.Instance.SortBy = new SortByDate();
+            albumListListView.Items.Refresh();
+        }
+
+        private void SortBuyAmountClicked(object sender, RoutedEventArgs e)
+        {
+            FacebookSingleton.Instance.SortBy = new SortByAmount();
+             albumListListView.Items.Refresh();
         }
     }
 }

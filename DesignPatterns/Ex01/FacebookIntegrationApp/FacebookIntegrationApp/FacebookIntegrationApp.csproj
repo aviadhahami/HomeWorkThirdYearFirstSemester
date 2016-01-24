@@ -80,12 +80,15 @@
     </Compile>
     <Compile Include="HoroscopeWrappers.cs" />
     <Compile Include="IIterator.cs" />
+    <Compile Include="ISortStrategy.cs" />
     <Compile Include="LuckInfo.cs" />
     <Compile Include="MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Photo.cs" />
     <Compile Include="PhotoAlbum.cs" />
+    <Compile Include="SortByAmount.cs" />
+    <Compile Include="SortByDate.cs" />
     <Compile Include="StatisticsView.xaml.cs">
       <DependentUpon>StatisticsView.xaml</DependentUpon>
     </Compile>

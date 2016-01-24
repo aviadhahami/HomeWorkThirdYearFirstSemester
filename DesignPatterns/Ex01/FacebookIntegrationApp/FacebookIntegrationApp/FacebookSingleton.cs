@@ -41,7 +41,8 @@ namespace FacebookIntegrationApp
         {
             get
             {
-                return m_LoggedInUser.Albums;
+             return m_LoggedInUser.Albums;
+         
             }
         }
 
@@ -123,6 +124,8 @@ namespace FacebookIntegrationApp
             {
             }
         }
+
+        public ISortStrategy SortBy { get; set; }
 
         public void PostStatus(string io_status)
         {
