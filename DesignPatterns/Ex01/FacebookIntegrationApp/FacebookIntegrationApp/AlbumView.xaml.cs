@@ -59,7 +59,7 @@ namespace FacebookIntegrationApp
 
         private void updateIndexIndicator()
         {
-            amountIndicatorLabel.Content = (m_albumIterator.CurrentIndex + 1) + " / " + m_album.Size();
+            amountIndicatorLabel.Content = (m_albumIterator.CurrentIndex+1) + " / " + m_album.Size();
         }
         private void photoCommentClicked(object sender, RoutedEventArgs e)
         {

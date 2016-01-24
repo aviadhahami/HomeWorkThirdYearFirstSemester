@@ -50,7 +50,7 @@ namespace FacebookIntegrationApp
         public IIterator<VisualMedia> Iterator
         {
             get {
-                if (m_mediaIterator.Equals(null))
+                if (m_mediaIterator == null)
                 {
                     m_mediaIterator = new AlbumIterator(m_ContentList);
                 }
