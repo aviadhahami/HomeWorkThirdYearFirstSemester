@@ -1,0 +1,62 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:FacebookIntegrationApp" mc:Ignorable="d" x:Class="FacebookIntegrationApp.MainView" Title="Design Patterns App" Height="485.8" Width="547" Background="{x:Null}" FontFamily="Lucida Console">
+    <Window.Resources>
+        <local:FacebookSingleton x:Key="FacebookSingleton" />
+    </Window.Resources>
+    <Grid Background="#FFF7F7F7">
+        <GroupBox Header="Special functions!" HorizontalAlignment="Left" Margin="10,115.52,0,0" VerticalAlignment="Top" Width="519" Height="106.88" Foreground="Black" BorderBrush="#FF8B9DC3" BorderThickness="1,1,1,5">
+        </GroupBox>
+
+        <Image Source="{Binding Path=PictureNormalURL, Source={StaticResource ResourceKey=FacebookSingleton}}" x:Name="ProfilePic" Height="75" Stretch="Fill" VerticalAlignment="Top" ToolTip="Your photo" Margin="10,8,440.8,0" />
+
+        <TextBox Margin="106,55.296,114.6,0" x:Name="StatusText" FontFamily="Roboto" Text="What's on your mind?" Background="{x:Null}" BorderBrush="#FF0EBD69" BorderThickness="0,0,0,2" FontSize="21.333" Foreground="#FF919191" Height="31.724" VerticalAlignment="Top" />
+
+
+        <Button Focusable="False" BorderBrush="Transparent" BorderThickness="0" Click="PostStatus" Content="Post" HorizontalAlignment="Left" Margin="432,55,0,0" VerticalAlignment="Top" Width="97" Height="33" FontFamily="Roboto" FontSize="20" Foreground="White" Background="#FF3B5998" />
+
+
+        <TextBlock HorizontalAlignment="Left" Margin="107,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="44" Width="105" FontFamily="Roboto" FontSize="24" Foreground="Black"><Run Text="W" /><Run Text="elcome," /></TextBlock>
+        <Button Focusable="False" BorderBrush="{x:Null}" BorderThickness="0" Foreground="White" Click="LuckFunction" Width="196" FontFamily="Roboto" FontSize="18" Background="#FF3B5998" Margin="0,147,40.8,253" HorizontalAlignment="Right">
+            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" FontSize="17.333"><Run Text="    Daily " /><LineBreak /><Run Text="Horoscope" /></TextBlock>
+        </Button>
+        <Button x:Name="StatusStatistics" Focusable="False" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Click="PostStatistics" Margin="47,147,0,253" FontFamily="Roboto" FontSize="18" Background="#FF3B5998" HorizontalAlignment="Left" Width="196" Height="55.6" BorderBrush="{x:Null}">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Margin="5" FontSize="17.333"><Run Text="When should I" /><LineBreak /><Run Text="post new status?" /></TextBlock>
+        </Button>
+
+        <TextBlock Text="{Binding Path=FirstName, Source={StaticResource ResourceKey=FacebookSingleton}}" x:Name="UserName" HorizontalAlignment="Left" Margin="214,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="37" Width="105" FontFamily="Roboto" FontSize="24" Foreground="Black" />
+        <GroupBox x:Name="groupBox" Header="Photo albums" Margin="10,0,11.6,80.2" VerticalAlignment="Bottom" Height="130.8">
+            <ListBox ItemsSource="{Binding Path=Albums, Source={StaticResource ResourceKey=FacebookSingleton}}" x:Name="albumListListView" HorizontalContentAlignment="Stretch" Margin="0,3,-3,-0.2" BorderBrush="Black" Background="#FFF7F7F7" SelectionChanged="AlbumSelectionChangeListener" MouseDoubleClick="ListViewMouseDoubleClick">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel>
+                            <TextBlock Text="{Binding Name}" FontWeight="Bold" />
+                            <TextBlock Text=" - " />
+                            <TextBlock Text="Photos Count: " />
+                            <TextBlock Text="{Binding Count}" FontWeight="Bold" />
+                        </WrapPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+        </GroupBox>
+        <Button x:Name="LikeAlbum" Focusable="False" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Click="LikeAlbumButtonClickListener" Margin="0,0,11.6,40.467" FontFamily="Roboto" FontSize="18" Background="#FF8B9DC3" BorderBrush="{x:Null}" RenderTransformOrigin="0.5,0.5" BorderThickness="1" Height="39.733" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="175.067">
+            <Grid Margin="0,0,0,-16.533" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Label x:Name="label" Content="Like selected album" Margin="-37.105,5.681,0,20.996" FontSize="13.333" d:LayoutOverrides="Height" HorizontalAlignment="Left" Foreground="White" />
+                <Image x:Name="img_Facebook_like_thumb_png" Margin="0,0,-30.994,26.463" Source="img/Facebook_like_thumb.png" Stretch="Fill" Width="20" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="20.789" />
+            </Grid>
+
+        </Button>
+        <TextBox x:Name="albumCommentTextBox" Height="70.2" Margin="10,0,221.6,10" TextWrapping="Wrap" Text="Comment on album" VerticalAlignment="Bottom" Background="{x:Null}" FontFamily="Roboto" Foreground="#FF7F7F7F" />
+        <Button x:Name="button" Content="Add album comment" HorizontalAlignment="Right" Margin="0,0,11.6,10" VerticalAlignment="Bottom" Width="175.067" Height="25.467" Background="#FF8B9DC3" BorderBrush="{x:Null}" BorderThickness="0" Foreground="White" FontFamily="Roboto" Click="AddAlbumCommentClickListener" />
+        <Grid x:Name="confirmationGrid" Background="#66000000" MouseDown="ClearSucessNotification">
+            <Border CornerRadius="50" Background="#FFF7F7F7" Margin="122.4,90,111.6,86.4" BorderThickness="1">
+                <Grid>
+                    <Image x:Name="img_Facebook_like_thumb_png1" Margin="93.987,50,91.843,0" Source="img/Facebook_like_thumb.png" Stretch="Fill" VerticalAlignment="Top" d:LayoutOverrides="Width" Height="116.802" />
+
+                    <Label Content="Success!" Margin="69,0,49,55.4" FontFamily="Roboto" FontSize="40" FontWeight="Bold" Foreground="#FF3B5998" VerticalAlignment="Bottom" />
+                    <Label Content="Click anywhere to continue" Height="30" VerticalAlignment="Bottom" Margin="32,0,29,20.4" Background="#00000000" Foreground="#7F000000" HorizontalAlignment="Center" />
+                </Grid>
+            </Border>
+        </Grid>
+
+    </Grid>
+</Window>

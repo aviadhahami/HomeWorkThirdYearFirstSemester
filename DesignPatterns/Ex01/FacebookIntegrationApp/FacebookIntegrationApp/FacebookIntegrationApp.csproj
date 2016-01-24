@@ -72,8 +72,8 @@
     <Compile Include="ApplicationSettings.cs" />
     <Compile Include="FacebookSingleton.cs" />
     <Compile Include="GenerateLuckSign.cs" />
-    <Compile Include="FBHandler.cs" />
     <Compile Include="HoroscopeFacade.cs" />
+    <Compile Include="FBHandler.cs" />
     <Compile Include="HoroscopeView.xaml.cs">
       <DependentUpon>HoroscopeView.xaml</DependentUpon>
     </Compile>
