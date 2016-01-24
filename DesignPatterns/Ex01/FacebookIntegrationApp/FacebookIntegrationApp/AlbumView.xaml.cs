@@ -38,7 +38,7 @@ namespace FacebookIntegrationApp
         //This part we go down in images count
         private void LeftArrowClick(object sender, MouseButtonEventArgs e)
         {
-            m_albumIterator.Prev;
+            m_albumIterator.Prev();
             updateImageAndIndexIndicator();
 
         }
@@ -46,7 +46,8 @@ namespace FacebookIntegrationApp
         //This part we go up in images count
         private void RightArrowClick(object sender, MouseButtonEventArgs e)
         {
-            m_PhotoIndex = m_PhotoIndex == m_album.Size() - 1 ? m_PhotoIndex : m_PhotoIndex + 1;
+            m_albumIterator.Next();
+          
             updateImageAndIndexIndicator();
         }
 
@@ -58,14 +59,14 @@ namespace FacebookIntegrationApp
 
         private void updateIndexIndicator()
         {
-            amountIndicatorLabel.Content = (m_PhotoIndex + 1) + " / " + m_album.Size();
+            amountIndicatorLabel.Content = (m_albumIterator.CurrentIndex + 1) + " / " + m_album.Size();
         }
         private void photoCommentClicked(object sender, RoutedEventArgs e)
         {
             string commentInput = photoCommentTextBox.Text;
             if (commentInput.Length > 0)
             {
-                Application.Current.Dispatcher.BeginInvoke(new Action(() => m_album[m_PhotoIndex].Comment(commentInput)));
+                Application.Current.Dispatcher.BeginInvoke(new Action(() => m_albumIterator.Current.Comment(commentInput)));
             }
             else
             {
@@ -75,7 +76,7 @@ namespace FacebookIntegrationApp
 
         private void photoLikeClicked(object sender, RoutedEventArgs e)
         {
-            Application.Current.Dispatcher.BeginInvoke(new Action(() => m_album[m_PhotoIndex].Like()));
+            Application.Current.Dispatcher.BeginInvoke(new Action(() => m_albumIterator.Current.Like()));
         }
     }
 }
