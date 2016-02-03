@@ -87,7 +87,7 @@ public class ServerConfigLoader {
 
 	// Parsing int value from config file
 	private static int parseIntValue(String str) {
-		String val = str.substring(str.indexOf("=") + 1);
+		String val = str.substring(str.indexOf("=") + 1).replace("\r", "");
 		int parsedVal;
 		try {
 			parsedVal = Integer.parseInt(val);
@@ -100,7 +100,7 @@ public class ServerConfigLoader {
 	}
 
 	private static String parseValue(String str) {
-		return str.substring(str.indexOf("=") + 1);
+		return str.substring(str.indexOf("=") + 1).replace("\r", "");
 	}
 
 }

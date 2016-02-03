@@ -1,2 +1,2 @@
 #!/bin/bash
-java Main
+java Main %1

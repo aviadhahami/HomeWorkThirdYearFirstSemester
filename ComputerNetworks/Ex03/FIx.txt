@@ -1,0 +1,14 @@
+File : Main.java
+=================
+Add at beggining  : import java.io.File;
+String defaultConfigPath = System.getProperty("user.dir")+File.separator  +".."+ File.separator + "config" + File.separator + "config.ini";
+
+
+~~~~~~END OF Main.java~~~~~~
+
+File : /src/ServerConfigLoader.java
+==========================
+Replace line 90 with : String val = str.substring(str.indexOf("=") + 1).replace("\r", "");
+Replace line 103 with : return str.substring(str.indexOf("=") + 1).replace("\r", "");
+
+~~~~~~END OF ServerConfigLoader.java~~~~~~
