@@ -13,9 +13,14 @@
             font-weight: 300;
             color: rgba(255,255,255,0.85);
         }
+        *:focus {
+            outline: none;
+        }
         .container{
-            background-color: black;
             height: 100vh;
+            background-image: url("/public/img/ubuntu_bg.jpg");
+            background-repeat: no-repeat;
+            background-size: 100%;
         }
         .header{
             padding-top: 2vh;
@@ -31,7 +36,8 @@
             padding: 5vh 0 5vh 0 ;
             margin: 0 auto;
             text-align: center;
-            border: 2px solid rgba(255,255,255,0.8);
+            font-size: 2vh;
+            width:90%
         }
         input{
             font-family: 'Ubuntu', sans-serif;
@@ -39,6 +45,24 @@
             color: rgba(255,255,255,0.85);
             border:0;
             border-bottom: 1px solid white;
+            cursor: pointer;
+        }
+        fieldset{
+            margin: 0 auto;
+            width:20%;
+            border-radius: 10px;
+            text-align: justify;
+        }
+        input[type="submit"]{
+            border:0;
+            font-size: 3vh;
+            transition: all 200ms ease;
+
+        }
+        input[type="submit"]:hover{
+            border:0;
+            font-size: 3vh;
+            color: #DD4814;
         }
     </style>
 </head>
@@ -49,9 +73,20 @@
         <h2 class="main-title">Creepy Crawlers</h2>
     </div>
     <div class="content">
-        <form action="">
-            <label for="domain">Domain</label>
-            <input type="text" id="domain">
+        <form action="crawlers" method="get">
+            <label for="domain">Domain:</label>
+            <input type="text" id="domain" name="domain">
+            &nbsp;
+            <fieldset>
+                <legend style="text-align: left">Additional options</legend>
+                <input type="checkbox" id="portScan" name="portScan">
+                <label for="portScan">Perform full TCP port scan</label>
+                <br>
+                <input type="checkbox" id="robots" name="robots">
+                <label for="robots">Disrespect robots.txt</label>
+            </fieldset>
+            <br>
+            <input type="submit" value="Start crawler">
         </form>
     </div>
 </div>
