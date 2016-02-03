@@ -2,202 +2,57 @@
 <html>
 <head>
     <title>Welcome!</title>
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
-    <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
     <style>
         body {
             padding: 0;
             margin: 0;
             width: 100%;
             height: 100%;
-            font-family: "Roboto", "Times New Roman";
+            font-family: 'Ubuntu', sans-serif;
             font-weight: 300;
+            color: rgba(255,255,255,0.85);
         }
-
-        .container {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background-color: #0091EA;
+        .container{
+            background-color: black;
+            height: 100vh;
         }
-
-        .content {
-            margin-top: 10%;
+        .header{
+            padding-top: 2vh;
         }
-
-        /*
-        * Decided to drop this part
-        */
-        .frame {
+        .main-title{
+            font-size: 5vh;
             margin: 0 auto;
-            border: solid 0px white;
-            width: 60%;
-        }
-
-        .frame-header {
-
-        }
-
-        .header-text {
-            font-family: "Pacifico", "Times New Roman";
-            color: white;
+            font-family: 'Ubuntu', sans-serif;
             font-weight: 300;
-            font-size: 10em;
-            padding: 0;
-            margin: 0;
-            text-align-last: center;
-
-        }
-
-        .frame-content {
-
-        }
-
-        .frame-content-text {
-            color: white;
-            font-family: "Roboto", "Times New Roman";
-            font-weight: 300;
-            font-size: 1.3em;
-            text-align-last: center;
-        }
-
-        .frame-content p {
-            margin-top: 0;
-        }
-
-        .links-bar {
-            text-align: center;
-            color: #ffffff;
-        }
-
-        .links-bar a {
-            font-family: "Roboto", "Times New Roman";
-            color: #ffffff;
-            text-decoration: none;
-        }
-
-        .real-content {
-            display: block;
-        }
-
-        .disclaimer-content {
-        }
-
-        .disclaimer-content-text {
-            background-color: white;
-            border-radius: 5px;
-            margin-left: 5px;
-            margin-top: 10px;
-            color: black;
-            padding: 5px 5px 5px 5px;
-        }
-
-        .disclaimer-content-links {
-            border-radius: 5px;
-            padding: 3px 0px 3px 0px;
             text-align: center;
         }
-
-        button {
-            width: 33%;
-            height: 50px;
-            background-color: #3949AB;
-            border: 1px white solid;
-            border-radius: 5px;
-            color: white;
+        .content{
+            padding: 5vh 0 5vh 0 ;
+            margin: 0 auto;
+            text-align: center;
+            border: 2px solid rgba(255,255,255,0.8);
         }
-
-        button:hover {
-            cursor: pointer;
-        }
-
-        .disclaimer {
-            display: none;
-        }
-
-        #bad:hover {
-            background-color: #FF5722;
-        }
-
-        #good:hover {
-            background-color: #00E676;
-        }
-
-        #ok:hover {
-            background-color: #689F38;
-        }
-
-        #good {
-            -webkit-transition: all 0.5s ease;
-            -moz-transition: all 0.5s ease;
-            -o-transition: all 0.5s ease;
-            -ms-transition: all 0.5s ease;
-            transition: all 0.5s ease;
-        }
-
-        #good:hover {
-
-            -webkit-transform: rotate(-10deg);
-            -moz-transform: rotate(-10deg);
-            -o-transform: rotate(-10deg);
-            -ms-transform: rotate(-10deg);
-            transform: rotate(-10deg);
-        }
-        .thumbnail{
-            position: absolute;
-            width: 46px;
-            z-index: -1;
-            margin-left: 85px;
-            margin-top: -37px;
-        }
-        .new-item{
-            transform: rotate(20deg);
+        input{
+            font-family: 'Ubuntu', sans-serif;
+            background-color: transparent;
+            color: rgba(255,255,255,0.85);
+            border:0;
+            border-bottom: 1px solid white;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
+    <div class="header">
+        <h2 class="main-title">Creepy Crawlers</h2>
+    </div>
     <div class="content">
-        <a href="https://github.com/aviadhahami/HomeWorkThirdYearFirstSemester/tree/master/ComputerNetworks/Ex03">
-            <img style="position: absolute; top: 0; right: 0; border: 0;"
-                 src="https://camo.githubusercontent.com/52760788cde945287fbb584134c4cbc2bc36f904/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f77686974655f6666666666662e706e67"
-                 alt="Fork me on GitHub"
-                 data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png">
-        </a>
-        <div class="real-content">
-            <div class="frame">
-                <div class="frame-header">
-                    <h1 class="header-text">Welcome</h1>
-                </div>
-                <div class="frame-content">
-                    <p class="frame-content-text">
-                        This is the index.html file served by our server
-                    </p>
-                </div>
-                <div class="links-bar">
-
-                    <a href="public/database.html">
-                        Inspect Database
-                    </a>
-                    |
-                    <a href="public/form.html">
-                        Add Database Records
-                    </a>
-                    |
-                    <a href="public/chunked.html">
-                        Demonstrate chunky loading
-                    </a>
-                    |
-                    <a href="public/crawlers.html">
-                        <img class="thumbnail new-item" src="public/img/new-icon.png" alt="" />
-                        Web crawlers
-                    </a>
-                </div>
-            </div>
-        </div>
-
+        <form action="">
+            <label for="domain">Domain</label>
+            <input type="text" id="domain">
+        </form>
     </div>
 </div>
 <!--Load JQ-->
