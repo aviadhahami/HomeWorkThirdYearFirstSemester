@@ -14,7 +14,6 @@ public class Main {
 
 		// Give option to run via terminals. #DevOps
 
-		//TODO : Change route for running via CLI
 		String defaultConfigPath = System.getProperty("user.dir") 
 				+ File.separator 
 				+ ".."  
