@@ -115,13 +115,19 @@ public class ConnectionHandler extends Thread {
 
 			res = ResponseHandler.buildResponse(req, client);
 		} catch (Exception e) {
+			if(res == null){
+				res = new HTTPResponse();
+			}
 			res.setStatus("500");// "HTTP/1.1 500 Internal Server
-									// Error".getBytes();
+									// Error"
 			Console.logErr(e.getMessage());
 			e.printStackTrace();
 		}
 
 		try {
+			if (req == null) {
+				throw new IOException();
+			}
 			if ("yes".equals(req.getGenericHeaders("chunked"))) {
 				// FIXME: Write as chunks
 				res.fields.remove("Content-Length"); // Remove content length
@@ -176,8 +182,11 @@ public class ConnectionHandler extends Thread {
 			Console.logErr(e.getMessage());
 			e.printStackTrace();
 		}
+		finally {
+			closeConnection();
+		}
 
-		closeConnection();
+		
 	}
 
 	private void updateClient(String UA, String cookie) {
