@@ -7,6 +7,11 @@ public class ServerConfigObj {
 	private final int defaultMaxThreads = 10;
 	private final String defaultRoot = "";
 	private final String defaultDefaultPage = "";
+	private final int defaultMaxDownloaders = 10;
+	private final int defaultMaxAnalyzers = 2;
+	private final String[] defaultImageTypes = new String[] { "bmp", "jpg", "png", "gif", "ico" };
+	private final String[] defaultVideoTypes = new String[] { "avi", "mpg", "mp4", "wmv", "mov", "flv", "swf", "mkv" };
+	private final String[] defaultDocumentTypes = new String[] { "pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx" };
 	private int socketTimeout;
 
 	private int port = 0;
@@ -14,6 +19,11 @@ public class ServerConfigObj {
 	private String root = null;
 	private String defaultPage = null;
 	private int defaultSocketTimeout = 20000; // In ms
+	private int maxDownloaders = -1;
+	private int maxAnalyzers = -1;
+	private String[] imageTypes = null;
+	private String[] videoTypes = null;
+	private String[] documentTypes = null;
 
 	// Getters and setters for all members
 	public void setPort(int port) {
@@ -86,4 +96,44 @@ public class ServerConfigObj {
 		this.socketTimeout = val;
 	}
 
+	public void setMaxDownloaders(int maxDownloaders) {
+		this.maxDownloaders = maxDownloaders;
+	}
+
+	public int getMaxDownloaders() {
+		return this.maxDownloaders == -1 ? this.defaultMaxDownloaders : this.maxDownloaders;
+	}
+
+	public void setMaxAnalyzer(int maxAnalyzers) {
+		this.maxAnalyzers = maxAnalyzers;
+	}
+
+	public int getMaxAnalyzer() {
+		return this.maxAnalyzers == -1 ? this.defaultMaxAnalyzers : this.maxAnalyzers;
+	}
+
+	public void setImageTypes(String[] arr) {
+		this.imageTypes = arr;
+	}
+
+	public String[] getImageTypes() {
+		return this.imageTypes == null ? this.defaultImageTypes : this.imageTypes;
+	}
+
+	public void setVideoTypes(String[] arr) {
+		this.videoTypes = arr;
+
+	}
+
+	public String[] getVideoTypes() {
+		return this.videoTypes == null ? this.defaultVideoTypes : this.videoTypes;
+	}
+
+	public void setDocumentTypes(String[] arr) {
+		this.documentTypes = arr;
+	}
+
+	public String[] getDocumentTypes() {
+		return this.documentTypes == null ? this.defaultDocumentTypes : this.documentTypes;
+	}
 }
