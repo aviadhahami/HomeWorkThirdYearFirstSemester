@@ -63,7 +63,7 @@ public class ResponseHandler {
 	public static HTTPResponse buildResponse(HTTPRequest req, Client client) {
 		HTTPResponse res = new HTTPResponse();
 		res.fields.put("Date", new Date().toString());
-		res.fields.put("Server", "Computer Networks/1.0 (Ubuntu)");
+		res.fields.put("Server", "Computer Networks/1.0 - (Ubuntu)");
 
 		// If somehow the request object is still null, server error
 		if (req == null) {
@@ -84,16 +84,20 @@ public class ResponseHandler {
 			} else if (reqType.equals("GET")) {
 				RouteController controller = Routes.getController(requestedResource.getPath());
 				byte[] content;
+				String contentType;
+
 				if (controller != null) {
 					content = controller.GET(requestedResource.getQuery());
+					contentType = controller.contentTypeByMethod("GET");
 				} else {
 					content = Files.readAllBytes(Paths.get(Routes.getRoot() + requestedResource.getPath()));
+					contentType = requestedResource.getPath().replaceAll("^.*\\.(.*)$", "$1");
 				}
-				String ext = requestedResource.getPath().replaceAll("^.*\\.(.*)$", "$1");
+
 				res.setStatus(getResponseHeaderByCode(200));
 				res.setBody(content);
 				res.fields.put(CONTENT_LENGTH, Integer.toString(res.getBodySize()));
-				res.fields.put(CONTENT_TYPE, ContentTypeDictionary.getContentTypeByExt(ext));
+				res.fields.put(CONTENT_TYPE, ContentTypeDictionary.getContentTypeByExt(contentType));
 
 			} else if (reqType.equals("POST")) {
 				RouteController controller = Routes.getController(requestedResource.getPath());

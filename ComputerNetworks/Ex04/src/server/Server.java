@@ -17,8 +17,10 @@ public class Server {
 	private final int port;
 	ThreadPoolManager poolManager;
 	private int socketTimeout;
+	private ServerConfigObj config;
 
 	public Server(ServerConfigObj config) {
+		this.config = config;
 		this.port = config.getPort();
 		this.socketTimeout = config.getSocketTimeout();
 		poolManager = new ThreadPoolManager(config.getMaxThreads());

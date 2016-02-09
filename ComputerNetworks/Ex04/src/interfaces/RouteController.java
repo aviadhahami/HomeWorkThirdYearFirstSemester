@@ -8,4 +8,6 @@ public interface RouteController {
 
 	public byte[] UPDATE(String body);
 
+	public String contentTypeByMethod(String string);
+
 }

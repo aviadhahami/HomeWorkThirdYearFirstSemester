@@ -67,4 +67,23 @@ public class databaseGetterController implements RouteController {
 		return new byte[0];
 	}
 
+	@Override
+	public String contentTypeByMethod(String str) {
+		String res;
+		switch(str){
+		case("GET"):
+			res="html";
+			break;
+		case("POST"):
+			res="html";
+			break;
+		case("UPDATE"):
+			res="html";
+			break;
+		default:
+			res="html";
+		}
+		return res;
+	}
+
 }
