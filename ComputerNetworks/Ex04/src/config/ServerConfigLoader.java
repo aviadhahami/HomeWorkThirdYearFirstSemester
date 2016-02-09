@@ -8,7 +8,8 @@ import java.nio.file.Paths;
 import console.Console;
 
 public class ServerConfigLoader {
-	private final static String[] configKeys = { "port", "maxThreads", "defaultPage", "root", "socketTimeout" };
+	private final static String[] configKeys = { "port", "maxThreads", "defaultPage", "root", "socketTimeout",
+			"maxDownloaders", "maxAnalyzers", "imageExtensions", "videoExtensions", "documentExtensions" };
 
 	public static ServerConfigObj load(String configPath) {
 
@@ -41,6 +42,21 @@ public class ServerConfigLoader {
 						case "root":
 							// Verify root is a folder
 							config.setDefaultRoot(parseValue(str));
+							break;
+						case "maxDownloaders":
+							config.setMaxDownloaders(parseIntValue(str));
+							break;
+						case "maxAnalyzers":
+							config.setMaxAnalyzer(parseIntValue(str));
+							break;
+						case "imageExtensions":
+							config.setImageTypes(parseStringArr(str));
+							break;
+						case "videoExtensions":
+							config.setVideoTypes(parseStringArr(str));
+							break;
+						case "documentExtensions":
+							config.setDocumentTypes(parseStringArr(str));
 							break;
 						case "socketTimeout":
 							config.setSocketTimeout(parseIntValue(str));
@@ -82,6 +98,10 @@ public class ServerConfigLoader {
 		}
 
 		return config;
+	}
+
+	private static String[] parseStringArr(String arrayString) {
+		return arrayString.substring(arrayString.indexOf("=") + 1).replace("\r", "").replace(" ", "").split(",");
 	}
 
 	private static void errorLogger(String reason, String path) {
