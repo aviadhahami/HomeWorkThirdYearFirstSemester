@@ -45,7 +45,7 @@ public class CrawlersDeployController implements RouteController {
 			disrespectRobots = query.indexOf("robots=on") > -1;
 
 			// Extract host name
-			Pattern p = Pattern.compile("domain=([A-Za-z0-9.:/]*)");
+			Pattern p = Pattern.compile("domain=([A-Za-z0-9.:\\-/]*)");
 			Matcher m = p.matcher(query);
 
 			// if our pattern matches the string, we can try to extract our

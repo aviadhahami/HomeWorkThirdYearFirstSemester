@@ -14,6 +14,7 @@ import java.nio.charset.StandardCharsets;
 
 import console.Console;
 import httpObjects.HTTPRequest;
+import httpObjects.HTTPResponse;
 import threadPool.ThreadPoolManager;
 
 public class Downloader implements Runnable {
@@ -50,16 +51,21 @@ public class Downloader implements Runnable {
 				req.setRequestType("GET");
 				req.setHTTPVersion("HTTP/1.1");
 				req.setRequestedResource("/" + ((uri.getQuery() == null) ? "" : ("?" + uri.getQuery())));
-				Console.logErr(req.toString());
-				// out.println(req.toString());
-				// BufferedWriter wr = new BufferedWriter(new
-				// OutputStreamWriter(socket.getOutputStream(), "UTF8"));
-				//
-				// wr.write(req.toString());
-				// wr.flush();
-				
+
 				out.write(req.toString().getBytes());
-				String line;
+
+				HTTPResponse res = new HTTPResponse();
+				String line = reader.readLine();
+				res.setStatus(line);
+				System.out.println(line);
+				while ((line = reader.readLine()) != null) {
+					if (line.length() == 0) {
+						break;
+					}
+					System.out.println(line);
+					line = line.replace(":", "");
+					res.fields.put(line.split(" ")[0], line.split(" ")[1]);
+				}
 				while ((line = reader.readLine()) != null) {
 					System.out.println(line);
 				}
