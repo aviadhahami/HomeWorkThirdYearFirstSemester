@@ -11,15 +11,18 @@ public class crwalersDeployController implements RouteController {
 	@Override
 	// RETURNS THE RESPPONSE BODY!
 	public byte[] GET(String query) {
-
 		String domain = "";
-		boolean scanPorts = query.indexOf("portScan=on") > -1;
-		boolean disrespectRobots = query.indexOf("robots=on") > -1;
+		boolean scanPorts = false;
+		boolean disrespectRobots = false;
+		if (query != null) {
+			scanPorts = query.indexOf("portScan=on") > -1;
+			disrespectRobots = query.indexOf("robots=on") > -1;
 
-		Pattern p = Pattern.compile("(https?:\\/\\/){1}(www)?(.*\\.[A-Za-z]*){1}");
-		Matcher m = p.matcher(query);
-		if (m.find()) {
-			domain = m.group(0);
+			Pattern p = Pattern.compile("(https?:\\/\\/){1}(www)?(.*\\.[A-Za-z]*){1}");
+			Matcher m = p.matcher(query);
+			if (m.find()) {
+				domain = m.group(0);
+			}
 		}
 		return (CrawlManager.tryCrawl(domain, scanPorts, disrespectRobots)).getBytes();
 	}
