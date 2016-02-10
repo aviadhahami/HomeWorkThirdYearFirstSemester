@@ -2,16 +2,38 @@ package controllers;
 import console.*;
 import interfaces.*;
 import database.*;
+import httpObjects.HTTPRequest;
 
 public class DatabaseSetterController implements RouteController {
 
 	@Override
-	public byte[] GET(String query) {
-		return new byte[0];
+	public String contentTypeByMethod(String str) {
+		String res;
+		switch(str){
+		case("GET"):
+			res="html";
+			break;
+		case("POST"):
+			res="html";
+			break;
+		case("UPDATE"):
+			res="html";
+			break;
+		default:
+			res="html";
+		}
+		return res;
 	}
 
 	@Override
-	public byte[] POST(String body) {
+	public byte[] GET(HTTPRequest req) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public byte[] POST(HTTPRequest req) {
+		String body = req.getRequestBody();
 		if (body == null || !body.matches("^name=(.+)&age=([0-9]+)$")) {
 			Console.log("body is " + body);
 			throw new IllegalArgumentException("Bad request body");
@@ -32,27 +54,9 @@ public class DatabaseSetterController implements RouteController {
 	}
 
 	@Override
-	public byte[] UPDATE(String body) {
-		return new byte[0];
-	}
-
-	@Override
-	public String contentTypeByMethod(String str) {
-		String res;
-		switch(str){
-		case("GET"):
-			res="html";
-			break;
-		case("POST"):
-			res="html";
-			break;
-		case("UPDATE"):
-			res="html";
-			break;
-		default:
-			res="html";
-		}
-		return res;
+	public byte[] UPDATE(HTTPRequest req) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

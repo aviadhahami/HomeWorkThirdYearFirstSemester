@@ -87,7 +87,7 @@ public class ResponseHandler {
 				String contentType;
 
 				if (controller != null) {
-					content = controller.GET(requestedResource.getQuery());
+					content = controller.GET(req);
 					contentType = controller.contentTypeByMethod("GET");
 				} else {
 					content = Files.readAllBytes(Paths.get(Routes.getRoot() + requestedResource.getPath()));
@@ -103,7 +103,7 @@ public class ResponseHandler {
 				RouteController controller = Routes.getController(requestedResource.getPath());
 				byte[] content = null;
 				if (controller != null) {
-					content = controller.POST(req.getRequestBody());
+					content = controller.POST(req);
 				} else {
 					content = Files.readAllBytes(Paths.get(requestedResource.getPath()));
 				}

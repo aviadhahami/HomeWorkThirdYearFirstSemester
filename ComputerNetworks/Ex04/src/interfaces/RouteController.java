@@ -1,12 +1,14 @@
 package interfaces;
 
+import httpObjects.HTTPRequest;
+
 public interface RouteController {
 
-	public byte[] GET(String query);
+	public byte[] GET(HTTPRequest req);
 
-	public byte[] POST(String body);
+	public byte[] POST(HTTPRequest req);
 
-	public byte[] UPDATE(String body);
+	public byte[] UPDATE(HTTPRequest req);
 
 	public String contentTypeByMethod(String string);
 

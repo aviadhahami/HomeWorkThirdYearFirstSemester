@@ -2,28 +2,10 @@ package controllers;
 
 import crawler.CrawlResultObject;
 import htmlGenerator.HTMLGenerator;
+import httpObjects.HTTPRequest;
 import interfaces.RouteController;
 
 public class MainSiteController implements RouteController {
-
-	@Override
-	public byte[] GET(String query) {
-		CrawlResultObject.getInstance();
-		return (CrawlResultObject.isCrawling() ? HTMLGenerator.generateCrawlersBusyPage()
-				: HTMLGenerator.generateMainPage()).getBytes();
-	}
-
-	@Override
-	public byte[] POST(String body) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public byte[] UPDATE(String body) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public String contentTypeByMethod(String str) {
@@ -42,6 +24,25 @@ public class MainSiteController implements RouteController {
 			res = "html";
 		}
 		return res;
+	}
+
+	@Override
+	public byte[] GET(HTTPRequest req) {
+		CrawlResultObject.getInstance();
+		return (CrawlResultObject.isCrawling() ? HTMLGenerator.generateCrawlersBusyPage()
+				: HTMLGenerator.generateMainPage()).getBytes();
+	}
+
+	@Override
+	public byte[] POST(HTTPRequest req) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public byte[] UPDATE(HTTPRequest req) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
