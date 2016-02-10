@@ -18,9 +18,9 @@ public class CrawlersDeployController implements RouteController {
 		// Check we got referred from main page
 		String ref = req.getGenericHeaders("Referer".toUpperCase());
 
-		if (ref == null || (ref.indexOf("http://localhost:8080/crawlers")<0 && !ref.equals("http://localhost:8080/index.html") && !ref.equals("http://localhost:8080/"))) {
+		if (ref == null || (ref.indexOf("http://localhost:8080/crawlers") < 0
+				&& !ref.equals("http://localhost:8080/index.html") && !ref.equals("http://localhost:8080/"))) {
 			// Means we got here not from out main route
-//			res = ResponseHandler.buildResponseByCode(403);
 			res.setStatus(ResponseHandler.getResponseHeaderByCode(403));
 			return new byte[0];
 		}

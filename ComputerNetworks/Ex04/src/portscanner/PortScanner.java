@@ -17,11 +17,12 @@ public class PortScanner {
 		} catch (Exception e) {
 
 		}
+		
 		// TODO : CHANGE PORTS LIMIT
-		for (int port = 0; port <= 100; port++) {
+		for (int port = 50; port <= 100; port++) {
 			try {
 				Socket socket = new Socket();
-				socket.connect(new InetSocketAddress("idc.ac.il", port), 200);
+				socket.connect(new InetSocketAddress(domain, port), 200);
 				socket.close();
 				updateResult(port);
 			} catch (Exception ex) {
