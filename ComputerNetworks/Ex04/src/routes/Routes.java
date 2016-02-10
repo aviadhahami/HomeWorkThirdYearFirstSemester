@@ -6,6 +6,7 @@ import console.Console;
 import controllers.CrawllersDeployController;
 import controllers.DatabaseGetterController;
 import controllers.DatabaseSetterController;
+import controllers.MainSiteController;
 import interfaces.RouteController;
 import utils.PathUtils;
 
@@ -28,6 +29,7 @@ public class Routes {
 		controllerMap.put("api/getDB", new DatabaseGetterController());
 		controllerMap.put("api/insertDB", new DatabaseSetterController());
 		controllerMap.put("crawlers", new CrawllersDeployController());
+		controllerMap.put("/", new MainSiteController());
 	}
 
 	/*

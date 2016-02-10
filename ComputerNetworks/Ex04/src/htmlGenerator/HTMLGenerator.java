@@ -12,10 +12,10 @@ public class HTMLGenerator {
 	static Pattern errorPattern = Pattern.compile("%ERROR_MESSAGE%");
 	static Matcher m;
 
-	public static String generateCrawlerErrorPage() {
+	public static String generateCrawlerErrorPage(String message) {
 		String HTMLerrorPage = HTML_HEAD_AND_TITLE + HTML_FORM + HTML_FOOTER;
 		m = errorPattern.matcher(HTMLerrorPage);
-		return m.replaceFirst("Some error occured, please try again.");
+		return m.replaceFirst(message);
 	}
 
 	public static String generateCrawlResultsPage() {
@@ -24,6 +24,25 @@ public class HTMLGenerator {
 		sb.append(CrawlResultObject.getInstance().toHTML());
 		sb.append(HTML_FOOTER);
 		m = errorPattern.matcher(sb.toString());
+		return m.replaceFirst("");
+	}
+
+	public static String generateCrawlersBusyPage() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(HTML_HEAD_AND_TITLE);
+		sb.append(HTML_FOOTER);
+		m = errorPattern.matcher(sb.toString());
+
+		return m.replaceFirst("Crawlers already running..");
+	}
+
+	public static String generateMainPage() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(HTML_HEAD_AND_TITLE);
+		sb.append(HTML_FORM);
+		sb.append(HTML_FOOTER);
+		m = errorPattern.matcher(sb.toString());
+
 		return m.replaceFirst("");
 	}
 

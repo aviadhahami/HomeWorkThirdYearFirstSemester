@@ -3,6 +3,7 @@ package crawler;
 public class CrawlResultObject {
 
 	private static CrawlResultObject instance = null;
+	public static boolean isCrawling = false;
 	public static boolean disrespectRobots;
 	public static boolean scanPorts;
 	public static String domain;

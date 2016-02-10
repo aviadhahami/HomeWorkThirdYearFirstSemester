@@ -11,7 +11,7 @@ public class CrawlManager {
 
 	public static String tryCrawl(String domain, boolean scanPorts, boolean disrespectRobots) {
 		if (domain.length() == 0 || domain == null) {
-			return HTMLGenerator.generateCrawlerErrorPage();
+			return HTMLGenerator.generateCrawlerErrorPage("You fucked up the domain, try again");
 		}
 		CrawlManager.crawl(domain, scanPorts, disrespectRobots);
 		return HTMLGenerator.generateCrawlResultsPage();
