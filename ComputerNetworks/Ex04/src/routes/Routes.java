@@ -3,9 +3,9 @@ package routes;
 import java.util.HashMap;
 
 import console.Console;
-import controllers.crwalersDeployController;
-import controllers.databaseGetterController;
-import controllers.databaseSetterController;
+import controllers.CrawllersDeployController;
+import controllers.DatabaseGetterController;
+import controllers.DatabaseSetterController;
 import interfaces.RouteController;
 import utils.PathUtils;
 
@@ -25,9 +25,9 @@ public class Routes {
 	}
 
 	private static void populateRouteControllers() {
-		controllerMap.put("api/getDB", new databaseGetterController());
-		controllerMap.put("api/insertDB", new databaseSetterController());
-		controllerMap.put("crawlers", new crwalersDeployController());
+		controllerMap.put("api/getDB", new DatabaseGetterController());
+		controllerMap.put("api/insertDB", new DatabaseSetterController());
+		controllerMap.put("crawlers", new CrawllersDeployController());
 	}
 
 	/*

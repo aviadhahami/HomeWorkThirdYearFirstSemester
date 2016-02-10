@@ -3,7 +3,7 @@ import console.*;
 import interfaces.*;
 import database.*;
 
-public class databaseSetterController implements RouteController {
+public class DatabaseSetterController implements RouteController {
 
 	@Override
 	public byte[] GET(String query) {

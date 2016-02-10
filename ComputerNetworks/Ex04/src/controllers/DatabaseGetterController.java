@@ -4,7 +4,7 @@ import java.util.Iterator;
 import database.Database;
 import interfaces.RouteController;
 
-public class databaseGetterController implements RouteController {
+public class DatabaseGetterController implements RouteController {
 
 	@Override
 	public byte[] GET(String query) {

@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 import crawler.CrawlManager;
 import interfaces.RouteController;
 
-public class crwalersDeployController implements RouteController {
+public class CrawllersDeployController implements RouteController {
 
 	@Override
 	// RETURNS THE RESPPONSE BODY!
@@ -14,6 +14,8 @@ public class crwalersDeployController implements RouteController {
 		String domain = "";
 		boolean scanPorts = false;
 		boolean disrespectRobots = false;
+		
+		// Make sure query isn't null
 		if (query != null) {
 			scanPorts = query.indexOf("portScan=on") > -1;
 			disrespectRobots = query.indexOf("robots=on") > -1;
