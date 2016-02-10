@@ -36,6 +36,17 @@ public class CrawlManager {
 		}
 		
 		// TODO: PERFORM CRAWL
+		
+		// Init analyzers pool
+		
+		// Init downloaders pool
+		
+		// insert into queue the domain so they can use it
+		
+		// Run downloaders
+		
+		// Save page once done
+		
 		CrawlResultObject.getInstance();
 		CrawlResultObject.setCrawling(false);
 	   return false;

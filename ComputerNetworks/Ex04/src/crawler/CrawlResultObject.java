@@ -42,13 +42,15 @@ public class CrawlResultObject {
 		sb.append("data goes here");
 		sb.append(p_);
 		// Port scanner data
-		sb.append(br);
-		sb.append(_p);
-		sb.append("Open ports:");
-		for (Integer port : openPorts) {
-			sb.append(port + ", ");
+		if (scanPorts) {
+			sb.append(br);
+			sb.append(_p);
+			sb.append("Open ports:");
+			for (Integer port : openPorts) {
+				sb.append(port + ", ");
+			}
+			sb.append(p_);
 		}
-		sb.append(p_);
 		// End port scanner data
 		sb.append(div_);
 		return sb.toString();
