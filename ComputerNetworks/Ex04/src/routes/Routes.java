@@ -29,7 +29,8 @@ public class Routes {
 		controllerMap.put("api/getDB", new DatabaseGetterController());
 		controllerMap.put("api/insertDB", new DatabaseSetterController());
 		controllerMap.put("crawlers", new CrawllersDeployController());
-		controllerMap.put("/", new MainSiteController());
+		controllerMap.put("", new MainSiteController());
+		controllerMap.put("index.html", new MainSiteController());
 	}
 
 	/*

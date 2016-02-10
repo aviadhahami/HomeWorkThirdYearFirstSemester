@@ -13,7 +13,7 @@ public class CrawlManager {
 		if (domain.length() == 0 || domain == null) {
 			return HTMLGenerator.generateCrawlerErrorPage("You fucked up the domain, try again");
 		}
-		if(CrawlResultObject.isCrawling){
+		if(CrawlResultObject.isCrawling()){
 			return HTMLGenerator.generateCrawlersBusyPage();
 		}
 		CrawlManager.crawl(domain, scanPorts, disrespectRobots);
@@ -22,12 +22,18 @@ public class CrawlManager {
 
 	private static boolean crawl(String domain, boolean scanPorts, boolean disrespectRobots) {
 		CrawlResultObject.getInstance();
-		CrawlResultObject.domain = domain;
-		CrawlResultObject.scanPorts = scanPorts;
-		CrawlResultObject.disrespectRobots = disrespectRobots;
-		CrawlResultObject.isCrawling = true;
+		CrawlResultObject.setDomain(domain);
+		CrawlResultObject.setScanPorts(scanPorts);
+		CrawlResultObject.setDisrespectRobots(disrespectRobots);
+		
+		// IMPORTANT : need to change to false once done
+		CrawlResultObject.setCrawling(true);
+		
 		// TODO: PERFORM CRAWL
-		return false;
+		
+	   
+	    
+		
 	}
 
 }

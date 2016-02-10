@@ -9,8 +9,8 @@ public class MainSiteController implements RouteController {
 	@Override
 	public byte[] GET(String query) {
 		CrawlResultObject.getInstance();
-		// TODO Auto-generated method stub
-		return (CrawlResultObject.isCrawling ? HTMLGenerator.generateMainPage() : HTMLGenerator.generateCrawlersBusyPage()).getBytes();
+		return (CrawlResultObject.isCrawling() ? HTMLGenerator.generateCrawlersBusyPage()
+				: HTMLGenerator.generateMainPage()).getBytes();
 	}
 
 	@Override
@@ -28,18 +28,18 @@ public class MainSiteController implements RouteController {
 	@Override
 	public String contentTypeByMethod(String str) {
 		String res;
-		switch(str){
-		case("GET"):
-			res="html";
+		switch (str) {
+		case ("GET"):
+			res = "html";
 			break;
-		case("POST"):
-			res="html";
+		case ("POST"):
+			res = "html";
 			break;
-		case("UPDATE"):
-			res="html";
+		case ("UPDATE"):
+			res = "html";
 			break;
 		default:
-			res="html";
+			res = "html";
 		}
 		return res;
 	}

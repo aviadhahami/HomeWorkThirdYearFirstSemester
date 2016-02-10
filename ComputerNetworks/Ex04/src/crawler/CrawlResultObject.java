@@ -3,10 +3,10 @@ package crawler;
 public class CrawlResultObject {
 
 	private static CrawlResultObject instance = null;
-	public static boolean isCrawling = false;
-	public static boolean disrespectRobots;
-	public static boolean scanPorts;
-	public static String domain;
+	private static boolean isCrawling = false;
+	private static boolean disrespectRobots;
+	private static boolean scanPorts;
+	private static String domain;
 
 	private CrawlResultObject() {
 		// Exists only to defeat instantiation.
@@ -28,10 +28,10 @@ public class CrawlResultObject {
 		StringBuilder sb= new StringBuilder();
 		sb.append(_div);
 		sb.append(_p);
-		sb.append("Crawled at: " + domain);
+		sb.append("Crawled at: " + getDomain());
 		sb.append(p_);
 		sb.append(_p);
-		sb.append("disrespected robot: " + disrespectRobots + "; Performed port scan: " + scanPorts);
+		sb.append("disrespected robot: " + isDisrespectRobots() + "; Performed port scan: " + isScanPorts());
 		sb.append(p_);
 		sb.append(br);
 		sb.append(_p);
@@ -39,5 +39,37 @@ public class CrawlResultObject {
 		sb.append(p_);
 		sb.append(div_);
 		return sb.toString();
+	}
+
+	public static boolean isCrawling() {
+		return isCrawling;
+	}
+
+	public static void setCrawling(boolean isCrawling) {
+		CrawlResultObject.isCrawling = isCrawling;
+	}
+
+	public static boolean isDisrespectRobots() {
+		return disrespectRobots;
+	}
+
+	public static void setDisrespectRobots(boolean disrespectRobots) {
+		CrawlResultObject.disrespectRobots = disrespectRobots;
+	}
+
+	public static boolean isScanPorts() {
+		return scanPorts;
+	}
+
+	public static void setScanPorts(boolean scanPorts) {
+		CrawlResultObject.scanPorts = scanPorts;
+	}
+
+	public static String getDomain() {
+		return domain;
+	}
+
+	public static void setDomain(String domain) {
+		CrawlResultObject.domain = domain;
 	}
 }
