@@ -1,8 +1,15 @@
 package crawler;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import com.sun.corba.se.spi.activation.Server;
+
+import config.ServerConfigObj;
+import downloaders.Downloader;
 import htmlGenerator.HTMLGenerator;
 import portscanner.PortScanner;
-import utils.URIutils;
+import threadPool.ThreadPoolManager;
 
 public class CrawlManager {
 
@@ -11,47 +18,52 @@ public class CrawlManager {
 		// around here
 	}
 
-	public static String tryCrawl(String domain, boolean scanPorts, boolean disrespectRobots) {
-		if (!URIutils.isProperURI(domain)) {
-			return HTMLGenerator.generateCrawlerErrorPage("You fucked up the domain, try again");
+	public static String tryCrawl(String query, boolean scanPorts, boolean disrespectRobots) {
+		URI uri = null;
+		try {
+			uri = new URI(query);
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+			return HTMLGenerator.generateCrawlerErrorPage("Bad URI");
 		}
-		if(CrawlResultObject.isCrawling()){
+		if (CrawlResultObject.isCrawling()) {
 			return HTMLGenerator.generateCrawlersBusyPage();
 		}
-		CrawlManager.crawl(domain, scanPorts, disrespectRobots);
+		CrawlManager.crawl(uri, scanPorts, disrespectRobots);
 		return HTMLGenerator.generateCrawlResultsPage();
 	}
 
-	private static boolean crawl(String domain, boolean scanPorts, boolean disrespectRobots) {
+	private static boolean crawl(URI uri, boolean scanPorts, boolean disrespectRobots) {
 		CrawlResultObject.getInstance();
-		CrawlResultObject.setDomain(domain);
+		CrawlResultObject.setHost(uri.getHost());
+		CrawlResultObject.setResouce(uri.getQuery());
 		CrawlResultObject.setScanPorts(scanPorts);
 		CrawlResultObject.setDisrespectRobots(disrespectRobots);
-		
+
 		// IMPORTANT : need to change to false once done
 		CrawlResultObject.setCrawling(true);
-		
+
 		if (CrawlResultObject.isScanPorts()) {
 			PortScanner.deploy();
 		}
-		
+
 		// TODO: PERFORM CRAWL
-		
+
 		// Init analyzers pool
-		
+		ThreadPoolManager analyzerPoolManager = new ThreadPoolManager(ServerConfigObj.getMaxAnalyzer());
 		// Init downloaders pool
-		
+		ThreadPoolManager downloadersPoolManager = new ThreadPoolManager(ServerConfigObj.getMaxDownloaders());
 		// insert into queue the domain so they can use it
-		
-		// Run downloaders
-		
+
+		// Run downloaders & analyzers
+		downloadersPoolManager.submitTask(new Downloader(analyzerPoolManager, uri, "html"));
+
 		// Save page once done
-		
+
 		CrawlResultObject.getInstance();
 		CrawlResultObject.setCrawling(false);
-	   return false;
-	    
-		
+		return false;
+
 	}
 
 }

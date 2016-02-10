@@ -1,6 +1,5 @@
 package httpObjects;
 
-
 import java.util.LinkedHashMap;
 
 public class HTTPRequest {
@@ -55,12 +54,15 @@ public class HTTPRequest {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(this.getRequestType() + " " + this.getRequestedResource() + " " + this.getHTTPVersion() + '\n');
+		sb.append(this.getRequestType() + " " + this.getRequestedResource() + " " + this.getHTTPVersion() + "\r\n");
 		for (String key : headers.keySet()) {
-			sb.append(key + " : " + headers.get(key) + '\n');
+			sb.append(key + " : " + headers.get(key) + "\r\n");
 		}
-		sb.append('\n' + this.getRequestBody());
-		return sb.toString();
+		if (this.getRequestBody() != null) {
+			sb.append("\r\n" + this.getRequestBody());
+		}
+		
+		return sb.append("\r\n").toString();
 	}
 
 }

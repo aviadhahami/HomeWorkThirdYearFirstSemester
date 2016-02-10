@@ -3,14 +3,13 @@ package portscanner;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.URI;
-import console.Console;
 import crawler.CrawlResultObject;
 
 public class PortScanner {
 
 	public static void deploy() {
 		CrawlResultObject.getInstance();
-		String domain = CrawlResultObject.getDomain();
+		String domain = CrawlResultObject.getHost();
 		try {
 			URI uri = new URI(domain);
 			domain = uri.getHost();

@@ -17,16 +17,15 @@ public class Server {
 	private final int port;
 	ThreadPoolManager poolManager;
 	private int socketTimeout;
-	private ServerConfigObj config;
 
-	public Server(ServerConfigObj config) {
-		this.config = config;
-		this.port = config.getPort();
-		this.socketTimeout = config.getSocketTimeout();
-		poolManager = new ThreadPoolManager(config.getMaxThreads());
+
+	public Server() {
+		this.port = ServerConfigObj.getPort();
+		this.socketTimeout = ServerConfigObj.getSocketTimeout();
+		poolManager = new ThreadPoolManager(ServerConfigObj.getMaxThreads());
 
 		// Initialize global routes object
-		Routes.initRoutes(config.getRoot(), config.getDefaultPage());
+		Routes.initRoutes(ServerConfigObj.getRoot(), ServerConfigObj.getDefaultPage());
 	}
 
 	public void listen() {

@@ -3,137 +3,137 @@ package config;
 public class ServerConfigObj {
 
 	// Fallbacks
-	private final int defaultPort = 8080;
-	private final int defaultMaxThreads = 10;
-	private final String defaultRoot = "";
-	private final String defaultDefaultPage = "";
-	private final int defaultMaxDownloaders = 10;
-	private final int defaultMaxAnalyzers = 2;
-	private final String[] defaultImageTypes = new String[] { "bmp", "jpg", "png", "gif", "ico" };
-	private final String[] defaultVideoTypes = new String[] { "avi", "mpg", "mp4", "wmv", "mov", "flv", "swf", "mkv" };
-	private final String[] defaultDocumentTypes = new String[] { "pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx" };
-	private int socketTimeout;
+	private final static int defaultPort = 8080;
+	private final static int defaultMaxThreads = 10;
+	private final static String defaultRoot = "";
+	private final static String defaultDefaultPage = "";
+	private final static int defaultMaxDownloaders = 10;
+	private final static int defaultMaxAnalyzers = 2;
+	private final static String[] defaultImageTypes = new String[] { "bmp", "jpg", "png", "gif", "ico" };
+	private final static String[] defaultVideoTypes = new String[] { "avi", "mpg", "mp4", "wmv", "mov", "flv", "swf", "mkv" };
+	private final static String[] defaultDocumentTypes = new String[] { "pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx" };
+	private static int socketTimeout;
 
-	private int port = 0;
-	private int maxThreads = 0;
-	private String root = null;
-	private String defaultPage = null;
-	private int defaultSocketTimeout = 20000; // In ms
-	private int maxDownloaders = -1;
-	private int maxAnalyzers = -1;
-	private String[] imageTypes = null;
-	private String[] videoTypes = null;
-	private String[] documentTypes = null;
+	private static int port = 0;
+	private static int maxThreads = 0;
+	private static String root = null;
+	private static String defaultPage = null;
+	private static int defaultSocketTimeout = 20000; // In ms
+	private static int maxDownloaders = -1;
+	private static int maxAnalyzers = -1;
+	private static String[] imageTypes = null;
+	private static String[] videoTypes = null;
+	private static String[] documentTypes = null;
 
 	// Getters and setters for all members
-	public void setPort(int port) {
-		this.port = port;
+	public static void setPort(int port) {
+		ServerConfigObj.port = port;
 	}
 
-	public int getPort() {
-		if (this.port == 0) {
-			this.port = this.defaultPort;
+	public static int getPort() {
+		if (ServerConfigObj.port == 0) {
+			ServerConfigObj.port = defaultPort;
 			System.out.println("Used default port " + defaultPort);
 		}
-		return this.port;
+		return ServerConfigObj.port;
 	}
 
-	public void setMaxThreads(int maxThreads) {
-		this.maxThreads = maxThreads;
+	public static void setMaxThreads(int maxThreads) {
+		ServerConfigObj.maxThreads = maxThreads;
 	}
 
-	public int getMaxThreads() {
-		if (this.maxThreads == 0) {
-			this.maxThreads = this.defaultMaxThreads;
+	public static int getMaxThreads() {
+		if (ServerConfigObj.maxThreads == 0) {
+			ServerConfigObj.maxThreads = defaultMaxThreads;
 			System.out.println("Used default max threads " + defaultMaxThreads);
 		}
-		return this.maxThreads;
+		return ServerConfigObj.maxThreads;
 	}
 
-	public void setDefaultRoot(String path) {
-		this.root = path;
+	public static void setDefaultRoot(String path) {
+		ServerConfigObj.root = path;
 	}
 
-	public String getRoot() {
-		if (this.root == null) {
-			this.root = this.defaultRoot;
-			System.out.println("Used default root path : " + this.root);
+	public static String getRoot() {
+		if (ServerConfigObj.root == null) {
+			ServerConfigObj.root = defaultRoot;
+			System.out.println("Used default root path : " + ServerConfigObj.root);
 		}
-		return this.root;
+		return ServerConfigObj.root;
 	}
 
-	public void setDefaultPage(String path) {
-		this.defaultPage = path;
+	public static void setDefaultPage(String path) {
+		ServerConfigObj.defaultPage = path;
 	}
 
-	public String getDefaultPage() {
-		if (this.defaultPage == null) {
-			this.defaultPage = this.defaultDefaultPage;
-			System.out.println("Used default main page : " + this.defaultPage);
+	public static String getDefaultPage() {
+		if (ServerConfigObj.defaultPage == null) {
+			ServerConfigObj.defaultPage = defaultDefaultPage;
+			System.out.println("Used default main page : " + ServerConfigObj.defaultPage);
 		}
-		return this.defaultPage;
+		return ServerConfigObj.defaultPage;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("port : " + this.port + "\n");
-		sb.append("max threads : " + this.maxThreads + "\n");
-		sb.append("root : " + this.root + "\n");
-		sb.append("default page : " + this.defaultPage + "\n");
+		sb.append("port : " + ServerConfigObj.port + "\n");
+		sb.append("max threads : " + ServerConfigObj.maxThreads + "\n");
+		sb.append("root : " + ServerConfigObj.root + "\n");
+		sb.append("default page : " + ServerConfigObj.defaultPage + "\n");
 		return sb.toString();
 	}
 
-	public int getSocketTimeout() {
-		if (this.socketTimeout == 0) {
-			this.socketTimeout = this.defaultSocketTimeout;
-			System.out.println("Used default socket timeout : " + this.socketTimeout);
+	public static int getSocketTimeout() {
+		if (socketTimeout == 0) {
+			socketTimeout = ServerConfigObj.defaultSocketTimeout;
+			System.out.println("Used default socket timeout : " + ServerConfigObj.socketTimeout);
 		}
-		return this.socketTimeout;
+		return socketTimeout;
 	}
 
-	public void setSocketTimeout(int val) {
-		this.socketTimeout = val;
+	public static void setSocketTimeout(int val) {
+		socketTimeout = val;
 	}
 
-	public void setMaxDownloaders(int maxDownloaders) {
-		this.maxDownloaders = maxDownloaders;
+	public static void setMaxDownloaders(int maxDownloaders) {
+		ServerConfigObj.maxDownloaders = maxDownloaders;
 	}
 
-	public int getMaxDownloaders() {
-		return this.maxDownloaders == -1 ? this.defaultMaxDownloaders : this.maxDownloaders;
+	public static int getMaxDownloaders() {
+		return ServerConfigObj.maxDownloaders == -1 ? defaultMaxDownloaders : ServerConfigObj.maxDownloaders;
 	}
 
-	public void setMaxAnalyzer(int maxAnalyzers) {
-		this.maxAnalyzers = maxAnalyzers;
+	public static void setMaxAnalyzer(int maxAnalyzers) {
+		ServerConfigObj.maxAnalyzers = maxAnalyzers;
 	}
 
-	public int getMaxAnalyzer() {
-		return this.maxAnalyzers == -1 ? this.defaultMaxAnalyzers : this.maxAnalyzers;
+	public  static int getMaxAnalyzer() {
+		return ServerConfigObj.maxAnalyzers == -1 ? defaultMaxAnalyzers : ServerConfigObj.maxAnalyzers;
 	}
 
-	public void setImageTypes(String[] arr) {
-		this.imageTypes = arr;
+	public static void setImageTypes(String[] arr) {
+		ServerConfigObj.imageTypes = arr;
 	}
 
-	public String[] getImageTypes() {
-		return this.imageTypes == null ? this.defaultImageTypes : this.imageTypes;
+	public  static String[] getImageTypes() {
+		return ServerConfigObj.imageTypes == null ? defaultImageTypes : ServerConfigObj.imageTypes;
 	}
 
-	public void setVideoTypes(String[] arr) {
-		this.videoTypes = arr;
+	public static void setVideoTypes(String[] arr) {
+		ServerConfigObj.videoTypes = arr;
 
 	}
 
-	public String[] getVideoTypes() {
-		return this.videoTypes == null ? this.defaultVideoTypes : this.videoTypes;
+	public  static String[] getVideoTypes() {
+		return ServerConfigObj.videoTypes == null ? defaultVideoTypes : ServerConfigObj.videoTypes;
 	}
 
-	public void setDocumentTypes(String[] arr) {
-		this.documentTypes = arr;
+	public static void setDocumentTypes(String[] arr) {
+		ServerConfigObj.documentTypes = arr;
 	}
 
-	public String[] getDocumentTypes() {
-		return this.documentTypes == null ? this.defaultDocumentTypes : this.documentTypes;
+	public static String[] getDocumentTypes() {
+		return ServerConfigObj.documentTypes == null ? defaultDocumentTypes : ServerConfigObj.documentTypes;
 	}
 }

@@ -23,7 +23,8 @@ public class Main {
 				+"config.ini";
 
 		String configPath = args.length > 0 ? args[0] : defaultConfigPath;
-		Server s = new Server(ServerConfigLoader.load(configPath));
+		ServerConfigLoader.load(configPath);
+		Server s = new Server();
 		s.listen();
 	}
 }

@@ -11,9 +11,7 @@ public class ServerConfigLoader {
 	private final static String[] configKeys = { "port", "maxThreads", "defaultPage", "root", "socketTimeout",
 			"maxDownloaders", "maxAnalyzers", "imageExtensions", "videoExtensions", "documentExtensions" };
 
-	public static ServerConfigObj load(String configPath) {
-
-		ServerConfigObj config = new ServerConfigObj();
+	public static void load(String configPath) {
 
 		try {
 			String content = new String(Files.readAllBytes(Paths.get(configPath)));
@@ -31,35 +29,35 @@ public class ServerConfigLoader {
 					if (str.indexOf(key) > -1) {
 						switch (key) {
 						case "port":
-							config.setPort(parseIntValue(str));
+							ServerConfigObj.setPort(parseIntValue(str));
 							break;
 						case "maxThreads":
-							config.setMaxThreads(parseIntValue(str));
+							ServerConfigObj.setMaxThreads(parseIntValue(str));
 							break;
 						case "defaultPage":
-							config.setDefaultPage(parseValue(str));
+							ServerConfigObj.setDefaultPage(parseValue(str));
 							break;
 						case "root":
 							// Verify root is a folder
-							config.setDefaultRoot(parseValue(str));
+							ServerConfigObj.setDefaultRoot(parseValue(str));
 							break;
 						case "maxDownloaders":
-							config.setMaxDownloaders(parseIntValue(str));
+							ServerConfigObj.setMaxDownloaders(parseIntValue(str));
 							break;
 						case "maxAnalyzers":
-							config.setMaxAnalyzer(parseIntValue(str));
+							ServerConfigObj.setMaxAnalyzer(parseIntValue(str));
 							break;
 						case "imageExtensions":
-							config.setImageTypes(parseStringArr(str));
+							ServerConfigObj.setImageTypes(parseStringArr(str));
 							break;
 						case "videoExtensions":
-							config.setVideoTypes(parseStringArr(str));
+							ServerConfigObj.setVideoTypes(parseStringArr(str));
 							break;
 						case "documentExtensions":
-							config.setDocumentTypes(parseStringArr(str));
+							ServerConfigObj.setDocumentTypes(parseStringArr(str));
 							break;
 						case "socketTimeout":
-							config.setSocketTimeout(parseIntValue(str));
+							ServerConfigObj.setSocketTimeout(parseIntValue(str));
 							break;
 						}
 					}
@@ -67,8 +65,8 @@ public class ServerConfigLoader {
 			}
 
 			boolean exceptionFlag = false;
-			File root = new File(config.getRoot());
-			File defaultPage = new File(config.getRoot() + config.getDefaultPage());
+			File root = new File(ServerConfigObj.getRoot());
+			File defaultPage = new File(ServerConfigObj.getRoot() + ServerConfigObj.getDefaultPage());
 			if (!root.exists()) {
 				errorLogger("Root does not exist", root.getPath());
 				exceptionFlag = true;
@@ -96,8 +94,6 @@ public class ServerConfigLoader {
 			Console.logErr("We hit general exception loading the config. Server will now terminate");
 			System.exit(1);
 		}
-
-		return config;
 	}
 
 	private static String[] parseStringArr(String arrayString) {

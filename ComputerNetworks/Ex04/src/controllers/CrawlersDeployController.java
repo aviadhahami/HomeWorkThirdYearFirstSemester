@@ -1,10 +1,12 @@
 package controllers;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import crawler.CrawlManager;
+import htmlGenerator.HTMLGenerator;
 import httpObjects.HTTPRequest;
 import httpObjects.HTTPResponse;
 import interfaces.RouteController;
@@ -25,15 +27,16 @@ public class CrawlersDeployController implements RouteController {
 			return new byte[0];
 		}
 
-		String domain = "";
+		String fullUri = "";
 		boolean scanPorts = false;
 		boolean disrespectRobots = false;
 		String query = null;
+		URI requestedResource;
 		try {
-			URI requestedResource = PathUtils.toFullPath(req.getRequestedResource());
+			requestedResource = PathUtils.toFullPath(req.getRequestedResource());
 			query = requestedResource.getQuery();
 		} catch (Exception e) {
-			// We don't really care
+			return HTMLGenerator.generateCrawlerErrorPage("You fucked up the domain, try again").getBytes();
 		}
 
 		// Make sure query isn't null
@@ -41,14 +44,18 @@ public class CrawlersDeployController implements RouteController {
 			scanPorts = query.indexOf("portScan=on") > -1;
 			disrespectRobots = query.indexOf("robots=on") > -1;
 
-			Pattern p = Pattern.compile("(https?:\\/\\/){1}(www)?(.*\\.[A-Za-z]*){1}");
+			// Extract host name
+			Pattern p = Pattern.compile("domain=([A-Za-z0-9.:/]*)");
 			Matcher m = p.matcher(query);
+
+			// if our pattern matches the string, we can try to extract our
+			// groups
 			if (m.find()) {
-				domain = m.group(0);
+				fullUri = m.group(1);
 			}
 		}
 		res.setStatus(ResponseHandler.getResponseHeaderByCode(200));
-		return (CrawlManager.tryCrawl(domain, scanPorts, disrespectRobots)).getBytes();
+		return (CrawlManager.tryCrawl(fullUri, scanPorts, disrespectRobots)).getBytes();
 	}
 
 	@Override

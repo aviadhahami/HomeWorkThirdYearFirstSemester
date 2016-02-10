@@ -8,7 +8,8 @@ public class CrawlResultObject {
 	private static boolean isCrawling = false;
 	private static boolean disrespectRobots;
 	private static boolean scanPorts;
-	private static String domain;
+	private static String host;
+	private static String resouce;
 	private static ArrayList<Integer> openPorts;
 
 	private CrawlResultObject() {
@@ -32,7 +33,7 @@ public class CrawlResultObject {
 		StringBuilder sb = new StringBuilder();
 		sb.append(_div);
 		sb.append(_p);
-		sb.append("Crawled at: " + getDomain());
+		sb.append("Crawled at: " + getHost());
 		sb.append(p_);
 		sb.append(_p);
 		sb.append("disrespected robot: " + isDisrespectRobots() + "; Performed port scan: " + isScanPorts());
@@ -80,15 +81,23 @@ public class CrawlResultObject {
 		CrawlResultObject.scanPorts = scanPorts;
 	}
 
-	public static String getDomain() {
-		return domain;
+	public static String getHost() {
+		return host;
 	}
 
-	public static void setDomain(String domain) {
-		CrawlResultObject.domain = domain;
+	public static void setHost(String host) {
+		CrawlResultObject.host = host;
 	}
 
 	public static void addOpenPort(int port) {
 		openPorts.add(port);
+	}
+
+	public static String getResouce() {
+		return resouce;
+	}
+
+	public static void setResouce(String resouce) {
+		CrawlResultObject.resouce = resouce;
 	}
 }
