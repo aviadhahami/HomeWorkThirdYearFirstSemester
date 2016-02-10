@@ -1,6 +1,7 @@
 package crawler;
 
 import htmlGenerator.HTMLGenerator;
+import utils.URIutils;
 
 public class CrawlManager {
 
@@ -10,7 +11,7 @@ public class CrawlManager {
 	}
 
 	public static String tryCrawl(String domain, boolean scanPorts, boolean disrespectRobots) {
-		if (domain.length() == 0 || domain == null) {
+		if (!URIutils.isProperURI(domain)) {
 			return HTMLGenerator.generateCrawlerErrorPage("You fucked up the domain, try again");
 		}
 		if(CrawlResultObject.isCrawling()){
@@ -31,7 +32,7 @@ public class CrawlManager {
 		
 		// TODO: PERFORM CRAWL
 		
-	   
+	   return false;
 	    
 		
 	}
