@@ -83,7 +83,20 @@ public class ConnectionHandler extends Thread {
 				}
 				String[] parsedInputLine = line.toLowerCase().replace(" ", "").split(":");
 				if (parsedInputLine.length > 0) {
-					req.setGenericHeaders(parsedInputLine[0], parsedInputLine.length > 1 ? parsedInputLine[1] : "");
+					if (parsedInputLine[0].toLowerCase().equals("referer".toLowerCase())) {
+						String ref = "";
+						for (int i = 1; i < parsedInputLine.length; i++) {
+							ref += parsedInputLine[i];
+							if (i != parsedInputLine.length - 1) {
+								ref += ":";
+							}
+						}
+						ref = ref.indexOf("?") > -1 ? ref.substring(0, ref.indexOf("?")) : ref;
+						req.setGenericHeaders(parsedInputLine[0], ref);
+					} else {
+						req.setGenericHeaders(parsedInputLine[0], parsedInputLine.length > 1 ? parsedInputLine[1] : "");
+
+					}
 				}
 
 			}
@@ -115,7 +128,7 @@ public class ConnectionHandler extends Thread {
 
 			res = ResponseHandler.buildResponse(req, client);
 		} catch (Exception e) {
-			if(res == null){
+			if (res == null) {
 				res = new HTTPResponse();
 			}
 			res.setStatus("500");// "HTTP/1.1 500 Internal Server
@@ -170,7 +183,7 @@ public class ConnectionHandler extends Thread {
 				}
 				out.write("0 \r\n".getBytes());
 				// Down a line
-				 out.write("\r\n".getBytes());
+				out.write("\r\n".getBytes());
 				// // Down a line
 
 			} else {
@@ -181,12 +194,10 @@ public class ConnectionHandler extends Thread {
 		} catch (IOException e) {
 			Console.logErr(e.getMessage());
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			closeConnection();
 		}
 
-		
 	}
 
 	private void updateClient(String UA, String cookie) {

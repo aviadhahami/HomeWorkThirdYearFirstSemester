@@ -87,32 +87,33 @@ public class ResponseHandler {
 				String contentType;
 
 				if (controller != null) {
-					content = controller.GET(req);
+					content = controller.GET(req, res);
 					contentType = controller.contentTypeByMethod("GET");
 				} else {
 					content = Files.readAllBytes(Paths.get(Routes.getRoot() + requestedResource.getPath()));
 					contentType = requestedResource.getPath().replaceAll("^.*\\.(.*)$", "$1");
+					res.setStatus(getResponseHeaderByCode(200));
 				}
-
-				res.setStatus(getResponseHeaderByCode(200));
 				res.setBody(content);
 				res.fields.put(CONTENT_LENGTH, Integer.toString(res.getBodySize()));
 				res.fields.put(CONTENT_TYPE, ContentTypeDictionary.getContentTypeByExt(contentType));
 
 			} else if (reqType.equals("POST")) {
 				RouteController controller = Routes.getController(requestedResource.getPath());
+				String contentType = "";
 				byte[] content = null;
 				if (controller != null) {
-					content = controller.POST(req);
+					content = controller.POST(req, res);
+					contentType = controller.contentTypeByMethod("POST");
 				} else {
 					content = Files.readAllBytes(Paths.get(requestedResource.getPath()));
+					contentType = requestedResource.getPath().replaceAll("^.*\\.(.*)$", "$1");
+					res.setStatus(getResponseHeaderByCode(200));
 				}
-				String ext = requestedResource.getPath().replaceAll("^.*\\.(.*)$", "$1");
-				res.setStatus(getResponseHeaderByCode(200));
 				res.setBody(content);
+
 				res.fields.put(CONTENT_LENGTH, Integer.toString(res.getBodySize()));
-				Console.log("File type " + ext);
-				res.fields.put(CONTENT_TYPE, ContentTypeDictionary.getContentTypeByExt(ext));
+				res.fields.put(CONTENT_TYPE, ContentTypeDictionary.getContentTypeByExt(contentType));
 
 			} else if (reqType.equals("HEAD")) {
 				byte[] content = Files.readAllBytes(Paths.get(requestedResource));

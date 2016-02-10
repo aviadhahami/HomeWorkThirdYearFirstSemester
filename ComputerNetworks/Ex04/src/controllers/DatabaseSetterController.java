@@ -1,38 +1,22 @@
 package controllers;
+
 import console.*;
 import interfaces.*;
+import server.ResponseHandler;
 import database.*;
 import httpObjects.HTTPRequest;
+import httpObjects.HTTPResponse;
 
 public class DatabaseSetterController implements RouteController {
 
 	@Override
-	public String contentTypeByMethod(String str) {
-		String res;
-		switch(str){
-		case("GET"):
-			res="html";
-			break;
-		case("POST"):
-			res="html";
-			break;
-		case("UPDATE"):
-			res="html";
-			break;
-		default:
-			res="html";
-		}
-		return res;
-	}
-
-	@Override
-	public byte[] GET(HTTPRequest req) {
+	public byte[] GET(HTTPRequest req, HTTPResponse res) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public byte[] POST(HTTPRequest req) {
+	public byte[] POST(HTTPRequest req, HTTPResponse res) {
 		String body = req.getRequestBody();
 		if (body == null || !body.matches("^name=(.+)&age=([0-9]+)$")) {
 			Console.log("body is " + body);
@@ -49,14 +33,33 @@ public class DatabaseSetterController implements RouteController {
 		sb.append("\"name\" : \"" + name + "\",");
 		sb.append("\"age\" : \"" + age + "\"");
 		sb.append("}");
-
+		res.setStatus(ResponseHandler.getResponseHeaderByCode(200));
 		return sb.toString().getBytes();
 	}
 
 	@Override
-	public byte[] UPDATE(HTTPRequest req) {
+	public byte[] UPDATE(HTTPRequest req, HTTPResponse res) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public String contentTypeByMethod(String str) {
+		String res;
+		switch (str) {
+		case ("GET"):
+			res = "html";
+			break;
+		case ("POST"):
+			res = "html";
+			break;
+		case ("UPDATE"):
+			res = "html";
+			break;
+		default:
+			res = "html";
+		}
+		return res;
 	}
 
 }

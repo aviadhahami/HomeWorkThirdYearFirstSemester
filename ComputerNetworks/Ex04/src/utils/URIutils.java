@@ -4,10 +4,6 @@ import java.net.URL;
 
 public class URIutils {
 
-	public URIutils() {
-		// TODO Auto-generated constructor stub
-	}
-
 	public static boolean isProperURI(String uri) {
 
 		final URL url;

@@ -3,7 +3,7 @@ package routes;
 import java.util.HashMap;
 
 import console.Console;
-import controllers.CrawllersDeployController;
+import controllers.CrawlersDeployController;
 import controllers.DatabaseGetterController;
 import controllers.DatabaseSetterController;
 import controllers.MainSiteController;
@@ -28,7 +28,7 @@ public class Routes {
 	private static void populateRouteControllers() {
 		controllerMap.put("api/getDB", new DatabaseGetterController());
 		controllerMap.put("api/insertDB", new DatabaseSetterController());
-		controllerMap.put("crawlers", new CrawllersDeployController());
+		controllerMap.put("crawlers", new CrawlersDeployController());
 		controllerMap.put("", new MainSiteController());
 		controllerMap.put("index.html", new MainSiteController());
 	}

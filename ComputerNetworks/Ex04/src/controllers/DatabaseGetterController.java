@@ -5,32 +5,15 @@ import java.util.Iterator;
 
 import database.Database;
 import httpObjects.HTTPRequest;
+import httpObjects.HTTPResponse;
 import interfaces.RouteController;
+import server.ResponseHandler;
 import utils.PathUtils;
 
 public class DatabaseGetterController implements RouteController {
 
 	@Override
-	public String contentTypeByMethod(String str) {
-		String res;
-		switch (str) {
-		case ("GET"):
-			res = "html";
-			break;
-		case ("POST"):
-			res = "html";
-			break;
-		case ("UPDATE"):
-			res = "html";
-			break;
-		default:
-			res = "html";
-		}
-		return res;
-	}
-
-	@Override
-	public byte[] GET(HTTPRequest req) {
+	public byte[] GET(HTTPRequest req, HTTPResponse res) {
 		StringBuilder json = new StringBuilder();
 		String query = null;
 		try {
@@ -84,19 +67,39 @@ public class DatabaseGetterController implements RouteController {
 			json.append("]");
 
 		}
+		res.setStatus(ResponseHandler.getResponseHeaderByCode(200));
 		return json.toString().getBytes();
 	}
 
 	@Override
-	public byte[] POST(HTTPRequest req) {
+	public byte[] POST(HTTPRequest req, HTTPResponse res) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public byte[] UPDATE(HTTPRequest req) {
+	public byte[] UPDATE(HTTPRequest req, HTTPResponse res) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public String contentTypeByMethod(String str) {
+		String res;
+		switch (str) {
+		case ("GET"):
+			res = "html";
+			break;
+		case ("POST"):
+			res = "html";
+			break;
+		case ("UPDATE"):
+			res = "html";
+			break;
+		default:
+			res = "html";
+		}
+		return res;
 	}
 
 }

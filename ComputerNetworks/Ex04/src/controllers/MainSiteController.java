@@ -3,11 +3,32 @@ package controllers;
 import crawler.CrawlResultObject;
 import htmlGenerator.HTMLGenerator;
 import httpObjects.HTTPRequest;
+import httpObjects.HTTPResponse;
 import interfaces.RouteController;
+import server.ResponseHandler;
 
 public class MainSiteController implements RouteController {
 
 	@Override
+	public byte[] GET(HTTPRequest req, HTTPResponse res) {
+		CrawlResultObject.getInstance();
+		res.setStatus(ResponseHandler.getResponseHeaderByCode(200));
+		return (CrawlResultObject.isCrawling() ? HTMLGenerator.generateCrawlersBusyPage()
+				: HTMLGenerator.generateMainPage()).getBytes();
+	}
+
+	@Override
+	public byte[] POST(HTTPRequest req, HTTPResponse res) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public byte[] UPDATE(HTTPRequest req, HTTPResponse res) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	public String contentTypeByMethod(String str) {
 		String res;
 		switch (str) {
@@ -24,25 +45,6 @@ public class MainSiteController implements RouteController {
 			res = "html";
 		}
 		return res;
-	}
-
-	@Override
-	public byte[] GET(HTTPRequest req) {
-		CrawlResultObject.getInstance();
-		return (CrawlResultObject.isCrawling() ? HTMLGenerator.generateCrawlersBusyPage()
-				: HTMLGenerator.generateMainPage()).getBytes();
-	}
-
-	@Override
-	public byte[] POST(HTTPRequest req) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public byte[] UPDATE(HTTPRequest req) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

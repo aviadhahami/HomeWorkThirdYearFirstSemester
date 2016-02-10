@@ -28,7 +28,7 @@ public class HTTPRequest {
 	}
 
 	public void setGenericHeaders(String key, String value) {
-		this.headers.put(key, value);
+		this.headers.put(key.toUpperCase(), value);
 	}
 
 	public String getGenericHeaders(String key) {

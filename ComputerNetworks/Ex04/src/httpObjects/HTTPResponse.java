@@ -60,6 +60,6 @@ public class HTTPResponse {
 	 * Return the size Octet based
 	 */
 	public int getBodySize() {
-		return this.getBody().length;
+		return this.getBody() == null ? 0 : this.getBody().length;
 	}
 }
