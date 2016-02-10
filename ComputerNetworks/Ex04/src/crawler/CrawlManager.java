@@ -1,6 +1,7 @@
 package crawler;
 
 import htmlGenerator.HTMLGenerator;
+import portscanner.PortScanner;
 import utils.URIutils;
 
 public class CrawlManager {
@@ -35,7 +36,8 @@ public class CrawlManager {
 		}
 		
 		// TODO: PERFORM CRAWL
-		
+		CrawlResultObject.getInstance();
+		CrawlResultObject.setCrawling(false);
 	   return false;
 	    
 		

@@ -1,5 +1,7 @@
 package crawler;
 
+import java.util.ArrayList;
+
 public class CrawlResultObject {
 
 	private static CrawlResultObject instance = null;
@@ -7,9 +9,11 @@ public class CrawlResultObject {
 	private static boolean disrespectRobots;
 	private static boolean scanPorts;
 	private static String domain;
+	private static ArrayList<Integer> openPorts;
 
 	private CrawlResultObject() {
 		// Exists only to defeat instantiation.
+		openPorts = new ArrayList<>();
 	}
 
 	public static CrawlResultObject getInstance() {
@@ -21,11 +25,11 @@ public class CrawlResultObject {
 
 	public String toHTML() {
 		String _div = "<div>";
-		String div_ ="</div>";
+		String div_ = "</div>";
 		String _p = "<p>";
 		String p_ = "</p>";
 		String br = "<br>";
-		StringBuilder sb= new StringBuilder();
+		StringBuilder sb = new StringBuilder();
 		sb.append(_div);
 		sb.append(_p);
 		sb.append("Crawled at: " + getDomain());
@@ -71,5 +75,9 @@ public class CrawlResultObject {
 
 	public static void setDomain(String domain) {
 		CrawlResultObject.domain = domain;
+	}
+
+	public static void addOpenPort(int port) {
+		openPorts.add(port);
 	}
 }
