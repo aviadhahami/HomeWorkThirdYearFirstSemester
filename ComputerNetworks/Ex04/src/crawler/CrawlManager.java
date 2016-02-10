@@ -30,6 +30,10 @@ public class CrawlManager {
 		// IMPORTANT : need to change to false once done
 		CrawlResultObject.setCrawling(true);
 		
+		if (CrawlResultObject.isScanPorts()) {
+			PortScanner.deploy();
+		}
+		
 		// TODO: PERFORM CRAWL
 		
 	   return false;
