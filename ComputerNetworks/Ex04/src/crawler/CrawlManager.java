@@ -48,7 +48,6 @@ public class CrawlManager {
 			PortScanner.deploy();
 		}
 
-		// TODO: PERFORM CRAWL
 
 		// Init analyzers pool
 		ThreadPoolManager analyzerPoolManager = new ThreadPoolManager(ServerConfigObj.getMaxAnalyzer());
@@ -61,7 +60,7 @@ public class CrawlManager {
 
 		// Save page once done
 		long now = System.currentTimeMillis();
-		while(now+5000 > System.currentTimeMillis()){
+		while (now + 2000 > System.currentTimeMillis()) {
 			// Time buffer just in case
 		}
 		while (!analyzerPoolManager.isEmpty() || !downloadersPoolManager.isEmpty() || analyzerPoolManager.hasTasks()
@@ -72,6 +71,7 @@ public class CrawlManager {
 		System.out.println("downloadersPoolManager.poolIsEmpty() " + !downloadersPoolManager.isEmpty());
 		CrawlResultObject.getInstance();
 		CrawlResultObject.setCrawling(false);
+	
 		return false;
 
 	}

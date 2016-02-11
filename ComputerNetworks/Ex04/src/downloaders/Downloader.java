@@ -11,6 +11,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 
 import analyzers.Analyzer;
 import console.Console;
@@ -42,6 +43,8 @@ public class Downloader implements Runnable {
 	public void run() {
 		try {
 			// Verify against robots
+			
+			
 			// Verify against links already downloaded
 			DownloadersBlackListSingleton.getInstance();
 			if (DownloadersBlackListSingleton.getFromTable((uri.getPath() != null ? uri.getPath() : "/")
@@ -85,6 +88,7 @@ public class Downloader implements Runnable {
 
 				// We hit an "\r\n", get the body
 				String contentLength = res.fields.get("Content-Length");
+				String chunked = res.fields.get("Transfer-Encoding");
 				if (contentLength != null) {
 					int bodyLength = 0;
 					try {
@@ -97,6 +101,9 @@ public class Downloader implements Runnable {
 						sb.append((char) reader.read());
 					}
 					res.setBody(sb.toString().getBytes());
+				} else if (chunked != null && chunked.toLowerCase().equals("chunked")) {
+					// TODO: this
+					return;
 				}
 
 				// Send to analyzers

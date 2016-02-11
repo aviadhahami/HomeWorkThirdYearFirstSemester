@@ -19,13 +19,16 @@ public class AnalyzerUtil {
 	}
 
 	public static String extractMediaType(String contetTypeField) {
-		return contetTypeField != null ? contetTypeField.substring(contetTypeField.indexOf("/") + 1) : "";
+		contetTypeField = contetTypeField != null ? contetTypeField.substring(contetTypeField.indexOf("/") + 1) : "";
+		return contetTypeField.indexOf(";") > -1 ? contetTypeField.substring(0, contetTypeField.indexOf(";"))
+				: contetTypeField;
 	}
 
 	public static boolean isVaibleMediaType(String mediaType) {
 		for (String[] type : allTypes) {
 			for (String t : type) {
-				if(t.equals(mediaType));
+				if (t.equals(mediaType))
+					;
 			}
 		}
 		return false;
@@ -55,6 +58,5 @@ public class AnalyzerUtil {
 		}
 		return res.toArray(new String[res.size()]);
 	}
-
 
 }

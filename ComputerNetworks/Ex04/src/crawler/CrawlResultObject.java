@@ -27,7 +27,7 @@ public class CrawlResultObject {
 	private static Hashtable<String, Boolean> externalDomains = new Hashtable<>();
 	private static int amountOfPage = 0;
 	private static int totalPagesSize = 0;
-	private static int externalLinksCount=0;
+	private static int externalLinksCount = 0;
 
 	private CrawlResultObject() {
 		// Exists only to defeat instantiation.
@@ -243,6 +243,30 @@ public class CrawlResultObject {
 	public static void addExternalLinkCount(int val) {
 		CrawlResultObject.getInstance();
 		CrawlResultObject.externalLinksCount += val;
+
+	}
+
+	public static void init() {
+		isCrawling = false;
+		disrespectRobots = false;
+		scanPorts = false;
+		host = "";
+		String resouce = "";
+		ArrayList<Integer> openPorts = new ArrayList<>();
+		totalImageSize = 0;
+		amountOfImg = 0;
+		amountofDoc = 0;
+		totalDocSize = 0;
+		totalVidSize = 0;
+		amountOfVid = 0;
+		amountOfRequest = 0;
+		totalTime = 0;
+		externalDomainsAmount = 0;
+
+		externalDomains = new Hashtable<>();
+		amountOfPage = 0;
+		totalPagesSize = 0;
+		externalLinksCount = 0;
 
 	}
 }

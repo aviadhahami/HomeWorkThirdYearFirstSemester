@@ -58,10 +58,10 @@ public class HTTPRequest {
 		for (String key : headers.keySet()) {
 			sb.append(key + ": " + headers.get(key) + "\r\n");
 		}
-		if (this.getRequestBody() != null) {
-			sb.append("\r\n" + this.getRequestBody());
-		}
-		
+		// if (this.getRequestBody() != null) {
+		// sb.append("\r\n" + this.getRequestBody());
+		// }
+
 		return sb.append("\r\n").toString();
 	}
 

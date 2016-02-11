@@ -6,6 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import crawler.CrawlManager;
+import crawler.CrawlResultObject;
 import htmlGenerator.HTMLGenerator;
 import httpObjects.HTTPRequest;
 import httpObjects.HTTPResponse;
@@ -55,6 +56,7 @@ public class CrawlersDeployController implements RouteController {
 			}
 		}
 		res.setStatus(ResponseHandler.getResponseHeaderByCode(200));
+		CrawlResultObject.init();
 		return (CrawlManager.tryCrawl(fullUri, scanPorts, disrespectRobots)).getBytes();
 	}
 
