@@ -49,4 +49,8 @@ public class MyQueue<E> implements CustomQueue<E> {
 	public int getFinished() {
 		return finished;
 	}
+
+	public boolean hasTasks() {
+		return queue.size() > 0;
+	}
 }

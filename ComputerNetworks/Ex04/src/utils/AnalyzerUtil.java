@@ -23,8 +23,12 @@ public class AnalyzerUtil {
 	}
 
 	public static boolean isVaibleMediaType(String mediaType) {
-		return Arrays.asList(docTypes).contains(mediaType) || Arrays.asList(vidTypes).contains(mediaType)
-				|| Arrays.asList(imgTypes).contains(mediaType);
+		for (String[] type : allTypes) {
+			for (String t : type) {
+				if(t.equals(mediaType));
+			}
+		}
+		return false;
 	}
 
 	public static String getMediaType(String mediaName) {

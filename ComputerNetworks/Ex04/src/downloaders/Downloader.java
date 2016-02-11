@@ -43,6 +43,13 @@ public class Downloader implements Runnable {
 		try {
 			// Verify against robots
 			// Verify against links already downloaded
+			DownloadersBlackListSingleton.getInstance();
+			if (DownloadersBlackListSingleton.getFromTable((uri.getPath() != null ? uri.getPath() : "/")
+					+ (uri.getQuery() != null ? ("?" + uri.getQuery()) : ""))) {
+				// Means we've seen this URI before
+				return;
+			}
+
 			socket = new Socket(InetAddress.getByName(uri.getHost()), 80);
 			out = socket.getOutputStream();
 			reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
@@ -52,16 +59,19 @@ public class Downloader implements Runnable {
 
 				HTTPRequest req = new HTTPRequest();
 				req.setRequestType("GET");
-				req.setHTTPVersion("HTTP/1.1");
-				req.setRequestedResource(uri.getPath().length() == 0 ? "/" : uri.getPath());
+				req.setHTTPVersion("HTTP/1.0");
+				req.setRequestedResource((uri.getPath() != null ? uri.getPath() : "/")
+						+ (uri.getQuery() != null ? ("?" + uri.getQuery()) : ""));
 				req.setGenericHeaders("Host", uri.getHost());
 				out.write(req.toString().getBytes());
+
 				// Start RTT calc
 				long startClock = System.currentTimeMillis();
 				String line = reader.readLine();
 				long endClock = System.currentTimeMillis();
 				CrawlResultObject.getInstance();
 				CrawlResultObject.updateRTT(endClock - startClock);
+
 				// End RTT calc
 				HTTPResponse res = new HTTPResponse();
 				res.setStatus(line);
@@ -99,8 +109,9 @@ public class Downloader implements Runnable {
 
 				HTTPRequest req = new HTTPRequest();
 				req.setRequestType("HEAD");
-				req.setHTTPVersion("HTTP/1.0");//use 1.0 to avoid chunked
-				req.setRequestedResource(uri.getPath().length() == 0 ? "/" : uri.getPath());
+				req.setHTTPVersion("HTTP/1.0");// use 1.0 to avoid chunked
+				req.setRequestedResource((uri.getPath() != null ? uri.getPath() : "/")
+						+ (uri.getQuery() != null ? ("?" + uri.getQuery()) : ""));
 				req.setGenericHeaders("Host", uri.getHost());
 				out.write(req.toString().getBytes());
 
@@ -111,8 +122,7 @@ public class Downloader implements Runnable {
 					if (line.length() == 0) {
 						break;
 					}
-					line = line.replace(":", "");
-					res.fields.put(line.split(" ")[0], (line.split(" ").length > 1 ? line.split(" ")[1] : "0"));
+					res.fields.put(line.split(":")[0], (line.split(":").length > 1 ? line.split(":")[1] : ""));
 				}
 				// Send to analyzers
 				analyzersQue.submitTask(new Analyzer(analyzersQue, downloaderQue, res));
@@ -120,11 +130,10 @@ public class Downloader implements Runnable {
 				// Update link was downloaded
 			}
 
-		} catch (IOException e)
-
-		{
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return;
 	}
 
 }

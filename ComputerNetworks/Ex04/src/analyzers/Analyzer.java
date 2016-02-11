@@ -30,7 +30,7 @@ public class Analyzer implements Runnable {
 		if (res.getBodySize() > 0) {
 			// Update that we got another page
 			CrawlResultObject.getInstance();
-			CrawlResultObject.addPage(res.getBodySize());
+			CrawlResultObject.addPage(res.fields.get("Content-Length"));
 
 			// We have body --> html page
 			ArrayList<String> arrayOfLinks = new ArrayList<String>(
@@ -40,6 +40,7 @@ public class Analyzer implements Runnable {
 			// Change relatives to full path and remove anchor tags
 			try {
 				for (String link : arrayOfLinks) {
+					link = link.replace(" ", "%20");
 					if (link.startsWith("/")) {
 						CrawlResultObject.getInstance();
 						fullUriLinkList.add(new URI("http://" + CrawlResultObject.getHost() + link));
@@ -84,12 +85,16 @@ public class Analyzer implements Runnable {
 			for (URI uri : externalLinks) {
 				CrawlResultObject.getInstance();
 				CrawlResultObject.addExternalUriDomainName(uri.getHost());
+				CrawlResultObject.addExternalLinkCount(1);
 			}
 
 			ArrayList<URI> toDownload = new ArrayList<>();
 			// Get all internal and purify against config
 
-			// toDownload.addAll(AnalyzerUtil.purifyLinks(internalLinks));
+			// FIXME
+			for (URI uri : internalLinks) {
+				downloadQue.submitTask(new Downloader(analyzersQue, downloadQue, uri, "html"));
+			}
 
 			// Get all media from external and purify against config
 			// ONLY HEAD THESE
@@ -116,10 +121,13 @@ public class Analyzer implements Runnable {
 			// Now check for HEAD
 			if (res.getStatus().indexOf("20") > 0) {
 
-				// TODO: check this;
 				String mediaType = AnalyzerUtil.extractMediaType(res.fields.get("Content-Type"));
 				if (AnalyzerUtil.isVaibleMediaType(mediaType)) {
 					updateResultsWithMedia(mediaType, res.fields.get("Content-Length"));
+				}
+				if (mediaType.equals("html")) {
+					CrawlResultObject.getInstance();
+					CrawlResultObject.addPage(res.fields.get("Content-Length"));
 				}
 			}
 		}

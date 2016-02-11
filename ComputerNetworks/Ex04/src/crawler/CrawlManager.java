@@ -60,9 +60,16 @@ public class CrawlManager {
 		downloadersPoolManager.submitTask(new Downloader(analyzerPoolManager, downloadersPoolManager, uri, "html"));
 
 		// Save page once done
-		while (!analyzerPoolManager.isFinished() || !downloadersPoolManager.isFinished()) {
-			continue;
+		long now = System.currentTimeMillis();
+		while(now+5000 > System.currentTimeMillis()){
+			// Time buffer just in case
 		}
+		while (!analyzerPoolManager.isEmpty() || !downloadersPoolManager.isEmpty() || analyzerPoolManager.hasTasks()
+				|| downloadersPoolManager.hasTasks()) {
+			// Wait for all
+		}
+		System.out.println("analyzerPoolManager.poolIsEmpty() " + !analyzerPoolManager.isEmpty());
+		System.out.println("downloadersPoolManager.poolIsEmpty() " + !downloadersPoolManager.isEmpty());
 		CrawlResultObject.getInstance();
 		CrawlResultObject.setCrawling(false);
 		return false;

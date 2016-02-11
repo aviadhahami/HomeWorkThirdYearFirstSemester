@@ -2,6 +2,8 @@ package crawler;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.List;
 
 public class CrawlResultObject {
 
@@ -25,6 +27,7 @@ public class CrawlResultObject {
 	private static Hashtable<String, Boolean> externalDomains = new Hashtable<>();
 	private static int amountOfPage = 0;
 	private static int totalPagesSize = 0;
+	private static int externalLinksCount=0;
 
 	private CrawlResultObject() {
 		// Exists only to defeat instantiation.
@@ -70,9 +73,73 @@ public class CrawlResultObject {
 		// RTT
 		sb.append(br);
 		sb.append(_p);
-		sb.append("Avg. RTT: " + totalTime / amountOfRequest);
+		sb.append("Avg. RTT: " + totalTime / (amountOfRequest == 0 ? 1 : amountOfRequest) + "ms");
 		sb.append(p_);
 		// END RTT
+
+		// Number of images
+		sb.append(br);
+		sb.append(_p);
+		sb.append("Images count: " + amountOfImg);
+		sb.append(p_);
+		sb.append(_p);
+		sb.append("Images size: " + totalImageSize);
+		sb.append(p_);
+		// End NOI
+
+		// Number of vid
+		sb.append(br);
+		sb.append(_p);
+		sb.append("Vid count: " + amountOfVid);
+		sb.append(p_);
+		sb.append(_p);
+		sb.append("Vid size: " + totalVidSize);
+		sb.append(p_);
+		// End NOV
+
+		// Number of doc
+		sb.append(br);
+		sb.append(_p);
+		sb.append("Doc count: " + amountofDoc);
+		sb.append(p_);
+		sb.append(_p);
+		sb.append("Doc size: " + totalDocSize);
+		sb.append(p_);
+		// End NOD
+
+		// Number of page
+		sb.append(br);
+		sb.append(_p);
+		sb.append("Pages count: " + amountOfPage);
+		sb.append(p_);
+		sb.append(_p);
+		sb.append("Pages size: " + totalPagesSize);
+		sb.append(p_);
+		// End NOP
+
+		// Number of internal links
+		sb.append(br);
+		sb.append(_p);
+		sb.append("Internal links count: " + 2); // FIXME: get count
+		sb.append(p_);
+
+		// Number of external links
+		sb.append(br);
+		sb.append(_p);
+		sb.append("External links count: " + externalLinksCount);// FIXME: get
+		sb.append(p_);
+
+		// Number of connected domains
+		sb.append(br);
+		sb.append(_p);
+		sb.append("Connected domains: " + externalDomainsAmount);
+		sb.append(p_);
+		sb.append("<ol>");
+
+		for (String key : externalDomains.keySet()) {
+			sb.append("<li>" + externalDomains.get(key) + "</li>");
+		}
+		sb.append("</ol>");
 
 		sb.append(div_);
 		return sb.toString();
@@ -160,10 +227,22 @@ public class CrawlResultObject {
 		externalDomains.put(host.toLowerCase(), true);
 	}
 
-	public static void addPage(int amount) {
+	public static void addPage(String amount) {
 		CrawlResultObject.getInstance();
-		amountOfPage += 1;
-		totalPagesSize += amount;
+		int val;
+		try {
+			val = Integer.parseInt(amount);
+			amountOfPage += 1;
+			totalPagesSize += val;
+		} catch (Exception e) {
+
+		}
+		return;
+	}
+
+	public static void addExternalLinkCount(int val) {
+		CrawlResultObject.getInstance();
+		CrawlResultObject.externalLinksCount += val;
 
 	}
 }

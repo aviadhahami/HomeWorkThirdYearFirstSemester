@@ -1,6 +1,5 @@
 package threadPool;
 
-
 public class ThreadPoolManager {
 
 	private final int THREADPOOL_CAPACITY;
@@ -21,8 +20,13 @@ public class ThreadPoolManager {
 	public void submitTask(Runnable r) {
 		myQueue.enqueue(r);
 	}
-	public boolean isFinished(){
-		return myQueue.getFinished() != myQueue.getRunning();
+
+	public boolean isEmpty() {
+		return myQueue.getFinished() == myQueue.getRunning();
+	}
+
+	public boolean hasTasks() {
+		return myQueue.hasTasks();
 	}
 
 }
