@@ -134,12 +134,12 @@ public class CrawlResultObject {
 		sb.append(_p);
 		sb.append("Connected domains: " + externalDomainsAmount);
 		sb.append(p_);
-		sb.append("<ol>");
+		sb.append("<ul style=\"list-style:none;\">");
 
 		for (String key : externalDomains.keySet()) {
-			sb.append("<li>" + externalDomains.get(key) + "</li>");
+			sb.append("<li>" + key + "</li>");
 		}
-		sb.append("</ol>");
+		sb.append("</ul>");
 
 		sb.append(div_);
 		return sb.toString();

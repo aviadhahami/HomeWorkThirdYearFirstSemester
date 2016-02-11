@@ -102,8 +102,6 @@ public class Downloader implements Runnable {
 				// Send to analyzers
 				analyzersQue.submitTask(new Analyzer(analyzersQue, downloaderQue, res));
 
-				// Update link was downloaded
-
 			} else {
 				// Perform HEAD
 

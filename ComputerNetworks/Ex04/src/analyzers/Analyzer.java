@@ -93,7 +93,7 @@ public class Analyzer implements Runnable {
 
 			// FIXME
 			for (URI uri : internalLinks) {
-				downloadQue.submitTask(new Downloader(analyzersQue, downloadQue, uri, "html"));
+				downloadQue.submitTask(new Downloader(analyzersQue, downloadQue, uri, "head"));
 			}
 
 			// Get all media from external and purify against config
