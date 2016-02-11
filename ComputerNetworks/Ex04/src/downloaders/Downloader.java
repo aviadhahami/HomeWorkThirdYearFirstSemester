@@ -14,6 +14,7 @@ import java.nio.charset.StandardCharsets;
 
 import analyzers.Analyzer;
 import console.Console;
+import crawler.CrawlResultObject;
 import httpObjects.HTTPRequest;
 import httpObjects.HTTPResponse;
 import threadPool.ThreadPoolManager;
@@ -54,15 +55,21 @@ public class Downloader implements Runnable {
 				req.setRequestedResource(uri.getPath().length() == 0 ? "/" : uri.getPath());
 				req.setGenericHeaders("Host", uri.getHost());
 				out.write(req.toString().getBytes());
-
-				HTTPResponse res = new HTTPResponse();
+				// Start RTT calc
+				long startClock = System.currentTimeMillis();
 				String line = reader.readLine();
+				long endClock = System.currentTimeMillis();
+				CrawlResultObject.getInstance();
+				CrawlResultObject.updateRTT(endClock - startClock);
+				// End RTT calc
+				HTTPResponse res = new HTTPResponse();
 				res.setStatus(line);
 				while ((line = reader.readLine()) != null) {
 					if (line.length() == 0) {
 						break;
 					}
-					res.fields.put(line.split(" ")[0].replace(":", ""), (line.split(" ").length > 1 ? line.split(" ")[1] : "0"));
+					res.fields.put(line.split(" ")[0].replace(":", ""),
+							(line.split(" ").length > 1 ? line.split(" ")[1] : "0"));
 				}
 
 				// We hit an "\r\n", get the body

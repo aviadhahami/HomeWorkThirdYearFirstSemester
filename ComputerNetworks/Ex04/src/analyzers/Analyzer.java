@@ -2,9 +2,11 @@ package analyzers;
 
 import java.net.URI;
 
+import crawler.CrawlResultObject;
 import downloaders.Downloader;
 import httpObjects.HTTPResponse;
 import threadPool.ThreadPoolManager;
+import utils.AnalyzerUtil;
 
 public class Analyzer implements Runnable {
 
@@ -23,8 +25,7 @@ public class Analyzer implements Runnable {
 		System.out.println("RUNNING!");
 		if (res.getBodySize() > 0) {
 			// We have body --> html page
-			
-			
+
 		} else {
 			// We have only headers
 
@@ -41,8 +42,34 @@ public class Analyzer implements Runnable {
 					return;
 				}
 			}
-			
+
 			// Now check for HEAD
+			if (res.getStatus().indexOf("20") > 0) {
+				String mediaType = AnalyzerUtil.extractMediaType(res.fields.get("Content-Type"));
+				if (AnalyzerUtil.isVaibleMediaType(mediaType)) {
+					updateResultsWithMedia(mediaType, res.fields.get("Content-Length"));
+				}
+			}
+		}
+
+	}
+
+	private void updateResultsWithMedia(String mediaType, String size) {
+		int fileSize = 0;
+
+		fileSize = Integer.parseInt(size);
+
+		CrawlResultObject.getInstance();
+		switch (AnalyzerUtil.getMediaType(mediaType)) {
+		case "doc":
+			CrawlResultObject.addDoc(fileSize);
+			break;
+		case "vid":
+			CrawlResultObject.addVid(fileSize);
+			break;
+		case "img":
+			CrawlResultObject.addImg(fileSize);
+			break;
 		}
 
 	}

@@ -11,6 +11,12 @@ public class CrawlResultObject {
 	private static String host;
 	private static String resouce;
 	private static ArrayList<Integer> openPorts;
+	private static int totalImageSize = 0;
+	private static int amountOfImg = 0;
+	private static int amountofDoc = 0;
+	private static int totalDocSize = 0;
+	private static int totalVidSize = 0;
+	private static int amountOfVid = 0;
 
 	private CrawlResultObject() {
 		// Exists only to defeat instantiation.
@@ -99,5 +105,24 @@ public class CrawlResultObject {
 
 	public static void setResouce(String resouce) {
 		CrawlResultObject.resouce = resouce;
+	}
+
+	public static void addDoc(int fileSize) {
+		CrawlResultObject.getInstance();
+		totalDocSize += fileSize;
+		amountofDoc += 1;
+	}
+
+	public static void addVid(int fileSize) {
+		CrawlResultObject.getInstance();
+		totalVidSize += fileSize;
+		amountOfVid += 1;
+	}
+
+	public static void addImg(int fileSize) {
+		CrawlResultObject.getInstance();
+		totalImageSize += fileSize;
+		amountOfImg += 1;
+
 	}
 }
