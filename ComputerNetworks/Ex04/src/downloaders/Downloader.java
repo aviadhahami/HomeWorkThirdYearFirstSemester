@@ -83,8 +83,7 @@ public class Downloader implements Runnable {
 					}
 					sb = new StringBuilder();
 					for (int i = 0; i < bodyLength; i++) {
-						line = reader.readLine();
-						sb.append(line);
+						sb.append((char) reader.read());
 					}
 					res.setBody(sb.toString().getBytes());
 				}

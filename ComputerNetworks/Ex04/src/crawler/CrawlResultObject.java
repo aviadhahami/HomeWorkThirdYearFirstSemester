@@ -61,6 +61,13 @@ public class CrawlResultObject {
 			sb.append(p_);
 		}
 		// End port scanner data
+		// RTT
+		sb.append(br);
+		sb.append(_p);
+		sb.append("Avg. RTT: " + totalTime / amountOfRequest);
+		sb.append(p_);
+		// END RTT
+
 		sb.append(div_);
 		return sb.toString();
 	}

@@ -29,6 +29,7 @@ public class Analyzer implements Runnable {
 			// We have body --> html page
 			String[] arrayOfLinks = AnalyzerUtil.extractLinksFromHTML(res.getBody());
 						
+			// Filter only inner domain links
 			String type;
 			for (String link : arrayOfLinks) {
 				type = AnalyzerUtil.isVaibleMediaType(link) ? "head" : "html";
