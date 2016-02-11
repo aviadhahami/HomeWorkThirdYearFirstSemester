@@ -1,6 +1,7 @@
 package analyzers;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 
 import crawler.CrawlResultObject;
 import downloaders.Downloader;
@@ -23,12 +24,27 @@ public class Analyzer implements Runnable {
 	@Override
 	public void run() {
 		System.out.println("RUNNING!");
+				
 		if (res.getBodySize() > 0) {
 			// We have body --> html page
-
+			String[] arrayOfLinks = AnalyzerUtil.extractLinksFromHTML(res.getBody());
+						
+			String type;
+			for (String link : arrayOfLinks) {
+				type = AnalyzerUtil.isVaibleMediaType(link) ? "head" : "html";
+				URI uri;
+				try {
+					uri = new URI(link);
+					downloadQue.submitTask(new Downloader(analyzersQue, downloadQue, uri, type));
+				} catch (URISyntaxException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+			
 		} else {
 			// We have only headers
-
 			// Check for "moved" headers
 			if (res.getStatus().indexOf("30") > 0) {
 				// Means we are moved

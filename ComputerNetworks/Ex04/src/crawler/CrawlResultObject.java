@@ -17,6 +17,8 @@ public class CrawlResultObject {
 	private static int totalDocSize = 0;
 	private static int totalVidSize = 0;
 	private static int amountOfVid = 0;
+	private static int amountOfRequest = 0;
+	private static long totalTime = 0;
 
 	private CrawlResultObject() {
 		// Exists only to defeat instantiation.
@@ -124,5 +126,11 @@ public class CrawlResultObject {
 		totalImageSize += fileSize;
 		amountOfImg += 1;
 
+	}
+
+	public static void updateRTT(long time) {
+		CrawlResultObject.getInstance();
+		amountOfRequest += 1;
+		totalTime += time;
 	}
 }

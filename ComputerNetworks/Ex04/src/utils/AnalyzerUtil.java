@@ -33,4 +33,10 @@ public class AnalyzerUtil {
 		return "";
 	}
 
+	public static String[] extractLinksFromHTML(byte[] body) {
+		String bodyAsString = body.toString();
+		System.out.println(bodyAsString);
+		return new String[0];
+	}
+
 }
