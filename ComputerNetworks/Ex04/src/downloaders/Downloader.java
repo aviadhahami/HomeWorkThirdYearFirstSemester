@@ -50,7 +50,7 @@ public class Downloader implements Runnable {
 				HTTPRequest req = new HTTPRequest();
 				req.setRequestType("GET");
 				req.setHTTPVersion("HTTP/1.1");
-				req.setRequestedResource(uri.getPath());
+				req.setRequestedResource(uri.getPath().length() == 0 ? "/":uri.getPath() );
 				req.setGenericHeaders("Host", uri.getHost());
 				out.write(req.toString().getBytes());
 				System.err.println(req.toString());
