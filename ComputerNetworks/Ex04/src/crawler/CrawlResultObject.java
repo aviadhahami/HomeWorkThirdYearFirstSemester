@@ -28,6 +28,7 @@ public class CrawlResultObject {
 	private static int amountOfPage = 0;
 	private static int totalPagesSize = 0;
 	private static int externalLinksCount = 0;
+	private static int internalLinksCount=0;
 
 	private CrawlResultObject() {
 		// Exists only to defeat instantiation.
@@ -120,7 +121,7 @@ public class CrawlResultObject {
 		// Number of internal links
 		sb.append(br);
 		sb.append(_p);
-		sb.append("Internal links count: " + 2); // FIXME: get count
+		sb.append("Internal links count: " + internalLinksCount); 
 		sb.append(p_);
 
 		// Number of external links
@@ -267,6 +268,12 @@ public class CrawlResultObject {
 		amountOfPage = 0;
 		totalPagesSize = 0;
 		externalLinksCount = 0;
+		internalLinksCount=0;
 
+	}
+
+	public static void addInternalLink() {
+		internalLinksCount +=1;
+		
 	}
 }

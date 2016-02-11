@@ -14,6 +14,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import analyzers.Analyzer;
+import config.ServerConfigObj;
 import console.Console;
 import crawler.CrawlResultObject;
 import crawler.ThreadsStone;
@@ -53,6 +54,11 @@ public class Downloader implements Runnable {
 				// Means we've seen this URI before
 				ThreadsStone.unregister();
 				return;
+			}else{
+				CrawlResultObject.getInstance();
+				if(uri.getHost().equals(CrawlResultObject.getHost())){
+					CrawlResultObject.addInternalLink();
+				}
 			}
 
 			socket = new Socket(InetAddress.getByName(uri.getHost()), 80);

@@ -61,7 +61,6 @@ public class CrawlManager {
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		long time = System.currentTimeMillis();
@@ -71,7 +70,7 @@ public class CrawlManager {
 		// time+5000>System.currentTimeMillis()) {
 		//
 		// }
-		while (time + 15000 > System.currentTimeMillis()) {
+		while (time + 20000 > System.currentTimeMillis()) {
 
 			// Busy waiting
 		}
