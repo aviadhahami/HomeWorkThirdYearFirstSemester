@@ -56,7 +56,7 @@ public class CrawlManager {
 		// insert into queue the domain so they can use it
 
 		// Run downloaders & analyzers
-		downloadersPoolManager.submitTask(new Downloader(analyzerPoolManager, uri, "html"));
+		downloadersPoolManager.submitTask(new Downloader(analyzerPoolManager,downloadersPoolManager, uri, "html"));
 
 		// Save page once done
 
