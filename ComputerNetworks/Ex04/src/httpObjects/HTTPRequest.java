@@ -56,7 +56,7 @@ public class HTTPRequest {
 		StringBuilder sb = new StringBuilder();
 		sb.append(this.getRequestType() + " " + this.getRequestedResource() + " " + this.getHTTPVersion() + "\r\n");
 		for (String key : headers.keySet()) {
-			sb.append(key + " : " + headers.get(key) + "\r\n");
+			sb.append(key + ": " + headers.get(key) + "\r\n");
 		}
 		if (this.getRequestBody() != null) {
 			sb.append("\r\n" + this.getRequestBody());

@@ -50,9 +50,10 @@ public class Downloader implements Runnable {
 				HTTPRequest req = new HTTPRequest();
 				req.setRequestType("GET");
 				req.setHTTPVersion("HTTP/1.1");
-				req.setRequestedResource("/" + ((uri.getQuery() == null) ? "" : ("?" + uri.getQuery())));
-
+				req.setRequestedResource(uri.getPath());
+				req.setGenericHeaders("Host", uri.getHost());
 				out.write(req.toString().getBytes());
+				System.err.println(req.toString());
 
 				HTTPResponse res = new HTTPResponse();
 				String line = reader.readLine();
@@ -64,7 +65,7 @@ public class Downloader implements Runnable {
 					}
 					System.out.println(line);
 					line = line.replace(":", "");
-					res.fields.put(line.split(" ")[0], line.split(" ")[1]);
+					res.fields.put(line.split(" ")[0], (line.split(" ").length>1 ? line.split(" ")[1]: "0"));
 				}
 				while ((line = reader.readLine()) != null) {
 					System.out.println(line);
