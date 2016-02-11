@@ -10,20 +10,20 @@ public class PortScanner {
 	public static void deploy() {
 		CrawlResultObject.getInstance();
 		String domain = CrawlResultObject.getHost();
-		try {
-			URI uri = new URI(domain);
-			domain = uri.getHost();
-		} catch (Exception e) {
+//		try {
+//			URI uri = new URI(domain);
+//			domain = uri.
+//		} catch (Exception e) {
+//
+//		}
 
-		}
-		
 		// TODO : CHANGE PORTS LIMIT
 		for (int port = 50; port <= 100; port++) {
 			try {
 				Socket socket = new Socket();
 				socket.connect(new InetSocketAddress(domain, port), 200);
-				socket.close();
 				updateResult(port);
+				socket.close();
 			} catch (Exception ex) {
 				continue;
 			}

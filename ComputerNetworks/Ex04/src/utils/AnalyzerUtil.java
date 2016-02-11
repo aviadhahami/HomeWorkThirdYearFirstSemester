@@ -1,6 +1,9 @@
 package utils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import config.ServerConfigObj;
 
@@ -34,9 +37,17 @@ public class AnalyzerUtil {
 	}
 
 	public static String[] extractLinksFromHTML(byte[] body) {
-		String bodyAsString = body.toString();
-		System.out.println(bodyAsString);
-		return new String[0];
+		String bodyAsString = new String(body);
+		Pattern p = Pattern.compile("href=\"(.*?)\"", Pattern.CASE_INSENSITIVE | Pattern.DOTALL | Pattern.MULTILINE);
+		Matcher m = p.matcher(bodyAsString);
+		ArrayList<String> res = new ArrayList<>();
+		while (m.find()) {
+			for (int i = 0; i < m.groupCount(); i++) {
+				System.out.println(m.group(i).substring(m.group(i).indexOf("\"")+1, m.group(i).lastIndexOf("\"")));
+				res.add(m.group(i).substring(m.group(i).indexOf("\"")+1, m.group(i).lastIndexOf("\"")));
+			}
+		}
+		return res.toArray(new String[res.size()]);
 	}
 
 }
