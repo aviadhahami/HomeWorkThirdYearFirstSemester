@@ -43,12 +43,10 @@ public class Downloader implements Runnable {
 	public void run() {
 		try {
 			// Verify against robots
-			
-			
+
 			// Verify against links already downloaded
 			DownloadersBlackListSingleton.getInstance();
-			if (DownloadersBlackListSingleton.getFromTable((uri.getPath() != null ? uri.getPath() : "/")
-					+ (uri.getQuery() != null ? ("?" + uri.getQuery()) : ""))) {
+			if (DownloadersBlackListSingleton.getFromTable(uri.getPath() == null ? "/" : uri.getPath())) {
 				// Means we've seen this URI before
 				return;
 			}
@@ -62,9 +60,8 @@ public class Downloader implements Runnable {
 
 				HTTPRequest req = new HTTPRequest();
 				req.setRequestType("GET");
-				req.setHTTPVersion("HTTP/1.0");
-				req.setRequestedResource((uri.getPath() != null ? uri.getPath() : "/")
-						+ (uri.getQuery() != null ? ("?" + uri.getQuery()) : ""));
+				req.setHTTPVersion("HTTP/1.1");
+				req.setRequestedResource(uri.getPath() == null || uri.getPath().length() < 1 ? "/" : uri.getPath());
 				req.setGenericHeaders("Host", uri.getHost());
 				out.write(req.toString().getBytes());
 
@@ -97,13 +94,26 @@ public class Downloader implements Runnable {
 						// Don't care cause we set to zero
 					}
 					sb = new StringBuilder();
-					for (int i = 0; i < bodyLength; i++) {
-						sb.append((char) reader.read());
+					while ((line = reader.readLine()) != null) {
+						if (line.length() == 0) {
+							break;
+						}
+						sb.append(line);
 					}
 					res.setBody(sb.toString().getBytes());
 				} else if (chunked != null && chunked.toLowerCase().equals("chunked")) {
 					// TODO: this
 					return;
+				} else {
+					// Just eat it all
+					sb = new StringBuilder();
+					while ((line = reader.readLine()) != null) {
+						if (line.length() == 0) {
+							break;
+						}
+						sb.append(line);
+					}
+					res.setBody(sb.toString().getBytes());
 				}
 
 				// Send to analyzers
@@ -115,8 +125,7 @@ public class Downloader implements Runnable {
 				HTTPRequest req = new HTTPRequest();
 				req.setRequestType("HEAD");
 				req.setHTTPVersion("HTTP/1.0");// use 1.0 to avoid chunked
-				req.setRequestedResource((uri.getPath() != null ? uri.getPath() : "/")
-						+ (uri.getQuery() != null ? ("?" + uri.getQuery()) : ""));
+				req.setRequestedResource(uri.getPath() == null ? "/" : uri.getPath());
 				req.setGenericHeaders("Host", uri.getHost());
 				out.write(req.toString().getBytes());
 
@@ -135,7 +144,11 @@ public class Downloader implements Runnable {
 				// Update link was downloaded
 			}
 
-		} catch (IOException e) {
+		} catch (
+
+		IOException e)
+
+		{
 			e.printStackTrace();
 		}
 		return;

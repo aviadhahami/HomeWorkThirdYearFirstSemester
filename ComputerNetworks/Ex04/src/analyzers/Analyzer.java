@@ -93,7 +93,7 @@ public class Analyzer implements Runnable {
 
 			// FIXME
 			for (URI uri : internalLinks) {
-				downloadQue.submitTask(new Downloader(analyzersQue, downloadQue, uri, "head"));
+				downloadQue.submitTask(new Downloader(analyzersQue, downloadQue, uri, AnalyzerUtil.getDownloadHeaderByType(uri)));
 			}
 
 			// Get all media from external and purify against config
@@ -103,6 +103,9 @@ public class Analyzer implements Runnable {
 			}
 
 		} else {
+			if(res.getStatus() == null){
+				return;
+			}
 			// We have only headers
 			// Check for "moved" headers
 			if (res.getStatus().indexOf("30") > 0) {

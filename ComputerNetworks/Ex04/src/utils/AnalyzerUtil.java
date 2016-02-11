@@ -59,4 +59,21 @@ public class AnalyzerUtil {
 		return res.toArray(new String[res.size()]);
 	}
 
+	public static String getDownloadHeaderByType(URI uri) {
+		String path = uri.getPath();
+		for (String t : ServerConfigObj.getDocumentTypes()) {
+			if (path.indexOf(t) > -1)
+				return "head";
+		}
+		for (String t : ServerConfigObj.getVideoTypes()) {
+			if (path.indexOf(t) > -1)
+				return "head";
+		}
+		for (String t : ServerConfigObj.getImageTypes()) {
+			if (path.indexOf(t) > -1)
+				return "head";
+		}
+		return "GET";
+	}
+
 }

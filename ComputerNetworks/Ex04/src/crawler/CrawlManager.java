@@ -48,7 +48,6 @@ public class CrawlManager {
 			PortScanner.deploy();
 		}
 
-
 		// Init analyzers pool
 		ThreadPoolManager analyzerPoolManager = new ThreadPoolManager(ServerConfigObj.getMaxAnalyzer());
 		// Init downloaders pool
@@ -58,20 +57,28 @@ public class CrawlManager {
 		// Run downloaders & analyzers
 		downloadersPoolManager.submitTask(new Downloader(analyzerPoolManager, downloadersPoolManager, uri, "html"));
 
-		// Save page once done
+		// TODO:Save page once done
 		long now = System.currentTimeMillis();
 		while (now + 2000 > System.currentTimeMillis()) {
-			// Time buffer just in case
+			// Busy
 		}
-		while (!analyzerPoolManager.isEmpty() || !downloadersPoolManager.isEmpty() || analyzerPoolManager.hasTasks()
-				|| downloadersPoolManager.hasTasks()) {
-			// Wait for all
+
+		while (!analyzerPoolManager.isEmpty() && !downloadersPoolManager.isEmpty()) {
+			now = System.currentTimeMillis();
+			while (now + 5000 > System.currentTimeMillis()) {
+				// Busy
+			}
+
+			if (downloadersPoolManager.hasTasks() || analyzerPoolManager.hasTasks() || !analyzerPoolManager.isEmpty()
+					|| !downloadersPoolManager.isEmpty()) {
+				continue;
+			} else {
+				break;
+			}
 		}
-		System.out.println("analyzerPoolManager.poolIsEmpty() " + !analyzerPoolManager.isEmpty());
-		System.out.println("downloadersPoolManager.poolIsEmpty() " + !downloadersPoolManager.isEmpty());
+
 		CrawlResultObject.getInstance();
 		CrawlResultObject.setCrawling(false);
-	
 		return false;
 
 	}
