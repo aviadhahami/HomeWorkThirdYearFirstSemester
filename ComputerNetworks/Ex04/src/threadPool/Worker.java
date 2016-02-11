@@ -13,7 +13,9 @@ public class Worker implements Runnable {
 	public void run() {
 		while (true) {
 			Runnable r = myQueue.dequeue();
+			myQueue.updateRun();
 			r.run();
+			myQueue.finishedRun();
 		}
 	}
 }

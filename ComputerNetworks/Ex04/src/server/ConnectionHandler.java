@@ -142,7 +142,6 @@ public class ConnectionHandler extends Thread {
 				throw new IOException();
 			}
 			if ("yes".equals(req.getGenericHeaders("chunked"))) {
-				// FIXME: Write as chunks
 				res.fields.remove("Content-Length"); // Remove content length
 														// header
 				res.fields.put("Transfer-Encoding", "chunked");

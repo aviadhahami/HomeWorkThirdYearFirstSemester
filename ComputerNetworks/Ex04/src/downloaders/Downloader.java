@@ -42,6 +42,7 @@ public class Downloader implements Runnable {
 	public void run() {
 		try {
 			// Verify against robots
+			// Verify against links already downloaded
 			socket = new Socket(InetAddress.getByName(uri.getHost()), 80);
 			out = socket.getOutputStream();
 			reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
@@ -98,7 +99,7 @@ public class Downloader implements Runnable {
 
 				HTTPRequest req = new HTTPRequest();
 				req.setRequestType("HEAD");
-				req.setHTTPVersion("HTTP/1.1");
+				req.setHTTPVersion("HTTP/1.0");//use 1.0 to avoid chunked
 				req.setRequestedResource(uri.getPath().length() == 0 ? "/" : uri.getPath());
 				req.setGenericHeaders("Host", uri.getHost());
 				out.write(req.toString().getBytes());
@@ -119,12 +120,9 @@ public class Downloader implements Runnable {
 				// Update link was downloaded
 			}
 
-		} catch (
-
-		IOException e)
+		} catch (IOException e)
 
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

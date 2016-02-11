@@ -1,11 +1,13 @@
 package utils;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import config.ServerConfigObj;
+import crawler.CrawlResultObject;
 
 public class AnalyzerUtil {
 	private static String[] docTypes = ServerConfigObj.getDocumentTypes();
@@ -43,11 +45,12 @@ public class AnalyzerUtil {
 		ArrayList<String> res = new ArrayList<>();
 		while (m.find()) {
 			for (int i = 0; i < m.groupCount(); i++) {
-				System.out.println(m.group(i).substring(m.group(i).indexOf("\"")+1, m.group(i).lastIndexOf("\"")));
-				res.add(m.group(i).substring(m.group(i).indexOf("\"")+1, m.group(i).lastIndexOf("\"")));
+				System.out.println(m.group(i).substring(m.group(i).indexOf("\"") + 1, m.group(i).lastIndexOf("\"")));
+				res.add(m.group(i).substring(m.group(i).indexOf("\"") + 1, m.group(i).lastIndexOf("\"")));
 			}
 		}
 		return res.toArray(new String[res.size()]);
 	}
+
 
 }

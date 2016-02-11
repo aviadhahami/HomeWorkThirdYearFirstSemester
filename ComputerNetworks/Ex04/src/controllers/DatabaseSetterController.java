@@ -11,7 +11,6 @@ public class DatabaseSetterController implements RouteController {
 
 	@Override
 	public byte[] GET(HTTPRequest req, HTTPResponse res) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -39,7 +38,6 @@ public class DatabaseSetterController implements RouteController {
 
 	@Override
 	public byte[] UPDATE(HTTPRequest req, HTTPResponse res) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

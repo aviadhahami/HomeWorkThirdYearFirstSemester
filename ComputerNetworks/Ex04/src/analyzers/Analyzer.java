@@ -28,6 +28,10 @@ public class Analyzer implements Runnable {
 		System.out.println("RUNNING!");
 
 		if (res.getBodySize() > 0) {
+			// Update that we got another page
+			CrawlResultObject.getInstance();
+			CrawlResultObject.addPage(res.getBodySize());
+
 			// We have body --> html page
 			ArrayList<String> arrayOfLinks = new ArrayList<String>(
 					Arrays.asList(AnalyzerUtil.extractLinksFromHTML(res.getBody())));
@@ -55,30 +59,42 @@ public class Analyzer implements Runnable {
 					}
 				}
 			} catch (URISyntaxException e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
+				return;
 			}
-			for (URI uri : fullUriLinkList) {
-				System.out.println(uri.getHost() + uri.getPath() + (uri.getQuery() != null ? "?" + uri.getQuery() : ""));
-			}
+
 			// Filter only inner domain links
+			ArrayList<URI> externalLinks = new ArrayList<>();
+			ArrayList<URI> internalLinks = new ArrayList<>();
+			for (URI uri : fullUriLinkList) {
+				CrawlResultObject.getInstance();
+				if (uri.getHost().equals(CrawlResultObject.getHost())) {
+					internalLinks.add(uri);
+				} else {
+					externalLinks.add(uri);
+				}
+			}
 
 			// Update amount of external domain links
+			CrawlResultObject.getInstance();
+			CrawlResultObject.increaseExternalDomainAmount(externalLinks.size());
+
 			// Append name of domain to hash of external domains
+			for (URI uri : externalLinks) {
+				CrawlResultObject.getInstance();
+				CrawlResultObject.addExternalUriDomainName(uri.getHost());
+			}
 
-			// Update number of pages
-			String type;
-			for (String link : arrayOfLinks) {
-				type = AnalyzerUtil.isVaibleMediaType(link.substring(link.lastIndexOf("."))) ? "head" : "html";
-				URI uri;
-				try {
-					uri = new URI(link);
-					downloadQue.submitTask(new Downloader(analyzersQue, downloadQue, uri, type));
-				} catch (URISyntaxException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			ArrayList<URI> toDownload = new ArrayList<>();
+			// Get all internal and purify against config
 
+			// toDownload.addAll(AnalyzerUtil.purifyLinks(internalLinks));
+
+			// Get all media from external and purify against config
+			// ONLY HEAD THESE
+			for (URI uri : externalLinks) {
+				downloadQue.submitTask(new Downloader(analyzersQue, downloadQue, uri, "head"));
 			}
 
 		} else {
@@ -99,12 +115,15 @@ public class Analyzer implements Runnable {
 
 			// Now check for HEAD
 			if (res.getStatus().indexOf("20") > 0) {
+
+				// TODO: check this;
 				String mediaType = AnalyzerUtil.extractMediaType(res.fields.get("Content-Type"));
 				if (AnalyzerUtil.isVaibleMediaType(mediaType)) {
 					updateResultsWithMedia(mediaType, res.fields.get("Content-Length"));
 				}
 			}
 		}
+		return;
 
 	}
 

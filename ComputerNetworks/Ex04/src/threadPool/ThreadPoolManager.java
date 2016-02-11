@@ -21,5 +21,8 @@ public class ThreadPoolManager {
 	public void submitTask(Runnable r) {
 		myQueue.enqueue(r);
 	}
+	public boolean isFinished(){
+		return myQueue.getFinished() != myQueue.getRunning();
+	}
 
 }

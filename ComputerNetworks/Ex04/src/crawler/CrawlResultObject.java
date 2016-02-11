@@ -1,6 +1,7 @@
 package crawler;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 public class CrawlResultObject {
 
@@ -19,6 +20,11 @@ public class CrawlResultObject {
 	private static int amountOfVid = 0;
 	private static int amountOfRequest = 0;
 	private static long totalTime = 0;
+	private static int externalDomainsAmount = 0;
+
+	private static Hashtable<String, Boolean> externalDomains = new Hashtable<>();
+	private static int amountOfPage = 0;
+	private static int totalPagesSize = 0;
 
 	private CrawlResultObject() {
 		// Exists only to defeat instantiation.
@@ -139,5 +145,25 @@ public class CrawlResultObject {
 		CrawlResultObject.getInstance();
 		amountOfRequest += 1;
 		totalTime += time;
+	}
+
+	public static void increaseExternalDomainAmount(int size) {
+		externalDomainsAmount += size;
+	}
+
+	public static int getExternalDomainAmount() {
+		return externalDomainsAmount;
+	}
+
+	public static void addExternalUriDomainName(String host) {
+		CrawlResultObject.getInstance();
+		externalDomains.put(host.toLowerCase(), true);
+	}
+
+	public static void addPage(int amount) {
+		CrawlResultObject.getInstance();
+		amountOfPage += 1;
+		totalPagesSize += amount;
+
 	}
 }

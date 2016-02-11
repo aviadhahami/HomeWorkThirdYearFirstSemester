@@ -4,6 +4,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import com.sun.corba.se.spi.activation.Server;
+import com.sun.org.apache.xpath.internal.axes.WalkingIterator;
 
 import config.ServerConfigObj;
 import downloaders.Downloader;
@@ -56,10 +57,12 @@ public class CrawlManager {
 		// insert into queue the domain so they can use it
 
 		// Run downloaders & analyzers
-		downloadersPoolManager.submitTask(new Downloader(analyzerPoolManager,downloadersPoolManager, uri, "html"));
+		downloadersPoolManager.submitTask(new Downloader(analyzerPoolManager, downloadersPoolManager, uri, "html"));
 
 		// Save page once done
-
+		while (!analyzerPoolManager.isFinished() || !downloadersPoolManager.isFinished()) {
+			continue;
+		}
 		CrawlResultObject.getInstance();
 		CrawlResultObject.setCrawling(false);
 		return false;
