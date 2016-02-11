@@ -132,7 +132,7 @@ public class CrawlResultObject {
 		// Number of connected domains
 		sb.append(br);
 		sb.append(_p);
-		sb.append("Connected domains: " + externalDomainsAmount);
+		sb.append("Connected domains: " + externalDomains.keySet().size());
 		sb.append(p_);
 		sb.append("<ul style=\"list-style:none;\">");
 

@@ -144,7 +144,7 @@ public class Analyzer implements Runnable {
 	private void updateResultsWithMedia(String mediaType, String size) {
 		int fileSize = 0;
 
-		fileSize = Integer.parseInt(size);
+		fileSize = Integer.parseInt(size.replace(" ", ""));
 
 		CrawlResultObject.getInstance();
 		switch (AnalyzerUtil.getMediaType(mediaType)) {

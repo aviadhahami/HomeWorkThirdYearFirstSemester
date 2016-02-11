@@ -28,7 +28,7 @@ public class AnalyzerUtil {
 		for (String[] type : allTypes) {
 			for (String t : type) {
 				if (t.equals(mediaType))
-					;
+					return true;
 			}
 		}
 		return false;
@@ -56,6 +56,15 @@ public class AnalyzerUtil {
 				res.add(m.group(i).substring(m.group(i).indexOf("\"") + 1, m.group(i).lastIndexOf("\"")));
 			}
 		}
+		p = Pattern.compile("src=\"(.*?)\"", Pattern.CASE_INSENSITIVE | Pattern.DOTALL | Pattern.MULTILINE);
+		m = p.matcher(bodyAsString);
+		while (m.find()) {
+			for (int i = 0; i < m.groupCount(); i++) {
+				System.out.println(m.group(i).substring(m.group(i).indexOf("\"") + 1, m.group(i).lastIndexOf("\"")));
+				res.add(m.group(i).substring(m.group(i).indexOf("\"") + 1, m.group(i).lastIndexOf("\"")));
+			}
+		}
+
 		return res.toArray(new String[res.size()]);
 	}
 

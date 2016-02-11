@@ -64,9 +64,16 @@ public class CrawlManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		long time=System.currentTimeMillis();
-		while (ThreadsStone.hasThreads() || time+5000>System.currentTimeMillis()) {
+		long time = System.currentTimeMillis();
 
+		// Bug, no clue why
+		// while (ThreadsStone.hasThreads() ||
+		// time+5000>System.currentTimeMillis()) {
+		//
+		// }
+		while (time + 15000 > System.currentTimeMillis()) {
+
+			// Busy waiting
 		}
 
 		CrawlResultObject.getInstance();
