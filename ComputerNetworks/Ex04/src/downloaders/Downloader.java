@@ -41,7 +41,7 @@ public class Downloader implements Runnable {
 	@Override
 	public void run() {
 		try {
-
+			// Verify against robots
 			socket = new Socket(InetAddress.getByName(uri.getHost()), 80);
 			out = socket.getOutputStream();
 			reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
@@ -90,9 +90,9 @@ public class Downloader implements Runnable {
 
 				// Send to analyzers
 				analyzersQue.submitTask(new Analyzer(analyzersQue, downloaderQue, res));
-				
+
 				// Update link was downloaded
-				
+
 			} else {
 				// Perform HEAD
 
