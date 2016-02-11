@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import analyzers.Analyzer;
 import console.Console;
 import crawler.CrawlResultObject;
+import crawler.ThreadsStone;
 import httpObjects.HTTPRequest;
 import httpObjects.HTTPResponse;
 import threadPool.ThreadPoolManager;
@@ -41,6 +42,8 @@ public class Downloader implements Runnable {
 
 	@Override
 	public void run() {
+		System.out.println("RUNNING down!");
+		ThreadsStone.register();
 		try {
 			// Verify against robots
 
@@ -48,6 +51,7 @@ public class Downloader implements Runnable {
 			DownloadersBlackListSingleton.getInstance();
 			if (DownloadersBlackListSingleton.getFromTable(uri.getPath() == null ? "/" : uri.getPath())) {
 				// Means we've seen this URI before
+				ThreadsStone.unregister();
 				return;
 			}
 
@@ -94,28 +98,15 @@ public class Downloader implements Runnable {
 						// Don't care cause we set to zero
 					}
 					sb = new StringBuilder();
-					while ((line = reader.readLine()) != null) {
-						if (line.length() == 0) {
-							break;
-						}
-						sb.append(line);
+					for (int i = 0; i < bodyLength; i++) {
+						sb.append((char) reader.read());
 					}
 					res.setBody(sb.toString().getBytes());
 				} else if (chunked != null && chunked.toLowerCase().equals("chunked")) {
 					// TODO: this
 					return;
-				} else {
-					// Just eat it all
-					sb = new StringBuilder();
-					while ((line = reader.readLine()) != null) {
-						if (line.length() == 0) {
-							break;
-						}
-						sb.append(line);
-					}
-					res.setBody(sb.toString().getBytes());
 				}
-
+				
 				// Send to analyzers
 				analyzersQue.submitTask(new Analyzer(analyzersQue, downloaderQue, res));
 
@@ -144,13 +135,11 @@ public class Downloader implements Runnable {
 				// Update link was downloaded
 			}
 
-		} catch (
-
-		IOException e)
-
-		{
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		System.out.println("done down!");
+		ThreadsStone.unregister();
 		return;
 	}
 

@@ -21,12 +21,5 @@ public class ThreadPoolManager {
 		myQueue.enqueue(r);
 	}
 
-	public boolean isEmpty() {
-		return myQueue.getFinished() == myQueue.getRunning();
-	}
-
-	public boolean hasTasks() {
-		return myQueue.hasTasks();
-	}
 
 }

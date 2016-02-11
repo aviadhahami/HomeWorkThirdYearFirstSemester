@@ -9,8 +9,6 @@ public class MyQueue<E> implements CustomQueue<E> {
 
 	// queue backed by a linkedlist
 	private Queue<E> queue = new LinkedList<E>();
-	private int finished = 0;
-	private int running = 0;
 
 	@Override
 	public synchronized void enqueue(E e) {
@@ -33,24 +31,8 @@ public class MyQueue<E> implements CustomQueue<E> {
 		e = queue.remove();
 		return e;
 	}
-
-	public void finishedRun() {
-		this.finished += 1;
+	public boolean isQueRmpty(){
+		return queue.isEmpty();
 	}
 
-	public void updateRun() {
-		this.running += 1;
-	}
-
-	public int getRunning() {
-		return running;
-	}
-
-	public int getFinished() {
-		return finished;
-	}
-
-	public boolean hasTasks() {
-		return queue.size() > 0;
-	}
 }

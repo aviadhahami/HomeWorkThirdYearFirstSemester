@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import crawler.CrawlResultObject;
+import crawler.ThreadsStone;
 import downloaders.Downloader;
 import httpObjects.HTTPResponse;
 import threadPool.ThreadPoolManager;
@@ -25,7 +26,8 @@ public class Analyzer implements Runnable {
 
 	@Override
 	public void run() {
-		System.out.println("RUNNING!");
+		ThreadsStone.register();
+		System.out.println("RUNNING anal!");
 
 		if (res.getBodySize() > 0) {
 			// Update that we got another page
@@ -134,8 +136,9 @@ public class Analyzer implements Runnable {
 				}
 			}
 		}
+		System.out.println("Done anal!");
+		ThreadsStone.unregister();
 		return;
-
 	}
 
 	private void updateResultsWithMedia(String mediaType, String size) {

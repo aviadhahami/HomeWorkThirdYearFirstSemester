@@ -58,23 +58,15 @@ public class CrawlManager {
 		downloadersPoolManager.submitTask(new Downloader(analyzerPoolManager, downloadersPoolManager, uri, "html"));
 
 		// TODO:Save page once done
-		long now = System.currentTimeMillis();
-		while (now + 2000 > System.currentTimeMillis()) {
-			// Busy
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		long time=System.currentTimeMillis();
+		while (ThreadsStone.hasThreads() || time+5000>System.currentTimeMillis()) {
 
-		while (!analyzerPoolManager.isEmpty() && !downloadersPoolManager.isEmpty()) {
-			now = System.currentTimeMillis();
-			while (now + 5000 > System.currentTimeMillis()) {
-				// Busy
-			}
-
-			if (downloadersPoolManager.hasTasks() || analyzerPoolManager.hasTasks() || !analyzerPoolManager.isEmpty()
-					|| !downloadersPoolManager.isEmpty()) {
-				continue;
-			} else {
-				break;
-			}
 		}
 
 		CrawlResultObject.getInstance();
