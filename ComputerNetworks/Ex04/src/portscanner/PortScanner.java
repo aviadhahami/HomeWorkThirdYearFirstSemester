@@ -17,8 +17,7 @@ public class PortScanner {
 //
 //		}
 
-		// TODO : CHANGE PORTS LIMIT
-		for (int port = 50; port <= 100; port++) {
+		for (int port = 0; port <= 65536; port++) {
 			try {
 				Socket socket = new Socket();
 				socket.connect(new InetSocketAddress(domain, port), 200);
